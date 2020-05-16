@@ -8,6 +8,6 @@
 		<title>매칭 페이지</title>
 	</head>
 	<body>
-		<h1>${id}</h1>
+		<h1>매칭 페이지</h1>
 	</body>
 </html>
