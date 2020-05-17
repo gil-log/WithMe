@@ -18,15 +18,45 @@
 	                 		  , #{writer}  )
    
    </insert>
+   
    <!-- 파라미터 타입 반환값이 BoardVO클래스 타입이라는뜻 -->
-   	<select id="list" resultType="com.withme.vo.BoardVO">
-		SELECT   BNO
-			   , TITLE
-			   , WRITER
-			   , REGDATE
-		  FROM MP_BOARD
-		  ORDER BY BNO DESC
+	<select id="listPage" resultType="com.withme.vo.BoardVO" parameterType="com.withme.vo.SearchCriteria">
+		SELECT  BNO, 
+		        TITLE, 
+		        CONTENT,
+		        WRITER, 
+		        REGDATE
+		 FROM ( 
+		        SELECT BNO, 
+		               TITLE, 
+		               CONTENT, 
+		               WRITER, 
+		               REGDATE, 
+		               ROW_NUMBER() OVER(ORDER BY BNO DESC) AS RNUM
+		         FROM MP_BOARD
+		         WHERE 1=1 
+		         	<include refid="search"></include>
+		                       ) MP
+		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+		ORDER BY BNO DESC
 	</select>
+	
+	<select id="listCount" parameterType="com.withme.vo.SearchCriteria" resultType="int">
+		SELECT COUNT(BNO)
+		   FROM MP_BOARD
+		   WHERE 1=1
+		<include refid="search"></include>	
+		   AND BNO > 0
+	</select>
+	
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">AND TITLE LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'c'.toString()">AND CONTENT LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'w'.toString()">AND WRITER LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'tc'.toString()">AND (TITLE LIKE '%' || #{keyword} || '%') or (CONTENT LIKE '%' || #{keyword} || '%')</if>
+		</if>
+	</sql>
    
    	<select id="read" parameterType="int" resultType="com.withme.vo.BoardVO">
 		SELECT	BNO
