@@ -1,5 +1,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <html>
 	<head>
@@ -24,8 +23,8 @@
 					<h1>With Me !</h1>
 					<span class="logo">
 					
-					<form action="match">
-					<button onclick="location.href='match'"type="button">
+					<form action="matching">
+					<button onclick="location.href='matching'"type="button">
 					
 					<img src="${pageContext.request.contextPath}/resources/img/logo.png" alt="" width="520" height="760" >
 					지도
@@ -35,7 +34,7 @@
 					
 					
 					
-					<form method="get" action="match">
+					<form method="get" action="matching">
 					<input type="text" name="id" />
 					<button type="submit" value="전송" />
 					</form>
