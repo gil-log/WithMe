@@ -32,13 +32,10 @@
 					</form>
 					
 					
-					
-					
 					<form method="get" action="matching">
 					<input type="text" name="id" />
 					<button type="submit" value="전송" />
 					</form>
-
 
 
 
