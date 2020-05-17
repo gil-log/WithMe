@@ -28,15 +28,12 @@
 		<header id="header" class="alt">
 	
 			<span class="login">
-			<h1>With Me !</h1>
+			
 				<button type ="button" id = 'loginPopup' align="right"
 						onClick = "window.open('http://www.naver.com','windowpopup', 'width=500, height=600')" class = "login_btn">
-					<img
-						src="${pageContext.request.contextPath}/resources/img/login.png"
-						alt="" width="60" height="60"  
-						
-					/> 
+					<img src="${pageContext.request.contextPath}/resources/img/login.png" alt="" width="60" height="60" /> 
 				</button>
+				<h1>With Me ?</h1>
 			</span>
 			<span class="logo">
 	
@@ -50,20 +47,14 @@
 
 				</form>
 	
-	
-	
-	
 				<form method="get" action="matching">
 					<input type="text" name="id" />
 					<button type="submit" value="전송" />
 				</form>
 	
-	
-	
-	
 			</span>
 			<p>
-				Just another free, fully responsive site template<br />
+				개인 패키지 여행 매칭 사이트<br/>
 		</header>
 
 		<!-- Scripts -->
