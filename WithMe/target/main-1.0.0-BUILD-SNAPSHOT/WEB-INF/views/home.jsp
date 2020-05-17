@@ -23,8 +23,8 @@
 					<h1>With Me !</h1>
 					<span class="logo">
 					
-					<form action="matching">
-					<button onclick="location.href='matching'"type="button">
+					<form action="list">
+					<button onclick="location.href='/board/list'"type="button">
 					
 					<img src="${pageContext.request.contextPath}/resources/img/logo.png" alt="" width="520" height="760" >
 					지도
