@@ -47,6 +47,7 @@
 							src="${pageContext.request.contextPath}/resources/img/logo.png"
 							alt="" width="520" height="760"> 지도
 					</button>
+
 				</form>
 	
 	
@@ -64,6 +65,7 @@
 			<p>
 				Just another free, fully responsive site template<br />
 		</header>
+
 		<!-- Scripts -->
 	
 		<script
