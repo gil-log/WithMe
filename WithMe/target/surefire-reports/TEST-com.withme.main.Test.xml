@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="3" failures="0" name="com.withme.main.Test" time="0.051" errors="0" skipped="0">
+<testsuite tests="3" failures="0" name="com.withme.main.Test" time="0.093" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="java.vm.version" value="11.0.6+8-LTS"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-11.0.6\bin"/>
-    <property name="maven.multiModuleProjectDirectory" value="C:\Users\ProfessorG\git\withme\WithMe"/>
+    <property name="maven.multiModuleProjectDirectory" value="C:\Users\alswp\git\withme\WithMe"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
     <property name="java.vendor.url" value="http://java.oracle.com/"/>
     <property name="guice.disable.misplaced.annotation.check" value="true"/>
@@ -15,34 +15,34 @@
     <property name="user.country" value="KR"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="C:\Users\ProfessorG\git\withme\WithMe"/>
-    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="user.dir" value="C:\Users\alswp\git\withme\WithMe"/>
+    <property name="java.vm.compressedOopsMode" value="32-bit"/>
     <property name="java.runtime.version" value="11.0.6+8-LTS"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
     <property name="os.arch" value="amd64"/>
-    <property name="java.io.tmpdir" value="C:\Users\PROFES~1\AppData\Local\Temp\"/>
+    <property name="java.io.tmpdir" value="C:\Users\alswp\AppData\Local\Temp\"/>
     <property name="line.separator" value="
 "/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="user.variant" value=""/>
     <property name="os.name" value="Windows 10"/>
-    <property name="classworlds.conf" value="C:\spring4.6.1\workspace-spring-tool-suite-4-4.6.1.RELEASE\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf14278509676394000223.tmp"/>
+    <property name="classworlds.conf" value="C:\Users\alswp\Desktop\sts-4.6.1.RELEASE\workspace-spring-tool-suite-4-4.6.1.RELEASE\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf10396592141786034844.tmp"/>
     <property name="jansi.force" value="true"/>
     <property name="sun.jnu.encoding" value="MS949"/>
-    <property name="java.library.path" value="C:\Program Files\Java\jdk-11.0.6\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:/Program Files/Java/jdk-11.0.6/bin/server;C:/Program Files/Java/jdk-11.0.6/bin;C:\Program Files\Java\jdk-11.0.6\bin;C:\app\ProfessorG\product\18.0.0\dbhomeXE\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Apache24\bin;C:\PHP;C:\Program Files (x86)\PuTTY\;C:\WINDOWS\system32\config\systemprofile\.dnx\bin;C:\Program Files\Microsoft DNX\Dnvm\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Java\jdk-11.0.6\bin;C:\PHP;C:\Apache24\bin;C:\Users\ProfessorG\AppData\Local\Microsoft\WindowsApps;C:\Users\ProfessorG\AppData\Local\GitHubDesktop\bin;C:\Program Files\Bandizip\;C:\Users\ProfessorG\AppData\Local\Microsoft\WindowsApps;;C:\Utility\sts-4.6.1.RELEASE;;."/>
+    <property name="java.library.path" value="C:\Program Files\Java\jdk-11.0.6\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:/Program Files/Java/jdk-11.0.6/bin/server;C:/Program Files/Java/jdk-11.0.6/bin;C:\Program Files\Java\jdk-11.0.6\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\oracle\product\10.2.0\db_1\bin;C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\OpenCL SDK\2.0\bin\x86;C:\Program Files (x86)\Intel\OpenCL SDK\2.0\bin\x64;C:\Program Files (x86)\Windows Live\Shared;C:\Program Files\Condusiv Technologies\IntelliMemory\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files\Microsoft\Web Platform Installer\;C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\;C:\Users\alswp\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files\Redis\;C:\WINDOWS\System32\OpenSSH\;C:\Users\alswp\AppData\Local\Programs\Python\Python37;C:\Users\alswp\AppData\Local\Programs\Python\Python37\Scripts;C:\Program Files\Git\cmd;D:\;D:\bin\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\intelFPGA\17.0\modelsim_ase\win32aloem;C:\Users\alswp\AppData\Local\Microsoft\WindowsApps;C:\Users\alswp\AppData\Local\atom\bin;C:\Users\alswp\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Users\alswp\AppData\Local\Microsoft\WindowsApps;C:\Users\alswp\AppData\Local\GitHubDesktop\bin;C:\Users\alswp\AppData\Roaming\npm;D:\Microsoft VS Code\bin;C:\Users\alswp\AppData\Local\Yarn\bin;C:\Users\alswp\Desktop\sts-4.6.1.RELEASE;;."/>
     <property name="jansi.passthrough" value="true"/>
     <property name="jdk.debug" value="release"/>
     <property name="java.class.version" value="55.0"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="os.version" value="10.0"/>
-    <property name="user.home" value="C:\Users\ProfessorG"/>
+    <property name="user.home" value="C:\Users\alswp"/>
     <property name="user.timezone" value="Asia/Seoul"/>
     <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
     <property name="file.encoding" value="UTF-8"/>
     <property name="java.specification.version" value="11"/>
-    <property name="user.name" value="ProfessorG"/>
-    <property name="java.class.path" value="C:\Utility\sts-4.6.1.RELEASE\plugins\org.eclipse.m2e.maven.runtime_1.15.0.20200310-1832\jars\plexus-classworlds-2.6.0.jar"/>
+    <property name="user.name" value="alswp"/>
+    <property name="java.class.path" value="C:\Users\alswp\Desktop\sts-4.6.1.RELEASE\plugins\org.eclipse.m2e.maven.runtime_1.15.0.20200310-1832\jars\plexus-classworlds-2.6.0.jar"/>
     <property name="java.vm.specification.version" value="11"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -B install -Dstyle.color=always"/>
@@ -53,7 +53,7 @@
     <property name="java.vm.info" value="mixed mode"/>
     <property name="java.version" value="11.0.6"/>
     <property name="java.vendor" value="Oracle Corporation"/>
-    <property name="maven.home" value="C:\Users\ProfessorG\git\withme\WithMe\EMBEDDED"/>
+    <property name="maven.home" value="C:\Users\alswp\git\withme\WithMe\EMBEDDED"/>
     <property name="style.color" value="always"/>
     <property name="file.separator" value="\"/>
     <property name="java.version.date" value="2020-01-14"/>
@@ -64,7 +64,7 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="com.withme.main.Test" name="sessionTest" time="0.031"/>
-  <testcase classname="com.withme.main.Test" name="test" time="0.018"/>
-  <testcase classname="com.withme.main.Test" name="factoryTest" time="0.002"/>
+  <testcase classname="com.withme.main.Test" name="sessionTest" time="0.06"/>
+  <testcase classname="com.withme.main.Test" name="test" time="0.03"/>
+  <testcase classname="com.withme.main.Test" name="factoryTest" time="0.003"/>
 </testsuite>
