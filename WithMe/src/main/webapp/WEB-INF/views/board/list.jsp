@@ -50,6 +50,7 @@
 									</td>								
 								<td><c:out value="${list.writer}" /></td>
 								<td><fmt:formatDate value="${list.regdate}" pattern="yyyy-MM-dd"/></td>
+								<td><c:out value="${list.hit}" /></td>
 							</tr>
 						</c:forEach>
 						
