@@ -53,6 +53,11 @@
 				<form name="writeForm" method="post" action="/board/write">
 					<table>
 						<tbody>
+						
+						<!-- 18강 로그인 -->
+						<c:if test="${member.userId != null}">
+						
+						
 							<tr>
 								<td>
 									<label for="title">제목</label><input type="text" id="title" name="title" class="chk" title="제목을 입력하세요."/>
@@ -71,7 +76,15 @@
 								<td>						
 									<button type="submit" class= "write_btn">작성</button> <!-- clss, type순으로 하면 500오류 뜸,,,,요 class="이름" 요 이름이위에 jscript에서 이름이랑 연결되서 기능 구혀닝 된ㄷ-->
 								</td>
-							</tr>			
+							</tr>	
+							
+							<!-- 18강 로그인 -->
+						</c:if>
+							<c:if test="${member.userId == null}">
+								<p>로그인 후에 작성하실 수 있습니다.</p>
+							</c:if>
+									
+									
 						</tbody>			
 					</table>
 				</form>
