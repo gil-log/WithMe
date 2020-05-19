@@ -2,9 +2,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <html>
+
 	<head>	
 		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	 <title>WtihMe</title>
+		<title>WtihMe</title>
 		<meta charset="utf-8" />
 		<meta name="viewport"
 			content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -32,7 +33,7 @@
 		
 				$("#memberUpdateBtn").on("click", function(){
 					location.href="member/memberUpdateView";
-					})
+					})	
 			})
 		</script>
 		
@@ -88,10 +89,26 @@
 	
 			<span class="login">
 			
-				<button type ="button" id = 'loginPopup' align="right"
-						onClick = "window.open('http://www.naver.com','windowpopup', 'width=500, height=600')" class = "login_btn">
-					<img src="${pageContext.request.contextPath}/resources/img/login.png" alt="" width="60" height="60" /> 
-				</button>
+			<!-- if-else문 name을 통한 Popup 구분 -->
+	
+				<c:set var="name" value="홍길동"/>
+				
+				<c:choose>
+					<c:when test="${name == null}">
+						<button type ="hidden" id = 'needLogin' align="right"
+								onClick = "window.open('/matching/','windowpopup', 'width=500, height=600')">
+							<img src="${pageContext.request.contextPath}/resources/img/login.png" alt="" width="60" height="60" /> 
+						</button>
+					</c:when>
+					
+					<c:otherwise>
+						<button type ="hidden" id = 'loginPopup' align="right"
+								onClick = "window.open('/member/register','windowpopup', 'width=500, height=600')">
+							<img src="${pageContext.request.contextPath}/resources/img/login.png" alt="" width="60" height="60" /> 
+						</button>
+					</c:otherwise>
+				</c:choose>
+				
 				<h1>With Me ?</h1>
 			</span>
 			<span class="logo">
