@@ -1,5 +1,5 @@
 package com.withme.vo;
-
+//DB에 있는 테이블 컬럼 값을 java에서 객체로 다루기 위해 사용 
 
 import java.util.Date;
 

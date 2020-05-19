@@ -1,5 +1,6 @@
 package com.withme.service;
 
+//service = 데이터를 dao를 통해 넘겨주거나 받으면서 비즈니스 로직을 수행
 
 import java.util.List;
 
