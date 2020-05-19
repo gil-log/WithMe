@@ -10,6 +10,7 @@ public class BoardVO {
 	private String content;
 	private String writer;
 	private Date regdate;
+	private int hit;
 	
 	public int getBno() {
 		return bno;
@@ -40,6 +41,12 @@ public class BoardVO {
 	}
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
+	}
+	public int getHit() {
+		return hit;
+	}
+	public void setHit(int hit) {
+		this.hit = hit;
 	}
 	
 }
