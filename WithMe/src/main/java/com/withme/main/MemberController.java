@@ -76,7 +76,7 @@ public class MemberController {
 		return "redirect:/main";
 	}
 	
-	@RequestMapping(value="/memberUpdateView", method = RequestMethod.GET)
+	@RequestMapping(value="/member/memberUpdateView", method = RequestMethod.GET)
 	public String registerUpdateView() throws Exception{
 		
 		return "member/memberUpdateView";
