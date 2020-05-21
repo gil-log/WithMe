@@ -18,4 +18,9 @@ public class UserDAOImpl implements UserDAO{
 		sql.insert("userMapper.register", vo);
 	}
 	
+	@Override
+	public UserVO login(UserVO vo) throws Exception {
+		
+		return sql.selectOne("userMapper.login", vo);
+	}
 }

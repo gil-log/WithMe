@@ -16,7 +16,8 @@
 	   					      , P_GENDER
 	   					      , P_COST
 	   					      , P_NOTE
-	   					      , HASHTAG  )
+	   					      , HASHTAG
+	   					      , PARTY_HIT  )
 	                 VALUES(    MP_BOARD_SEQ.NEXTVAL 
 	                 		  , #{party_title}
 	                 		  , #{p_date}
@@ -27,13 +28,14 @@
 	                 		  , #{p_gender}
 	                 		  , #{p_cost}
 	                 		  , #{p_note}
-	                 		  , #{hashtag}	)
+	                 		  , #{hashtag}
+	                 		  , 0	)
    </insert>
    
    	<select id="list" resultType="com.withme.vo.PartylistVO">
 		SELECT P.PARTY_TITLE, PJ.U_ID, P.P_DATE, P.PARTY_ID
 		  FROM PARTY_TB P, PICKJOIN_TB PJ
-		  WHERE P.PARTY_ID = PJ.PARTY_ID
+		  WHERE P.PARTY_ID = PJ.PARTY_ID AND PJ.PARTY_HOST = 1
 		  ORDER BY P.PARTY_ID DESC
 	</select>
 	
@@ -61,48 +63,77 @@
    
    
    <!-- 파라미터 타입 반환값이 BoardVO클래스 타입이라는뜻 -->
-	<select id="listPage" resultType="com.withme.vo.BoardVO" parameterType="com.withme.vo.SearchCriteria">
-		SELECT  BNO, 
-		        TITLE, 
-		        CONTENT,
-		        WRITER, 
-		        REGDATE,
-		        HIT
-		 FROM ( 
-		        SELECT BNO, 
-		               TITLE, 
-		               CONTENT, 
-		               WRITER, 
-		               REGDATE,
-		               HIT,
-		               ROW_NUMBER() OVER(ORDER BY BNO DESC) AS RNUM
-		         FROM MP_BOARD
-		         WHERE 1=1 
-		         	<include refid="search"></include>
+	<select id="listPage" resultType="com.withme.vo.PartylistVO" parameterType="com.withme.vo.Criteria">
+		SELECT PARTY_TITLE, U_ID, P_DATE, PARTY_ID
+		 FROM ( SELECT P.PARTY_TITLE AS PARTY_TITLE
+		        , PJ.U_ID AS U_ID
+		        , P.P_DATE AS P_DATE
+		        , P.PARTY_ID AS PARTY_ID,
+                ROW_NUMBER() OVER(ORDER BY P.PARTY_ID DESC) AS RNUM
+		         FROM PARTY_TB P, PICKJOIN_TB PJ
+		         WHERE 1=1
+		         <include refid="searchlist"></include> 
+		         AND P.PARTY_ID = PJ.PARTY_ID
+		         AND PJ.PARTY_HOST = 1
 		                       ) MP
 		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
-		ORDER BY BNO DESC
+		ORDER BY PARTY_ID DESC      
 	</select>
+	
+	
+	
 	
 	<select id="listCount" parameterType="com.withme.vo.SearchCriteria" resultType="int">
-		SELECT COUNT(BNO)
-		   FROM MP_BOARD
+		SELECT COUNT(PARTY_ID)
+		   FROM PARTY_TB
 		   WHERE 1=1
-		<include refid="search"></include>	
-		   AND BNO > 0
+		   <include refid="search"></include> 
+		   AND PARTY_ID > 0
 	</select>
 	
-	<sql id="search">
+	<sql id="searchlist">
 		<if test="searchType != null">
-			<if test="searchType == 't'.toString()">AND TITLE LIKE '%' || #{keyword} || '%'</if>
-			<if test="searchType == '
-			c'.toString()">AND CONTENT LIKE '%' || #{keyword} || '%'</if>
-			<if test="searchType == 'w'.toString()">AND WRITER LIKE '%' || #{keyword} || '%'</if>
-			<if test="searchType == 'tc'.toString()">AND (TITLE LIKE '%' || #{keyword} || '%') or (CONTENT LIKE '%' || #{keyword} || '%')</if>
+			<if test="searchType == 't'.toString()">AND P.PARTY_TITLE LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'c'.toString()">AND P.P_NOTE LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'w'.toString()">AND P.HASHTAG LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'e'.toString()">AND P.P_LOCATION LIKE '%' || #{keyword} || '%'</if>
 		</if>
 	</sql>
    
 
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">AND PARTY_TITLE LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'c'.toString()">AND P_NOTE LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'w'.toString()">AND HASHTAG LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'e'.toString()">AND P_LOCATION LIKE '%' || #{keyword} || '%'</if>
+		</if>
+	</sql>
+	
+	<select id="hashCount" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		   FROM PARTY_TB
+		   WHERE HASHTAG LIKE '%' || #{keyword} || '%'
+	</select>
+	
+	    <!-- 게시판 조회수 -->
+    <update id="partyHit" parameterType="int">
+    	UPDATE PARTY_TB SET
+    	PARTY_HIT = PARTY_HIT+1
+    	WHERE PARTY_ID = #{PARTY_ID}
+    </update>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	<update id="update" parameterType="com.withme.vo.BoardVO">
 		UPDATE MP_BOARD

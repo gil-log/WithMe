@@ -50,7 +50,7 @@
 					var popupY= (window.screen.height / 2) - (popupHeight / 2);
 					// 만들 팝업창 height 크기의 1/2 만큼 보정값으로 빼주었음
 					
-					window.open('/user/register','windowpopup', 'status=no, height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
+					window.open('/user/loginform','windowpopup', 'status=no, height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
 				});
 			})
 			
@@ -92,80 +92,23 @@ body {
 	<!-- Header -->
 	<header id="header" class="alt">
 
-		<!-- 18강 로그인 -->
 
-		<form name='homeForm' method="post" action="/member/login">
-			<c:if test="${member == null}">
-				<div>
-					<label for="userId"></label> <input type="text" id="userId"
-						name="userId">
-				</div>
-				<div>
-					<label for="userPass"></label> <input type="password" id="userPass"
-						name="userPass">
-				</div>
-				<div>
-					<button type="submit">로그인</button>
-					<button id="registerBtn" type="button">회원가입</button>
-				</div>
-			</c:if>
-			<c:if test="${member != null }">
-				<div>
-					<p>${member.userId}님환영 합니다.</p>
-					<button id="memberUpdateBtn" type="button">회원정보수정</button>
-					<button id="logoutBtn" type="button">로그아웃</button>
-				</div>
-			</c:if>
-			<c:if test="${msg == false}">
-				<p style="color: red;">로그인 실패! 아이디와 비밀번호 확인해주세요.</p>
-			</c:if>
-		</form>
+									
+<img id="loginPopup" src="${pageContext.request.contextPath}/resources/img/login.png" alt="" width="60" height="60" />
 
-		<!-- 18강 로그인 -->
+						
 
-		<span class="login"> <!-- if-else문 name을 통한 Popup 구분 --> <c:set
-				var="name" value="홍길동" /> <c:choose>
-				<c:when test="${name == null}">
-					<button type="hidden" id="needLogin" align="right">
-						<img
-							src="${pageContext.request.contextPath}/resources/img/login.png"
-							alt="" width="60" height="60" />
-					</button>
-				</c:when>
-
-				<c:otherwise>
-					<button type="hidden" id='loginPopup' align="right"
-						>
-						<img
-							src="${pageContext.request.contextPath}/resources/img/login.png"
-							alt="" width="60" height="60" />
-					</button>
-				</c:otherwise>
-			</c:choose>
-
-		</span>
 		<h1>With Me ?</h1>
 
 		<span class="logo">
 
-			<form action="list">
-				<button onclick="location.href='/party/list'" type="button">
+<a href="/party/list">
 
-					<img
-						src="${pageContext.request.contextPath}/resources/img/logo.png"
-						alt="" width="520" height="760"> 지도
-				</button>
-
-			</form>
-
-			<form method="get" action="matching">
-				<input type="text" name="id" />
-				<button type="submit" value="전송" />
-			</form>
+					<img src="${pageContext.request.contextPath}/resources/img/logo.png"
+						alt="" width="520" height="760">
+</a>
 
 		</span>
-		<p>
-			개인 패키지 여행 매칭 사이트<br />
 	</header>
 
 	<!-- Scripts -->

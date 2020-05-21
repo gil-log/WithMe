@@ -22,11 +22,11 @@
     </insert>
 
     <!-- 로그인 -->
-	<select id="login" resultType="com.withme.vo.MemberVO">
-		SELECT USERID, USERPASS 
-		  FROM MP_MEMBER
-		 WHERE USERID = #{userId}
-		   AND USERPASS = #{userPass}   
+	<select id="login" resultType="com.withme.vo.UserVO">
+		SELECT U_ID, PASSWORD 
+		  FROM USER_TB
+		 WHERE U_ID = #{u_id}
+		   AND PASSWORD = #{password}   
 	</select>
 	
 	<!-- 회원정보 수정 -->
