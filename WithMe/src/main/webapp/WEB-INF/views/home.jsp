@@ -37,7 +37,27 @@
 				$("#memberUpdateBtn").on("click", function(){
 					location.href="member/memberUpdateView";
 					})	
+					
+					
+				$("#loginPopup").on("click", function(){
+					//팝업 가운데 띄우기
+					var popupWidth = 500;
+					var popupHeight = 800;
+					
+					var popupX = (window.screen.width / 2) - (popupWidth / 2);
+					// 만들 팝업창 width 크기의 1/2 만큼 보정값으로 빼주었음
+					
+					var popupY= (window.screen.height / 2) - (popupHeight / 2);
+					// 만들 팝업창 height 크기의 1/2 만큼 보정값으로 빼주었음
+					
+					window.open('/user/register','windowpopup', 'status=no, height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
+				});
 			})
+			
+			
+
+			
+			
 		</script>
 
 
@@ -106,8 +126,7 @@ body {
 		<span class="login"> <!-- if-else문 name을 통한 Popup 구분 --> <c:set
 				var="name" value="홍길동" /> <c:choose>
 				<c:when test="${name == null}">
-					<button type="hidden" id='needLogin' align="right"
-						onClick="window.open('/matching/','windowpopup', 'width=500, height=600')">
+					<button type="hidden" id="needLogin" align="right">
 						<img
 							src="${pageContext.request.contextPath}/resources/img/login.png"
 							alt="" width="60" height="60" />
@@ -116,7 +135,7 @@ body {
 
 				<c:otherwise>
 					<button type="hidden" id='loginPopup' align="right"
-						onClick="window.open('/member/register','windowpopup', 'width=500, height=600')">
+						>
 						<img
 							src="${pageContext.request.contextPath}/resources/img/login.png"
 							alt="" width="60" height="60" />
@@ -130,7 +149,7 @@ body {
 		<span class="logo">
 
 			<form action="list">
-				<button onclick="location.href='/board/list'" type="button">
+				<button onclick="location.href='/party/list'" type="button">
 
 					<img
 						src="${pageContext.request.contextPath}/resources/img/logo.png"
