@@ -12,6 +12,7 @@ public class UserVO {
 	private char gender;
 	private int u_level;
 	private int u_warning;
+	private String nickname;
 	
 	
 	public String getU_id() {
@@ -85,6 +86,15 @@ public class UserVO {
 	public void setU_warning(int u_warning) {
 		this.u_warning = u_warning;
 	}
+	
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
 
 	@Override
 	public String toString() {
@@ -92,6 +102,6 @@ public class UserVO {
 				+ " email_address=" + email_address + ", "
 				+ "password = " + password + ", age=" + age + ","
 				+ "phone_number=" + phone_number + ", " + "gender=" + gender + ","
-				+ "u_level=" + u_level + ", " + " u_warning=" + u_warning + "]";
+				+ "u_level=" + u_level + ", " + " u_warning=" + u_warning + ", nickname=" + nickname + "]";
 	}
 }
