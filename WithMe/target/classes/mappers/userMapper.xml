@@ -5,12 +5,20 @@
 <mapper namespace="userMapper">
 	<!-- 회원가입 -->
 	<insert id="register">
-	    INSERT INTO MP_MEMBER(   USERID 
-	   					       , USERPASS 
-	   					       , USERNAME 	)
-	                  VALUES(    #{userId} 
-	                 		   , #{userPass}
-	                 		   , #{userName})
+	    INSERT INTO USER_TB(   U_ID 
+	   					       , NAME 
+	   					       , EMAIL_ADDRESS
+	   					       , PASSWORD
+	   					       , AGE
+	   					       , PHONE_NUMBER
+	   					       , GENDER	)
+	                  VALUES(    #{u_id} 
+	                 		   , #{name}
+	                 		   , #{email_address}
+	                 		   , #{password}
+	                 		   , #{age}
+	                 		   , #{phone_number}
+	                 		   , #{gender})
     </insert>
 
     <!-- 로그인 -->

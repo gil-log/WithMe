@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.withme.dao.PartyDAO;
 import com.withme.vo.PartyVO;
+import com.withme.vo.PartylistVO;
 
 @Service
 public class PartyServiceImpl implements PartyService{
@@ -21,8 +22,15 @@ public class PartyServiceImpl implements PartyService{
 	
 	// 게시물 목록 조회
 	@Override
-	public List<PartyVO> list() throws Exception {
+	public List<PartylistVO> list() throws Exception {
 
 		return dao.list();
+	}
+	
+	// 게시물로 이동
+	@Override
+	public PartyVO read(int party_id) throws Exception {
+
+		return dao.read(party_id);
 	}
 }

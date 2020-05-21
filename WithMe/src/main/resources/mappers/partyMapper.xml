@@ -31,15 +31,31 @@
    </insert>
    
    	<select id="list" resultType="com.withme.vo.PartylistVO">
-		SELECT P.PARTY_TITLE, P.P_DATE, PJ.U_ID
+		SELECT P.PARTY_TITLE, PJ.U_ID, P.P_DATE, P.PARTY_ID
 		  FROM PARTY_TB P, PICKJOIN_TB PJ
 		  WHERE P.PARTY_ID = PJ.PARTY_ID
 		  ORDER BY P.PARTY_ID DESC
 	</select>
+	
+	
+
    
    
    
-   
+   	<select id="read" parameterType="int" resultType="com.withme.vo.PartyVO">
+		SELECT 	  PARTY_TITLE
+	   			, P_DATE
+	   			, P_LOCATION
+	   			, P_LONG
+	   			, P_LATI
+	   			, P_NUM
+	   			, P_GENDER
+	   			, P_COST
+	   			, P_NOTE
+	   			, HASHTAG
+		 FROM PARTY_TB
+		 WHERE PARTY_ID = #{party_id}
+	</select>
    
    
    
@@ -86,15 +102,7 @@
 		</if>
 	</sql>
    
-   	<select id="read" parameterType="int" resultType="com.withme.vo.BoardVO">
-		SELECT	BNO
-			  , TITLE
-			  , CONTENT
-			  , WRITER
-			  , REGDATE
-		 FROM MP_BOARD
-		 WHERE BNO = #{bno}
-	</select>
+
 	
 	<update id="update" parameterType="com.withme.vo.BoardVO">
 		UPDATE MP_BOARD
