@@ -93,23 +93,20 @@ body {
 	<header id="header" class="alt">
 
 
- 
-					<button type="hidden" id='loginPopup' align="right"
-						>
-						<img
-							src="${pageContext.request.contextPath}/resources/img/login.png"
-							alt="" width="60" height="60" />
-					</button>
+									
+<img id="loginPopup" src="${pageContext.request.contextPath}/resources/img/login.png" alt="" width="60" height="60" />
+
+						
 
 		<h1>With Me ?</h1>
 
 		<span class="logo">
 
-				<button onclick="location.href='/party/list'" type="button">
+<a href="/party/list">
 
 					<img src="${pageContext.request.contextPath}/resources/img/logo.png"
 						alt="" width="520" height="760">
-				</button>
+</a>
 
 		</span>
 	</header>
