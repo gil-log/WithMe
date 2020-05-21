@@ -54,6 +54,7 @@
 						<button type="submit" class="delete_btn">예 삭제합니다.</button>
 						<button type="button" class="cancel_btn">아니오. 삭제하지 않습니다.</button>
 					</div>
+					  
 				</form>
 			</section>
 			<hr />

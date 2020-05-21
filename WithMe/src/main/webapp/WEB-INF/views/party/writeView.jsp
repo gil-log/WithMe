@@ -12,15 +12,16 @@
 			</header>
 			<hr />
 			 
-			<nav>
-			  홈
-			</nav>
+			<div>
+				<%@include file="nav.jsp" %>
+			</div>
 			<hr />
 			
 			<section id="container">
 				<form role="form" method="post" action="/party/write">
 					<table>
 						<tbody>
+						<c:if test="${user.u_id != null}">
 							<tr>
 								<td>
 									<label for="party_title">제목</label><input type="text" id="party_title" name="party_title" />
@@ -110,6 +111,10 @@
 									<button type="submit">작성</button>
 								</td>
 							</tr>
+							</c:if>
+							<c:if test="${user.u_id == null}">
+								<p>로그인 후에 작성하실 수 있습니다.</p>
+							</c:if>
 						</tbody>			
 					</table>
 				</form>
