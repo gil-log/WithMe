@@ -19,9 +19,7 @@
 			location.href="/user/register";
 		})
 		
-		$("#submit").on("click", function(){
-			location.href="/user/login";
-		})
+
 		
 		
 		
@@ -35,9 +33,7 @@
 
 <form name='homeForm' method="post" action="/user/login">
   <fieldset>
-  
-  
-  
+
   		<c:if test="${user == null}">
     <div class="form-group">
       <label for="u_id">아이디</label>
@@ -57,10 +53,21 @@
 	
 		</c:if>
 		<c:if test="${user != null }">
+		
+		<script>
+		var WinClose = function (){
+			self.opener = self;
+			window.close();
+			};
+			WinClose();
+		</script>
 			<div>
 				<p>${user.u_id}님 환영 합니다.</p>
 				<button id="logoutBtn" type="button">로그아웃</button>
 			</div>
+			
+			
+			
 		</c:if>
 		<c:if test="${msg == false}">
 			<p style="color: red;">로그인 실패! 아이디와 비밀번호 확인해주세요.</p>
@@ -75,3 +82,8 @@
 
 </body>
 </html>
+
+
+
+
+

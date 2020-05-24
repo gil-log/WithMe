@@ -5,8 +5,12 @@ public class LetterVO {
 	private int l_id;
 	private String l_message;
 	private int l_flag;
+	private String l_title;
 	
-	
+
+
+	private String l_date;
+
 	public int getL_id() {
 		return l_id;
 	}
@@ -31,10 +35,26 @@ public class LetterVO {
 		this.l_flag = l_flag;
 	}
 	
+	public String getL_title() {
+		return l_title;
+	}
+
+	public void setL_title(String l_title) {
+		this.l_title = l_title;
+	}
+
+	public String getL_date() {
+		return l_date;
+	}
+
+	public void setL_date(String l_date) {
+		this.l_date = l_date;
+	}
+	
 	@Override
 	public String toString() {
 		return "LetterVO [l_id=" + l_id + ", l_message=" + l_message + ","
-				+ " l_flag=" + l_flag + "]";
+				+ " l_flag=" + l_flag + ", l_title" + l_title + ", l_date" + l_date+"]";
 	}
 }
 

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pickjoinMapper">
+   
+   <!-- picklist 확인 -->   
+   <select id="picklist" resultType="com.withme.vo.PickJoinListVO">
+      SELECT P.PARTY_TITLE, PJ.U_ID, P.P_DATE, P.PARTY_ID, PJ.PICK_FLAG, PJ.JOIN_FLAG
+      FROM PICKJOIN_TB PJ, PARTY_TB P
+      WHERE U_id = 'test1' 
+      AND PJ.PARTY_ID = P.PARTY_ID
+      ORDER BY P.PARTY_ID DESC
+   </select>
+   
+   
+   <!-- pick 버튼 눌렀을 경우 -->
+   <insert id = "pickinsert" parameterType="int">
+      INSERT INTO PICKJOIN_TB(   U_ID
+                           ,PARTY_ID
+                           ,PARTY_HOST
+                           ,PICK_FLAG
+                           ,JOIN_FLAG )
+               VALUES(         'test1'
+                           ,#{party_id}
+                           ,0
+                           ,1
+                           ,0        )               
+   </insert>
+   
+   
+   <!-- join 버튼 눌렀을 경우 -->
+   <update id = "joininsert" parameterType="int">
+      UPDATE    PICKJOIN_TB
+      SET    JOIN_FLAG = 1,
+            PICK_FLAG = 0
+      WHERE   U_ID = 'test1'   
+      AND      PARTY_ID = #{party_id}               
+   </update>
+   
+</mapper>

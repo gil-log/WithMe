@@ -59,4 +59,15 @@ public class PartyDAOImpl implements PartyDAO{
 		sqlSession.update("partyMapper.partyHit", party_id);
 	}
 	
+	// 파티 생성시 host1인에 pickjoin테이블에 생성
+	@Override
+	public void pjHost(PartylistVO partylistVO) throws Exception{
+		sqlSession.insert("partyMapper.pjhost", partylistVO);
+	}
+	
+	// 파티 생성시의 party_id 가져오기 완전 불안정함
+	@Override
+	public int getpid() throws Exception{
+		return sqlSession.selectOne("partyMapper.getpid");
+	}
 }
