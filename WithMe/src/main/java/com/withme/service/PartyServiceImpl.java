@@ -20,6 +20,8 @@ public class PartyServiceImpl implements PartyService{
 	
 	// 게시글 작성
 	public void write(PartyVO partyVO) throws Exception{
+		
+		
 		dao.write(partyVO);
 	}
 	
@@ -52,5 +54,17 @@ public class PartyServiceImpl implements PartyService{
 	public int hashCount(String keyword) throws Exception {
 		
 		return dao.hashCount(keyword);
+	}
+	
+	// 파티 생성시 호스트1인에 pickjoin에 생성
+	@Override
+	public void pjHost(PartylistVO partylistVO) throws Exception{
+		dao.pjHost(partylistVO);
+	}
+	
+	// 파티 생성시의 party_id 가져오기 완전 불안정함
+	@Override
+	public int getpid() throws Exception{
+		return dao.getpid();
 	}
 }

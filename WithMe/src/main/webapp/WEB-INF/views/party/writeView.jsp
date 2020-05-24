@@ -22,7 +22,10 @@
 					<table>
 						<tbody>
 						<c:if test="${user.u_id != null}">
+				
 							<tr>
+							
+							
 								<td>
 									<label for="party_title">제목</label><input type="text" id="party_title" name="party_title" />
 								</td>

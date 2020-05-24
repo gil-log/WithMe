@@ -53,7 +53,7 @@ public class UserController {
 			session.setAttribute("user", login);
 		}
 		
-		return "redirect:/party/list";
+		return "user/loginform";
 	}
 	
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
@@ -66,19 +66,16 @@ public class UserController {
 	
 	@RequestMapping(value = "/loginform", method = RequestMethod.GET)
 	public String loginform() throws Exception{
-		
-		
-		
+
 		return "user/loginform";
 	}
 	
 	@RequestMapping(value = "/mainlogin", method = RequestMethod.GET)
 	public String mainlogin() throws Exception{
 		
-		
-		
-		
+
 		return "user/mainlogin";
 	}
+	
 }
 	

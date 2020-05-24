@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.withme.dao.UserDAO;
+import com.withme.vo.LevelVO;
 import com.withme.vo.UserVO;
 
 @Service
@@ -20,5 +21,10 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public UserVO login(UserVO vo) throws Exception{
 		return dao.login(vo);
+	}
+	
+	@Override
+	public void level(LevelVO levelVO) throws Exception{
+		dao.level(levelVO);
 	}
 }

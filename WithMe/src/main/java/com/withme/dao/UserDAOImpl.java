@@ -5,22 +5,30 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.withme.vo.LevelVO;
 import com.withme.vo.UserVO;
 
 @Repository
 public class UserDAOImpl implements UserDAO{
 
 	@Inject SqlSession sql;
+	
 	// 회원가입
-
 	@Override
 	public void register(UserVO vo) throws Exception {
 		sql.insert("userMapper.register", vo);
 	}
 	
+	// 로그인
 	@Override
 	public UserVO login(UserVO vo) throws Exception {
 		
 		return sql.selectOne("userMapper.login", vo);
+	}
+	
+	// 유저 레벨 경험치 상승
+	@Override
+	public void level(LevelVO levelVO) throws Exception {
+		sql.update("userMapper.level", levelVO);
 	}
 }

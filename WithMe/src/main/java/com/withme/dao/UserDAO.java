@@ -1,5 +1,6 @@
 package com.withme.dao;
 
+import com.withme.vo.LevelVO;
 import com.withme.vo.UserVO;
 
 public interface UserDAO {
@@ -9,4 +10,7 @@ public interface UserDAO {
 
 	//로그인
 	public UserVO login(UserVO userVO) throws Exception;
+	
+	// 유저 레벨 경험치 상승
+	public void level(LevelVO levelVO) throws Exception;
 }

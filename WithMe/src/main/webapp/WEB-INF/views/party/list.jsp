@@ -79,6 +79,14 @@
 		
 <title>Party Matching</title>
 
+<style>
+.cards {
+
+background-color:red;
+
+}
+</style>
+
 </head>
 <body>
 	<div id="root">
@@ -97,29 +105,24 @@
 
 
 	
-					<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href="#">검색</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
 
-  <div class="collapse navbar-collapse" id="navbarColor01">
   
-  
-  <div class="form-group">
+
+    
+    <div class="container">
+    <form class="form-inline my-2 my-lg-0">
+     
+      <div class="form-group">
     <select class="custom-select" name="searchType">
-      <option value="n" selected <c:out value="${scri.searchType == null ? 'selected' : ''}"/>> Open this select menu</option>
       <option value="t"<c:out value="${scri.searchType eq 't' ? 'selected' : ''}"/>>제목</option>
       <option value="c"<c:out value="${scri.searchType eq 'c' ? 'selected' : ''}"/>>내용</option>
-      <option value="w"<c:out value="${scri.searchType eq 'w' ? 'selected' : ''}"/>>해쉬태그</option>
       <option value="e"<c:out value="${scri.searchType eq 'e' ? 'selected' : ''}"/>>지역</option>
     </select>
   </div>
-    
-    
-    <form class="form-inline my-2 my-lg-0">
+  
       <input class="form-control mr-sm-2" type="text" name="keyword" id="keywordInput" value="${scri.keyword}" placeholder="Search"/>
       <button class="btn btn-secondary my-2 my-sm-0" id="searchBtn" type="button">검색</button>
+      
     </form>
         <script>
       $(function(){
@@ -129,9 +132,6 @@
       });   
     </script>
     
-  </div>
-</nav>
-					
 
 		
 
@@ -227,49 +227,50 @@
 							</div>
 						</div>
 					</div>
-					
-			
-	<form role="form" method="get">					
-	<c:forEach items="${list}" var="list">
-		<div class="card text-white bg-primary mb-5" style="max-width: 60rem; margin:auto;">
-			<div class="card-header"></div>
-			<div class="card-body">
-				<h4 class="card-title">
-					<a href="/party/readView?party_id=${list.party_id}" style="color:white;"><c:out value="${list.party_title}" /></a>
-				</h4>
-				<p class="card-text" style="color:white;">
-					<fmt:formatDate value="${list.p_date}" pattern="yyyy-MM-dd" />
-					<c:out value="${list.u_id}" />
-				</p>
-			</div>
-		</div>
-	</c:forEach>
-	</form>		
-			
-			
-			
-			
 			
 				
-<form role="form" method="get">					
+<form role="form" method="get">	
 	<c:forEach items="${list}" var="list">
-		<div class="card text-white bg-primary mb-5" style="max-width: 60rem; margin:auto;">
+		<div class="cards text-white bg-primary mb-5" style="max-width: 60rem; margin:auto;">
 			<div class="card-header"></div>
 			<div class="card-body">
 				<h4 class="card-title">
-					<a href="/party/readView?party_id=${list.party_id}" style="color:white;"><c:out value="${list.party_title}" /></a>
+					<a href="/party/readView?party_id=${list.party_id}" style="color:white;">
+					<c:out value="${list.party_title}" />
+					</a>
 				</h4>
 				<p class="card-text" style="color:white;">
 					<fmt:formatDate value="${list.p_date}" pattern="yyyy-MM-dd" />
 					<c:out value="${list.u_id}" />
 				</p>
+				
+				<div><!-- 자기가 만든파티에 pick하면 무결성 위배 -->
+               
+               <form method="get" action="/pick/pickinsert" >
+                  <input type="hidden" name = "party_id" value = "${list.party_id}"/>
+                  <button type="submit" style="background-color:transparent;  border:0px transparent solid;">
+                     <img src="${pageContext.request.contextPath}/resources/img/heart.png" width="50" height="50"/>
+                  </button>
+               </form>
+               
+               <form method="get" action="/pick/joininsert" >
+                  <input type="hidden" name = "party_id" value = "${list.party_id}"/>
+                  <button type="submit" style="background-color:transparent;  border:0px transparent solid;">
+                     <img src="${pageContext.request.contextPath}/resources/img/join.png" width="70" height="70"/>
+                  </button>
+               </form>
+               
+            </div>
+				
+				
+				
 			</div>
 		</div>
 	</c:forEach>
 	</form>
 	
+	<div style="margin:auto;">
 	
-	<div>
   <ul class="pagination">
 
 <c:if test="${pageMaker.prev}">
@@ -289,7 +290,7 @@
        </c:if>  
   </ul>
 </div>
-	
+	</div>
 	
 	
 	
