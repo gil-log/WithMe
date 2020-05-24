@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.withme.dao.PartyDAO;
+import com.withme.vo.HashtagVO;
 import com.withme.vo.PartyVO;
 import com.withme.vo.PartylistVO;
 import com.withme.vo.SearchCriteria;
@@ -51,9 +52,9 @@ public class PartyServiceImpl implements PartyService{
 	
 	// 해쉬태그 개수
 	@Override
-	public int hashCount(String keyword) throws Exception {
+	public int hashCount(HashtagVO hashtagVO) throws Exception {
 		
-		return dao.hashCount(keyword);
+		return dao.hashCount(hashtagVO);
 	}
 	
 	// 파티 생성시 호스트1인에 pickjoin에 생성

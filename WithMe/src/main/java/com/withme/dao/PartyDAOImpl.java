@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.withme.vo.HashtagVO;
 import com.withme.vo.PartyVO;
 import com.withme.vo.PartylistVO;
 import com.withme.vo.SearchCriteria;
@@ -47,9 +48,9 @@ public class PartyDAOImpl implements PartyDAO{
 	
 	// 해쉬 카운트
 	@Override
-	public int hashCount(String keyword) throws Exception {
+	public int hashCount(HashtagVO hashtagVO) throws Exception {
 		
-		return sqlSession.selectOne("partyMapper.hashCount", keyword);
+		return sqlSession.selectOne("partyMapper.hashCount", hashtagVO);
 	}
 	
 	// 게시글 조회수

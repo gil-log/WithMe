@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.withme.service.PartyService;
 import com.withme.service.UserService;
+import com.withme.vo.HashtagVO;
 import com.withme.vo.LevelVO;
 import com.withme.vo.PageMaker;
 import com.withme.vo.PartyVO;
@@ -68,17 +69,44 @@ public class PartyController {
 	}
 	// 게시판 목록 조회
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(Model model, @ModelAttribute("scri") SearchCriteria scri) throws Exception{
+	public String list(Model model, @ModelAttribute("scri") SearchCriteria scri, HttpSession session) throws Exception{
 		logger.info("list");
+
 		
+		String location = (String) session.getAttribute("location");
+		logger.info(location);
 		
-		model.addAttribute("healing",service.hashCount("힐링"));
-		model.addAttribute("mukbang",service.hashCount("먹방"));
-		model.addAttribute("ohrak",service.hashCount("오락"));
-		model.addAttribute("photo",service.hashCount("사진"));
-		model.addAttribute("thunder",service.hashCount("번개"));
-		model.addAttribute("travel",service.hashCount("여행"));
+		HashtagVO h1 = new HashtagVO();
+		h1.setLocation(location);
+		h1.setHashtag("힐링");
+		HashtagVO h2 = new HashtagVO();
+		h2.setLocation(location);
+		h2.setHashtag("먹방");
+		
+		HashtagVO h3 = new HashtagVO();
+		h3.setLocation(location);
+		h3.setHashtag("오락");
+		
+		HashtagVO h4 = new HashtagVO();
+		h4.setLocation(location);
+		h4.setHashtag("사진");
+		
+		HashtagVO h5 = new HashtagVO();
+		h5.setLocation(location);
+		h5.setHashtag("번개");
+		
+		HashtagVO h6 = new HashtagVO();
+		h6.setLocation(location);
+		h6.setHashtag("여행");
+		
+		model.addAttribute("healing",service.hashCount(h1));
+		model.addAttribute("mukbang",service.hashCount(h2));
+		model.addAttribute("ohrak",service.hashCount(h3));
+		model.addAttribute("photo",service.hashCount(h4));
+		model.addAttribute("thunder",service.hashCount(h5));
+		model.addAttribute("travel",service.hashCount(h6));
 	
+		
 		
 		model.addAttribute("list", service.list(scri));
 		

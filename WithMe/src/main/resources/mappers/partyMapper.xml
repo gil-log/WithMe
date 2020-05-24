@@ -116,6 +116,7 @@
 			<if test="searchType == 'c'.toString()">AND P.P_NOTE LIKE '%' || #{keyword} || '%'</if>
 			<if test="searchType == 'w'.toString()">AND P.HASHTAG LIKE '%' || #{keyword} || '%'</if>
 			<if test="searchType == 'e'.toString()">AND P.P_LOCATION LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'we'.toString()">AND (P.P_LOCATION LIKE '%' || #{keyword} || '%') AND (P.PHASHTAG LIKE '%' || #{keyword} || '%')</if>
 		</if>
 	</sql>
    
@@ -129,10 +130,13 @@
 		</if>
 	</sql>
 	
-	<select id="hashCount" parameterType="String" resultType="int">
+	<select id="hashCount" parameterType="com.withme.vo.HashtagVO" resultType="int">
 		SELECT COUNT(*)
 		   FROM PARTY_TB
-		   WHERE HASHTAG LIKE '%' || #{keyword} || '%'
+		   WHERE HASHTAG LIKE '%' || #{hashtag} || '%'
+		   		 AND
+		   		 P_LOCATION LIKE '%' || #{location} || '%'
+		   
 	</select>
 	
 	    <!-- 게시판 조회수 -->
