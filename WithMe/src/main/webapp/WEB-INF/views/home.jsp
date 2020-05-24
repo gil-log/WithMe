@@ -103,7 +103,6 @@ body {
 		<span class="logo">
 
 <a href="/party/list">
-
 					<img src="${pageContext.request.contextPath}/resources/img/logo.png"
 						alt="" width="520" height="760">
 </a>

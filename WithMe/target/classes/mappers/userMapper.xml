@@ -11,14 +11,16 @@
 	   					       , PASSWORD
 	   					       , AGE
 	   					       , PHONE_NUMBER
-	   					       , GENDER	)
+	   					       , GENDER
+	   					       , L_LEVEL)
 	                  VALUES(    #{u_id} 
 	                 		   , #{name}
 	                 		   , #{email_address}
 	                 		   , #{password}
 	                 		   , #{age}
 	                 		   , #{phone_number}
-	                 		   , #{gender})
+	                 		   , #{gender}
+	                 		   , 0)
     </insert>
 
     <!-- 로그인 -->
@@ -28,6 +30,15 @@
 		 WHERE U_ID = #{u_id}
 		   AND PASSWORD = #{password}   
 	</select>
+	
+		<!-- 유저 경험치 --> 
+    <update id="level" parameterType="com.withme.vo.LevelVO">
+    	UPDATE USER_TB SET
+    	U_LEVEL = U_LEVEL + #{point}
+    	WHERE U_ID = #{u_id}
+    </update>
+	
+	
 	
 	<!-- 회원정보 수정 -->
 	<update id="memberUpdate">
@@ -56,4 +67,7 @@
 		SELECT COUNT(*) FROM MP_MEMBER
 		WHERE USERID = #{userId}
 	</select>
+	
+
+	
 </mapper>

@@ -32,17 +32,35 @@
 	                 		  , 0	)
    </insert>
    
+   <insert id="pjhost" parameterType="com.withme.vo.PartylistVO">
+	   INSERT INTO PICKJOIN_TB(    U_ID
+	   					      , PARTY_ID
+	   					      , PARTY_HOST
+	   					      , PICK_FLAG
+	   					      , JOIN_FLAG  )
+	                 VALUES(     #{u_id}
+	                 		  , #{party_id}
+	                 		  , 1
+	                 		  , 0
+	                 		  , 0	)
+   </insert>
+   
+   <select id="getpid" resultType="int">
+      SELECT PARTY_ID  
+      FROM(  
+		SELECT  PARTY_ID, ROW_NUMBER() OVER(ORDER BY PARTY_ID DESC) AS RNUM
+		FROM PARTY_TB
+		ORDER BY PARTY_ID DESC )
+      WHERE RNUM = 1
+   </select>
+
+   
    	<select id="list" resultType="com.withme.vo.PartylistVO">
 		SELECT P.PARTY_TITLE, PJ.U_ID, P.P_DATE, P.PARTY_ID
 		  FROM PARTY_TB P, PICKJOIN_TB PJ
 		  WHERE P.PARTY_ID = PJ.PARTY_ID AND PJ.PARTY_HOST = 1
 		  ORDER BY P.PARTY_ID DESC
 	</select>
-	
-	
-
-   
-   
    
    	<select id="read" parameterType="int" resultType="com.withme.vo.PartyVO">
 		SELECT 	  PARTY_TITLE
@@ -63,7 +81,7 @@
    
    
    <!-- 파라미터 타입 반환값이 BoardVO클래스 타입이라는뜻 -->
-	<select id="listPage" resultType="com.withme.vo.PartylistVO" parameterType="com.withme.vo.Criteria">
+	<select id="listPage" resultType="com.withme.vo.PartylistVO" parameterType="com.withme.vo.SearchCriteria">
 		SELECT PARTY_TITLE, U_ID, P_DATE, PARTY_ID
 		 FROM ( SELECT P.PARTY_TITLE AS PARTY_TITLE
 		        , PJ.U_ID AS U_ID
@@ -84,11 +102,12 @@
 	
 	
 	<select id="listCount" parameterType="com.withme.vo.SearchCriteria" resultType="int">
-		SELECT COUNT(PARTY_ID)
-		   FROM PARTY_TB
+		SELECT COUNT(P.PARTY_ID)
+		   FROM PARTY_TB P, PICKJOIN_TB PJ
 		   WHERE 1=1
 		   <include refid="search"></include> 
-		   AND PARTY_ID > 0
+		   AND P.PARTY_ID > 0 		         AND P.PARTY_ID = PJ.PARTY_ID
+		         AND PJ.PARTY_HOST = 1
 	</select>
 	
 	<sql id="searchlist">

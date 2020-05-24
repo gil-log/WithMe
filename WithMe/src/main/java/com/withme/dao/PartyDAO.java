@@ -24,4 +24,10 @@ public interface PartyDAO {
 	
 	// 게시글 조회수
 	public void partyHit(int party_id) throws Exception;
+	
+	// 파티 생성시 pickjoin에 host1 적용
+	public void pjHost(PartylistVO partylistVO) throws Exception;
+	
+	// 파티 생성시의 party_id 가져오기 완전 불안정함
+	public int getpid() throws Exception;
 }

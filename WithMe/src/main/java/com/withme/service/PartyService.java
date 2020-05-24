@@ -23,4 +23,9 @@ public interface PartyService {
 	// 해쉬태그 개수
 	public int hashCount(String keyword) throws Exception;
 	
+	// 파티생성시 host1인에 pickjoin테이블에 생성
+	public void pjHost(PartylistVO partylistVO) throws Exception;
+	
+	// 파티 생성시의 party_id 가져오기 완전 불안정함
+	public int getpid() throws Exception;
 }
