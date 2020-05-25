@@ -2,6 +2,7 @@ package com.withme.service;
 
 import java.util.List;
 
+import com.withme.vo.HashtagVO;
 import com.withme.vo.PartyVO;
 import com.withme.vo.PartylistVO;
 import com.withme.vo.SearchCriteria;
@@ -21,7 +22,7 @@ public interface PartyService {
 	public PartyVO read(int party_id) throws Exception;
 	
 	// 해쉬태그 개수
-	public int hashCount(String keyword) throws Exception;
+	public int hashCount(HashtagVO hashtagVO) throws Exception;
 	
 	// 파티생성시 host1인에 pickjoin테이블에 생성
 	public void pjHost(PartylistVO partylistVO) throws Exception;
