@@ -69,9 +69,12 @@ public class PartyController {
 	}
 	// 게시판 목록 조회
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(Model model, @ModelAttribute("scri") SearchCriteria scri, HttpSession session) throws Exception{
+	public String list(String loc, Model model, @ModelAttribute("scri") SearchCriteria scri, HttpSession session) throws Exception{
 		logger.info("list");
 
+		System.out.println("loc:"+loc);
+		
+		session.setAttribute("location", loc);
 		
 		String location = (String) session.getAttribute("location");
 		logger.info(location);
