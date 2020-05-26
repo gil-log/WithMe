@@ -12,4 +12,6 @@ public interface UserService {
 	public void level(LevelVO levelVO) throws Exception;
 	
 	public UserVO userinfo(String u_id) throws Exception;
+
+	public UserVO hostinfo(int party_id) throws Exception;
 }

@@ -183,10 +183,15 @@ public class PartyController {
 		model.addAttribute("read", service.read(partyVO.getParty_id()));
 		model.addAttribute("scri", scri);
 
+		
+		
+		
 		List<ReplyVO> replyList = replyService.readReply(partyVO.getParty_id());
 		model.addAttribute("replyList", replyList);
 		
-	    model.addAttribute("userInfo", userVO);
+		
+		
+	    model.addAttribute("userInfo", userservice.hostinfo(partyVO.getParty_id()));
 		
 		
 		return "party/readView";

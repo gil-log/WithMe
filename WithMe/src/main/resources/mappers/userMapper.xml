@@ -41,6 +41,22 @@
    </select>
 
 
+   <select id="hostInfo" resultType="com.withme.vo.UserVO">
+      SELECT U.U_ID
+      		, U.GENDER
+      		, U.AGE
+      		, U.INTRO
+      		, U.NAME
+      		, U.EMAIL_ADDRESS
+      		, U.PASSWORD
+      		,U.PHONE_NUMBER
+      		, U.U_LEVEL
+      FROM   USER_TB U, PICKJOIN_TB PJ
+      WHERE  PJ.PARTY_ID = #{party_id} 
+      		 AND PJ.PARTY_HOST = 1
+      		 AND PJ.U_ID = U.U_ID
+   </select>
+
     <!-- 로그인 -->
 	<select id="login" resultType="com.withme.vo.UserVO">
 		SELECT U_ID, PASSWORD 
