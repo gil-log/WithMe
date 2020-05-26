@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.withme.vo.HashtagVO;
 import com.withme.vo.PartyVO;
 import com.withme.vo.PartylistVO;
+import com.withme.vo.PickJoinListVO;
 import com.withme.vo.SearchCriteria;
 
 @Repository
@@ -74,7 +75,20 @@ public class PartyDAOImpl implements PartyDAO{
 	
 	// 가장 핫한 파티 찾기
 	@Override
-	public PartyVO partyHot(SearchCriteria scri) throws Exception{
+	public PartylistVO partyHot(SearchCriteria scri) throws Exception{
 		return sqlSession.selectOne("partyMapper.partyHot", scri);
+	}
+	
+	// 가장 인싸인 파티 찾기
+	@Override
+	public PartylistVO partyInsa(SearchCriteria scri) throws Exception{
+		return sqlSession.selectOne("partyMapper.partyInsa", scri);
+	}
+	
+	// pick, join한 목록조회
+	@Override
+	public List<PickJoinListVO> pickjoinlist(PickJoinListVO pickjoinlistVO) {
+	      // TODO Auto-generated method stub
+	    return sqlSession.selectList("partyMapper.pickjoinlist", pickjoinlistVO);
 	}
 }

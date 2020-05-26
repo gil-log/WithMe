@@ -12,6 +12,7 @@ import com.withme.dao.PartyDAO;
 import com.withme.vo.HashtagVO;
 import com.withme.vo.PartyVO;
 import com.withme.vo.PartylistVO;
+import com.withme.vo.PickJoinListVO;
 import com.withme.vo.SearchCriteria;
 
 @Service
@@ -69,9 +70,21 @@ public class PartyServiceImpl implements PartyService{
 		return dao.getpid();
 	}
 	
-	// 파티 생성시의 party_id 가져오기 완전 불안정함
+	// 가장 조회수 높은 파티 찾기
 	@Override
-	public PartyVO partyHot(SearchCriteria scri) throws Exception{
+	public PartylistVO partyHot(SearchCriteria scri) throws Exception{
 		return dao.partyHot(scri);
+	}
+	
+	//가장 인싸인 party 가져오기
+	@Override
+	public PartylistVO partyInsa(SearchCriteria scri) throws Exception{
+		return dao.partyInsa(scri);
+	}
+	
+	// pick, join한 목록조회
+	@Override
+	public List<PickJoinListVO> pickjoinlist(PickJoinListVO pickjoinlistVO) throws Exception {
+	   return dao.pickjoinlist(pickjoinlistVO);
 	}
 }

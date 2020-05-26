@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.withme.vo.PartyVO;
+import com.withme.vo.PartylistVO;
 import com.withme.vo.PickJoinListVO;
 import com.withme.vo.PickJoinVO;
 import com.withme.vo.UserVO;
@@ -23,14 +24,19 @@ public class PickJoinDAOImpl implements PickJoinDAO{
    }
 
    @Override
-   public void pickinsert(int party_id) throws Exception {
-      sqlSession.insert("pickjoinMapper.pickinsert", party_id);
+   public void pickinsert(PartylistVO partylistVO) throws Exception {
+      sqlSession.insert("pickjoinMapper.pickinsert", partylistVO);
    }
 
    @Override
-   public void joininsert(int party_id) throws Exception {
-      sqlSession.update("pickjoinMapper.joininsert", party_id);
+   public void joininsert(PartylistVO partylistVO) throws Exception {
+      sqlSession.update("pickjoinMapper.joininsert", partylistVO);
       
    }
 
+	@Override
+	public void pickdelete(PartylistVO partylistVO) throws Exception {
+	  sqlSession.delete("pickjoinMapper.pickdelete", partylistVO);
+		
+	}
 }

@@ -6,9 +6,7 @@ public class LetterVO {
 	private String l_message;
 	private int l_flag;
 	private String l_title;
-	
-
-
+	private String u_id; //받는사람
 	private String l_date;
 
 	public int getL_id() {
@@ -49,6 +47,14 @@ public class LetterVO {
 
 	public void setL_date(String l_date) {
 		this.l_date = l_date;
+	}
+
+	public String getU_id() {
+		return u_id;
+	}
+
+	public void setU_id(String u_id) {
+		this.u_id = u_id;
 	}
 	
 	@Override

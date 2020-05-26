@@ -118,6 +118,8 @@
 			<if test="searchType == 'w'.toString()">AND P.HASHTAG LIKE '%' || #{keyword} || '%'</if>
 			<if test="searchType == 'e'.toString()">AND P.P_LOCATION LIKE '%' || #{keyword} || '%'</if>
 			<if test="searchType == 'we'.toString()">AND (P.P_LOCATION LIKE '%' || #{location} || '%') AND (P.HASHTAG LIKE '%' || #{keyword} || '%')</if>
+			<if test="searchType == 'tce'.toString()">AND (P.P_LOCATION LIKE '%' || #{location} || '%') AND( (P.P_NOTE LIKE '%' || #{keyword} || '%')
+			OR (P.PARTY_TITLE LIKE '%' || #{keyword} || '%'))</if>
 		</if>
 	</sql>
    
@@ -128,6 +130,9 @@
 			<if test="searchType == 'c'.toString()">AND P_NOTE LIKE '%' || #{keyword} || '%'</if>
 			<if test="searchType == 'w'.toString()">AND HASHTAG LIKE '%' || #{keyword} || '%'</if>
 			<if test="searchType == 'e'.toString()">AND P_LOCATION LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'we'.toString()">AND (P.P_LOCATION LIKE '%' || #{location} || '%') AND (P.HASHTAG LIKE '%' || #{keyword} || '%')</if>
+			<if test="searchType == 'tce'.toString()">AND (P.P_LOCATION LIKE '%' || #{location} || '%') AND( (P.P_NOTE LIKE '%' || #{keyword} || '%')
+			OR (P.PARTY_TITLE LIKE '%' || #{keyword} || '%'))</if>
 		</if>
 	</sql>
 	
@@ -148,43 +153,63 @@
     </update>
 	
 	<!-- 가장 핫한 파티 id -->
-	<select id="partyHot" resultType="com.withme.vo.PartyVO" parameterType="com.withme.vo.SearchCriteria">
-SELECT PARTY_ID        
+	<select id="partyHot" resultType="com.withme.vo.PartylistVO" parameterType="com.withme.vo.SearchCriteria">
+SELECT P.PARTY_ID, P.PARTY_TITLE, P.P_DATE, PJ.U_ID        
 FROM(       
 SELECT P.PARTY_HIT AS PARTY_HIT, P.PARTY_ID AS PARTY_ID,
          ROW_NUMBER() OVER(ORDER BY MAX(P.PARTY_HIT) DESC) AS RNUM
 		         FROM PARTY_TB P, PICKJOIN_TB PJ
 		         WHERE 1=1
-		         <include refid="searchlist"></include>  		         
+		         <include refid="searchlist"></include>  
 		         AND P.PARTY_ID = PJ.PARTY_ID
 		         AND PJ.PARTY_HOST = 1
                  GROUP BY P.PARTY_HIT, P.PARTY_ID
                  ORDER BY MAX(P.PARTY_HIT) DESC
- )                
-WHERE RNUM = 1            
-
+ )H, PARTY_TB P, PICKJOIN_TB PJ               
+WHERE H.RNUM = 1 AND P.PARTY_ID = H.PARTY_ID AND PJ.PARTY_ID = P.PARTY_ID AND PJ.PARTY_HOST = 1          
 	</select>	
 	
 	<!-- 가장  레벨 높은 유저의 파티 id -->
-	<select id="partyInsa" resultType="com.withme.vo.PartyVO" parameterType="com.withme.vo.SearchCriteria">
-SELECT PARTY_ID        
-FROM(       
-SELECT P.PARTY_HIT AS PARTY_HIT, P.PARTY_ID AS PARTY_ID,
-         ROW_NUMBER() OVER(ORDER BY MAX(P.PARTY_HIT) DESC) AS RNUM
+	<select id="partyInsa" resultType="com.withme.vo.PartylistVO" parameterType="com.withme.vo.SearchCriteria">
+
+SELECT PARTY_TITLE, PARTY_ID, U_ID, P_DATE
+FROM
+ (   
+ SELECT U.U_ID, P.PARTY_ID  AS PARTY_ID, U.U_LEVEL AS U_LEVEL, P.PARTY_TITLE AS PARTY_TITLE, P.P_DATE AS P_DATE
+ FROM   
+        (SELECT U_ID, U_LEVEL
+    FROM (  SELECT U.U_ID AS U_ID, U.U_LEVEL AS U_LEVEL, 
+            ROW_NUMBER() OVER(ORDER BY MAX(U.U_LEVEL) DESC) AS RNUM
+            FROM PICKJOIN_TB PJ, USER_TB U
+            GROUP BY U.U_ID, U.U_LEVEL
+            ORDER BY MAX(U.U_LEVEL) DESC    )) U
+        ,
+ 		(SELECT PARTY_ID, U_ID, PARTY_TITLE, P_DATE
+		 FROM ( SELECT P.PARTY_TITLE AS PARTY_TITLE
+		        , PJ.U_ID AS U_ID
+		        , P.P_DATE AS P_DATE
+		        , P.PARTY_ID AS PARTY_ID,
+                ROW_NUMBER() OVER(ORDER BY P.PARTY_ID DESC) AS RNUM
 		         FROM PARTY_TB P, PICKJOIN_TB PJ
 		         WHERE 1=1
-		         <include refid="searchlist"></include>  		         
+		         <include refid="searchlist"></include>        
 		         AND P.PARTY_ID = PJ.PARTY_ID
 		         AND PJ.PARTY_HOST = 1
-                 GROUP BY P.PARTY_HIT, P.PARTY_ID
-                 ORDER BY MAX(P.PARTY_HIT) DESC
- )                
-WHERE RNUM = 1            
-
+		         ORDER BY RNUM ASC              )) P 
+ WHERE U.U_ID = P.U_ID
+ ORDER BY U_LEVEL DESC
+ )
+ WHERE ROWNUM = 1
 	</select>		
 	
-	
-	
+	   <!--pick, join한 목록조회 -->
+   <select id="pickjoinlist" resultType="int">
+      SELECT PARTY_ID
+      FROM   PICKJOIN_TB
+      WHERE  U_ID = #{u_id} AND PICK_FLAG = 1
+   </select>
+   
+   
 	
 	
 	<update id="update" parameterType="com.withme.vo.BoardVO">

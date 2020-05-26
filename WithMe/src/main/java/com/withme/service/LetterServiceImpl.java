@@ -25,4 +25,27 @@ public class LetterServiceImpl implements LetterService{
 	public void write(LetterVO letterVO) throws Exception {
 		dao.write(letterVO);
 	}
+
+	@Override
+	// letter의 l_id가져오기
+	public int getlid() throws Exception {
+		return dao.getlid();
+	}
+
+	@Override
+	//내가 보낸쪽지로 저장되기 위해
+	public void sendletter(LetterlistVO letterlistVO) throws Exception {
+		dao.sendletter(letterlistVO);
+	}
+	
+	//내가 보낸쪽지로 저장되기 위해
+	public void receiveletter(LetterlistVO letterlistVO) throws Exception {
+		dao.receiveletter(letterlistVO);
+	}
+
+	@Override
+	//쪽지 조회
+	public LetterlistVO readletter(LetterlistVO letterlistVO) throws Exception {
+		return dao.readletter(letterlistVO);
+	}
 }

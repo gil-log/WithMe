@@ -8,7 +8,6 @@
 
 
 
-
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/travelix/styles/bootstrap4/bootstrap.min.css">
 <link
@@ -143,8 +142,7 @@ a:visited {
 	right: 15px;
 }
 
-<!--
-상단바드롭다운 -->.dropdown-toggle::after {
+<!--상단바드롭다운 -->.dropdown-toggle::after {
 	margin-left: 0em;
 }
 
@@ -158,9 +156,13 @@ a:visited {
 </style>
 
 
+
+
+
+
 </head>
 <body>
-	<div id="root">
+
 		<header>
 			<h1>Party Matching</h1>
 		</header>
@@ -182,7 +184,7 @@ a:visited {
 
 		<div class="container">
 			<form class="form-inline my-2 my-lg-0">
-				<div class="form-group" style="left: 30%">
+				<div class="form-group" style="left: 30%; float:left;">
 					<select class="custom-select" name="searchType">
 						<option value="t"
 							<c:out value="${scri.searchType eq 't' ? 'selected' : ''}"/>>제목</option>
@@ -190,22 +192,32 @@ a:visited {
 							<c:out value="${scri.searchType eq 'c' ? 'selected' : ''}"/>>내용</option>
 						<option value="e"
 							<c:out value="${scri.searchType eq 'e' ? 'selected' : ''}"/>>지역</option>
-					</select> <input class="form-control mr-sm-2" type="text" name="keyword"
-						id="keywordInput" value="${scri.keyword}" placeholder="Search" />
-					<button class="btn btn-secondary my-2 my-sm-0" id="searchBtn"
-						type="button">검색</button>
-
-
-
+						</select>
 				</div>
 
 
+
+
+
+
+
+
+<div style= "left: 30%;float:left;">
+<input type="hidden" name="keyword" value="#keyInput" readonly="readonly"/>
+					<input class="form-control mr-sm-2" type="text" name="keywordInput"
+						id="keywordInput"  placeholder="Search" />
+						
+					<button class="btn btn-secondary my-2 my-sm-0" id="searchBtn"
+						type="button">검색</button>
+</div>
 			</form>
+			
+<!-- + $("select option:selected").val() -->
 			<script>
+
       $(function(){
         $('#searchBtn').click(function() {
-          self.location = "list" + '${pageMaker.makeQuery(1)}' + "&searchType=" + $("select option:selected").val() + "&keyword=" + encodeURIComponent($('#keywordInput').val())
-        		 + "&loc=" + ${loc}
+          self.location = "list" + '${pageMaker.makeQuery(1)}' + "&searchType=tce" + "&keyword=" + encodeURIComponent($('#keywordInput').val())
         });
       });   
     </script>
@@ -231,7 +243,7 @@ a:visited {
 					<div class="col-lg-2 milestone_col">
 						<div class="milestone text-center">
 							<div class="milestone_icon">
-								<a href="list?searchType=we&keyword=%EC%97%AC%ED%96%89&loc=${loc}"> <img
+								<a href="list?searchType=we&keyword=%EC%97%AC%ED%96%89"> <img
 									src="${pageContext.request.contextPath}/resources/travelix/images/milestone_1.png"
 									alt="">
 								</a>
@@ -245,7 +257,7 @@ a:visited {
 					<div class="col-lg-2 milestone_col">
 						<div class="milestone text-center">
 							<div class="milestone_icon">
-								<a href="list?searchType=we&keyword=%EB%A8%B9%EB%B0%A9&loc=${loc}"> <img
+								<a href="list?searchType=we&keyword=%EB%A8%B9%EB%B0%A9"> <img
 									id="hashtag_mukbang"
 									src="${pageContext.request.contextPath}/resources/travelix/images/milestone_2.png"
 									alt="">
@@ -260,7 +272,7 @@ a:visited {
 					<div class="col-lg-2 milestone_col">
 						<div class="milestone text-center">
 							<div class="milestone_icon">
-								<a href="list?searchType=we&keyword=%EC%98%A4%EB%9D%BD&loc=${loc}"> <img
+								<a href="list?searchType=we&keyword=%EC%98%A4%EB%9D%BD"> <img
 									id="hashtag_ohrak"
 									src="${pageContext.request.contextPath}/resources/travelix/images/acade.png"
 									alt="">
@@ -275,7 +287,7 @@ a:visited {
 					<div class="col-lg-2 milestone_col">
 						<div class="milestone text-center">
 							<div class="milestone_icon">
-								<a href="list?searchType=we&keyword=%ED%9E%90%EB%A7%81&loc=${loc}"> <img
+								<a href="list?searchType=we&keyword=%ED%9E%90%EB%A7%81"> <img
 									id="hashtag_healing"
 									src="${pageContext.request.contextPath}/resources/travelix/images/milestone_4.png"
 									alt="">
@@ -290,7 +302,7 @@ a:visited {
 					<div class="col-lg-2 milestone_col">
 						<div class="milestone text-center">
 							<div class="milestone_icon">
-								<a href="list?searchType=we&keyword=%EC%82%AC%EC%A7%84&loc=${loc}"> <img
+								<a href="list?searchType=we&keyword=%EC%82%AC%EC%A7%84"> <img
 									id="hashtag_photo"
 									src="${pageContext.request.contextPath}/resources/travelix/images/photo.png"
 									alt="">
@@ -305,7 +317,7 @@ a:visited {
 					<div class="col-lg-2 milestone_col">
 						<div class="milestone text-center">
 							<div class="milestone_icon">
-								<a href="list?searchType=we&keyword=%EB%B2%88%EA%B0%9C&loc=${loc}"> <img
+								<a href="list?searchType=we&keyword=%EB%B2%88%EA%B0%9C"> <img
 									id="hashtag_thunder"
 									src="${pageContext.request.contextPath}/resources/travelix/images/thunder.png"
 									alt="">
@@ -320,145 +332,178 @@ a:visited {
 
 
 			<form role="form" method="get">
-				<c:forEach items="${list}" var="list">
 
 
-		
-<c:set var="party_id" value="${list.party_id}"/>
+
 <c:set var="hot_id" value="${partyHot.party_id}"/>	
-<c:set var="insa_id" value="${partyInsa.party_id}"/>				
+<c:set var="insa_id" value="${partyInsa.party_id}"/>
+<!-- 오늘의 핫플 -->
+<c:if test="${partyHot != null}">
+					<div class="cards text-red bg-primary mb-5"
+						style="max-width: 50rem; margin: auto;">
+						<div class="card-header"></div>
+					
+						<div class="card-body">
+							<h4 class="card-title">
+								<a href="/party/readView?party_id=${partyHot.party_id}"
+									style="color: white;"> <c:out value="${partyHot.party_title}     오늘의 핫플!!" />
+								</a>
+							</h4>
+
+							<table>
+								<tr>
+									<td><img
+										src="${pageContext.request.contextPath}/resources/img/defaultuser.png"
+										style="background-color: transparent; border-color: transparent;"
+										width="100" height="100" /></td>
+									<td>
+										<p class="card-text" style="color: white;">
+
+											<fmt:formatDate value="${partyHot.p_date}" pattern="yyyy-MM-dd" />
+											<c:out value="${partyHot.u_id}" />
+										</p>
+									</td>
+									<td>
+									
+<!-- 자기가 만든파티에 pick하면 무결성 위배 -->
+            <div style = "display: flex; justify-content: flex-end;">
+                     
+                     <form method="get" action="/pick/pickinsert" >
+                      <input type="hidden" name = "party_id" value = "${partyHot.party_id}"  />
+                      <button type="submit" style="background-color:transparent;  border:0px transparent solid; text-align: center;" width="25" height="40">
+                          
+                          <c:set var="party_id" value = "${partyHot.party_id}"/>
+                            <c:set var="png_chk" value = ""/>
+                              
+                          <c:forEach items="${pickjoinlist}" var="pickjoinlist">
+                               <c:if test = "${party_id eq pickjoinlist}">
+                                 <img src="${pageContext.request.contextPath}/resources/img/fullheart.png" width="25" height="25"/>
+                                 <c:set var="png_chk" value = "픽이 되었다."/>
+                              </c:if>
+                           </c:forEach>
+                           
+                           <c:if test = "${png_chk eq ''}">
+                              <img src="${pageContext.request.contextPath}/resources/img/heart.png" width="25" height="25"/>
+                           </c:if>
+                           
+                        </button>
+                     </form>
+                 </div>
+
+									</td>
+
+								</tr>
+							</table>
+
+						</div>
+					</div>
+</c:if >
+
+<c:if test="${partyHot == null}">
+
+<div style="margin:auto; left:30%; "><h1> 검색 결과가 없어용 :( </h1></div>
+
+</c:if>
+<!-- 오늘의 인싸 -->
+
+<c:if test="${partyInsa != null}">
 <c:choose>
-<c:when test = "${party_id == hot_id}">
-
-					<div class="cards text-red bg-primary mb-5"
-						style="max-width: 50rem; margin: auto;">
-						<div class="card-header"></div>
-					
-						<div class="card-body">
-							<h4 class="card-title">
-								<a href="/party/readView?party_id=${list.party_id}"
-									style="color: white;"> <c:out value="${list.party_title}     오늘의 핫플!!" />
-								</a>
-							</h4>
-
-							<table>
-								<tr>
-									<td><img
-										src="${pageContext.request.contextPath}/resources/img/defaultuser.png"
-										style="background-color: transparent; border-color: transparent;"
-										width="100" height="100" /></td>
-									<td>
-										<p class="card-text" style="color: white;">
-
-											<fmt:formatDate value="${list.p_date}" pattern="yyyy-MM-dd" />
-											<c:out value="${list.u_id}" />
-										</p>
-									</td>
-									<td>
-										<div style="float: left;">
-											<!-- 자기가 만든파티에 pick하면 무결성 위배 -->
-
-											<form method="get" action="/pick/pickinsert">
-												<input type="hidden" name="party_id"
-													value="${list.party_id}" />
-												<button type="submit"
-													style="background-color: transparent; border: 0px transparent solid;">
-													<img
-														src="${pageContext.request.contextPath}/resources/img/heart.png"
-														width="50" height="50" />
-												</button>
-											</form>
-
-											<form method="get" action="/pick/joininsert">
-												<input type="hidden" name="party_id"
-													value="${list.party_id}" />
-												<button type="submit"
-													style="background-color: transparent; border: 0px transparent solid;">
-													<img
-														src="${pageContext.request.contextPath}/resources/img/join.png"
-														width="70" height="70" />
-												</button>
-											</form>
-
-										</div>
-									</td>
-
-								</tr>
-							</table>
-
-						</div>
-					</div>
-
+<c:when test = "${hot_id == insa_id}">
 </c:when>
-
-<c:when test = "${party_id == insa_id}">
-
-					<div class="cards text-red bg-primary mb-5"
-						style="max-width: 50rem; margin: auto;">
-						<div class="card-header"></div>
-					
-						<div class="card-body">
-							<h4 class="card-title">
-								<a href="/party/readView?party_id=${list.party_id}"
-									style="color: white;"> <c:out value="${list.party_title}     오늘의 핫플!!" />
-								</a>
-							</h4>
-
-							<table>
-								<tr>
-									<td><img
-										src="${pageContext.request.contextPath}/resources/img/defaultuser.png"
-										style="background-color: transparent; border-color: transparent;"
-										width="100" height="100" /></td>
-									<td>
-										<p class="card-text" style="color: white;">
-
-											<fmt:formatDate value="${list.p_date}" pattern="yyyy-MM-dd" />
-											<c:out value="${list.u_id}" />
-										</p>
-									</td>
-									<td>
-										<div style="float: left;">
-											<!-- 자기가 만든파티에 pick하면 무결성 위배 -->
-
-											<form method="get" action="/pick/pickinsert">
-												<input type="hidden" name="party_id"
-													value="${list.party_id}" />
-												<button type="submit"
-													style="background-color: transparent; border: 0px transparent solid;">
-													<img
-														src="${pageContext.request.contextPath}/resources/img/heart.png"
-														width="50" height="50" />
-												</button>
-											</form>
-
-											<form method="get" action="/pick/joininsert">
-												<input type="hidden" name="party_id"
-													value="${list.party_id}" />
-												<button type="submit"
-													style="background-color: transparent; border: 0px transparent solid;">
-													<img
-														src="${pageContext.request.contextPath}/resources/img/join.png"
-														width="70" height="70" />
-												</button>
-											</form>
-
-										</div>
-									</td>
-
-								</tr>
-							</table>
-
-						</div>
-					</div>
-
-</c:when>
-
-
-
-
 
 <c:otherwise>
+
+					<div class="cards text-red bg-primary mb-5"
+						style="max-width: 50rem; margin: auto;">
+						<div class="card-header"></div>
+					
+						<div class="card-body">
+							<h4 class="card-title">
+								<a href="/party/readView?party_id=${partyInsa.party_id}"
+									style="color: white;"> <c:out value="${partyInsa.party_title}     오늘의 인싸!!" />
+								</a>
+							</h4>
+
+							<table>
+								<tr>
+									<td><img
+										src="${pageContext.request.contextPath}/resources/img/defaultuser.png"
+										style="background-color: transparent; border-color: transparent;"
+										width="100" height="100" /></td>
+									<td>
+										<p class="card-text" style="color: white;">
+
+											<fmt:formatDate value="${partyInsa.p_date}" pattern="yyyy-MM-dd" />
+											<c:out value="${partyInsa.u_id}" />
+										</p>
+									</td>
+									<td>
+<!-- 자기가 만든파티에 pick하면 무결성 위배 -->
+            <div style = "display: flex; justify-content: flex-end;">
+                     
+                     <form method="get" action="/pick/pickinsert" >
+                      <input type="hidden" name = "party_id" value = "${partyInsa.party_id}"  />
+                      <button type="submit" style="background-color:transparent;  border:0px transparent solid; text-align: center;" width="25" height="40">
+                          
+                          <c:set var="party_id" value = "${partyInsa.party_id}"/>
+                            <c:set var="png_chk" value = ""/>
+                              
+                          <c:forEach items="${pickjoinlist}" var="pickjoinlist">
+                               <c:if test = "${party_id eq pickjoinlist}">
+                                 <img src="${pageContext.request.contextPath}/resources/img/fullheart.png" width="25" height="25"/>
+                                 <c:set var="png_chk" value = "픽이 되었다."/>
+                              </c:if>
+                           </c:forEach>
+                           
+                           <c:if test = "${png_chk eq ''}">
+                              <img src="${pageContext.request.contextPath}/resources/img/heart.png" width="25" height="25"/>
+                           </c:if>
+                           
+                        </button>
+                     </form>
+                 </div>
+
+									</td>
+
+								</tr>
+							</table>
+
+						</div>
+					</div>
+
+
+</c:otherwise>
+
+</c:choose>	
+
+</c:if>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<c:forEach items="${list}" var="list">
+	
+<c:set var="party_id" value="${list.party_id}"/>
+				
+<c:choose>
+<c:when test = "${party_id == hot_id}">
+</c:when>
+<c:when test = "${party_id == insa_id}">
+</c:when>
+<c:otherwise>
+
+
+
 
 				
 					<div class="cards text-white bg-primary mb-5"
@@ -496,31 +541,31 @@ a:visited {
 									</td>
 									<td>
 										<div style="float: left;">
-											<!-- 자기가 만든파티에 pick하면 무결성 위배 -->
+<!-- 자기가 만든파티에 pick하면 무결성 위배 -->
+            <div style = "display: flex; justify-content: flex-end;">
+                     
+                     <form method="get" action="/pick/pickinsert">
+                      <input type="hidden" name = "party_id" value = "${list.party_id}"  />
+                      <button type="submit" style="background-color:transparent;  border:0px transparent solid; text-align: center;" width="25" height="40">
+                          
+                          <c:set var="party_id" value = "${list.party_id}"/>
+                            <c:set var="png_chk" value = ""/>
+                              
+                          <c:forEach items="${pickjoinlist}" var="pickjoinlist">
+                               <c:if test = "${party_id eq pickjoinlist}">
+                                 <img src="${pageContext.request.contextPath}/resources/img/fullheart.png" width="25" height="25"/>
+                                 <c:set var="png_chk" value = "픽이 되었다."/>
+                              </c:if>
+                           </c:forEach>
+                           
+                           <c:if test = "${png_chk eq ''}">
+                              <img src="${pageContext.request.contextPath}/resources/img/heart.png" width="25" height="25"/>
+                           </c:if>
+                           
+                        </button>
+                     </form>
+                 </div>
 
-											<form method="get" action="/pick/pickinsert">
-												<input type="hidden" name="party_id"
-													value="${list.party_id}" />
-												<button type="submit"
-													style="background-color: transparent; border: 0px transparent solid;">
-													<img
-														src="${pageContext.request.contextPath}/resources/img/heart.png"
-														width="50" height="50" />
-												</button>
-											</form>
-
-											<form method="get" action="/pick/joininsert">
-												<input type="hidden" name="party_id"
-													value="${list.party_id}" />
-												<button type="submit"
-													style="background-color: transparent; border: 0px transparent solid;">
-													<img
-														src="${pageContext.request.contextPath}/resources/img/join.png"
-														width="70" height="70" />
-												</button>
-											</form>
-
-										</div>
 									</td>
 
 								</tr>

@@ -13,7 +13,7 @@
 			<hr />
 			 
 			<nav>
-			  홈
+				<%@include file="nav.jsp" %>
 			</nav>
 			<hr />
 			
@@ -21,6 +21,11 @@
 				<form role="form" method="post" action="/letter/letterwrite">
 					<table>
 						<tbody>
+							<tr>
+								<td>
+									<label for="u_id">받는 사람</label><input type="text" id="u_id" name="u_id" />
+								</td>
+							</tr>
 							<tr>
 								<td>
 									<label for="l_title">제목</label><input type="text" id="l_title" name="l_title" />
@@ -35,7 +40,7 @@
 						
 							<tr>
 								<td>						
-									<button onclick = "location.href='/letterlist';"> 취소</button> 
+									<button onclick = "location.href='../letterlist';"> 취소</button> 
 									<button type="submit">보내기</button>
 								</td>
 							</tr>
