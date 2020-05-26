@@ -32,4 +32,9 @@ public class UserServiceImpl implements UserService{
 	public UserVO userinfo(String u_id) throws Exception{
 		return dao.userinfo(u_id);
 	}
+	
+	@Override
+	public UserVO hostinfo(int party_id) throws Exception{
+		return dao.hostinfo(party_id);
+	}
 }

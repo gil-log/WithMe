@@ -16,4 +16,7 @@ public interface UserDAO {
 	
 	// 유저 정보 가져오기
 	public UserVO userinfo(String u_id) throws Exception;
+	
+	// 호스트 정보 가져오기
+	public UserVO hostinfo(int party_id) throws Exception;
 }

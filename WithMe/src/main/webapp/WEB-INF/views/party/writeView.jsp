@@ -106,8 +106,8 @@ p.info_content {
    <!-- 지도를 초기화할 때 size를 지정하지 않으면, 초기화 시점의 지도 DOM컨테이너의 크기로 지도 크기 설정
     이후 setSize 메서드를 이용해 지도 크기를 변경하기 전까지 지도 크기는 고정됨 -->
 
-   <div id="map" style="width: 50%; height: 55%; left:25%; top:20%;">
-      <div class="input-group">
+   <div id="map" style="width: 50%; height: 55%; left:25%; top:12%;">
+      <div class="input-group" style="width: 95%;top:8%;">
          <input id="address" name="address" type="text" placeholder="도로명 또는 지번주소" class="form-control" />
          <div class="input-group-append">
             <button id="searchBtn" type="button" class="btn btn-secondary btn-sm">검색</button>
@@ -147,7 +147,7 @@ p.info_content {
 
       /** 마커 시작*/
       var HOME_PATH = window.HOME_PATH || '.';
-      var cityhall = new naver.maps.LatLng(37.5666805, 126.9784147), map = new naver.maps.Map(
+      var cityhall = new naver.maps.LatLng(37.4856368, 126.8957799), map = new naver.maps.Map(
             'map', {
                center : cityhall,
                zoom : 15

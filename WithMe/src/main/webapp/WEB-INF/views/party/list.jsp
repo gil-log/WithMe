@@ -48,7 +48,7 @@
 <script type="text/javascript">
          $(document).ready(function(){
             $("#logoutBtn").on("click", function(){
-               location.href="member/logout";
+               location.href="../user/logout";
                })
             
             $("#registerBtn").on("click", function(){
@@ -161,6 +161,17 @@ border-color: transparent;
    display: contents;
 }
 
+.bg-hot{
+  background-color: #EA0000 !important;	
+}
+
+.bg-insa{
+  background-color: #EAC300 !important;	
+}
+
+
+
+
 <!--버튼 -->
 #myBtn {
   display: none;
@@ -267,7 +278,7 @@ border-color: transparent;
         <div class="modal-body">현재 세션을 종료하려면 아래에서 "로그아웃"을 선택하십시오.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="../user/logout">Logout</a>
+          <button class="btn btn-secondary" type="button" data-dismiss="modal" id="logoutBtn">Logout</button>
         </div>
       </div>
     </div>
@@ -425,15 +436,16 @@ border-color: transparent;
 <c:set var="insa_id" value="${partyInsa.party_id}"/>
 <!-- 오늘의 핫플 -->
 <c:if test="${partyHot != null}">
-               <div class="cards text-red bg-primary mb-5"
+               <div class="cards text-red bg-hot mb-5"
                   style="max-width: 50rem; margin: auto;">
                   <div class="card-header"></div>
                
                   <div class="card-body">
                      <h2 class="card-title">
+                     Hot Place!!
                      <br>
                         <a href="/party/readView?party_id=${partyHot.party_id}"
-                           style="color: white;"> <c:out value="${partyHot.party_title}              [오늘의 핫플!!]" />
+                           style="color: white;"> <c:out value="${partyHot.party_title}" />
                         </a>
                      </h2>
 
@@ -498,15 +510,17 @@ border-color: transparent;
 
 <c:otherwise>
 
-               <div class="cards text-red bg-primary mb-5"
+               <div class="cards text-red bg-insa mb-5"
                   style="max-width: 50rem; margin: auto;">
                   <div class="card-header"></div>
                
                   <div class="card-body">
                      <h2 class="card-title">
+                     Social King!!
                      <br>
                         <a href="/party/readView?party_id=${partyInsa.party_id}"
-                           style="color: white;"> <c:out value="${partyInsa.party_title}              [오늘의 인싸!!]" />
+                           style="color: white;"> <c:out value="${partyInsa.party_title}"/>
+
                         </a>
                      </h2>
 

@@ -37,4 +37,10 @@ public class UserDAOImpl implements UserDAO{
 	public UserVO userinfo(String u_id) throws Exception {
 		return sql.selectOne("userMapper.userInfo", u_id);
 	}
+	
+	// 호스트 정보 가져오기
+	@Override
+	public UserVO hostinfo(int party_id) throws Exception {
+		return sql.selectOne("userMapper.hostInfo", party_id);
+	}
 }
