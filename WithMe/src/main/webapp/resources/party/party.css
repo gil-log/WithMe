@@ -7143,8 +7143,27 @@ a.close.disabled {
 }
 
 .bg-primary {
-  background-color: #78C2AD !important;
+  background-image: url("images/overlay.png"), -moz-linear-gradient(45deg, #a28ede 15%, #fca9b3 85%);
+   background-image: url("images/overlay.png"), -webkit-linear-gradient(45deg, #a28ede 15%, #fca9b3 85%);
+   background-image: url("images/overlay.png"), -ms-linear-gradient(45deg, #a28ede 15%, #fca9b3 85%);
+   background-image: url("images/overlay.png"), -o-linear-gradient(45deg, #a28ede 15%, #fca9b3 85%);
+   background-image: url("images/overlay.png"), linear-gradient(45deg, #a28ede 15%, #fca9b3 85%);
+
+<!-- 오늘의 인싸 -->
+
+.bg-primaryinsa{
+  background-color: #E4E800 !important;	
 }
+
+.bg-primarysuda{
+  background-color: #0069DB !important;	
+}
+
+.bg-pimaryhot{
+  background-color: #EA0000 !important;	
+}
+
+
 
 a.bg-primary:hover, a.bg-primary:focus,
 button.bg-primary:hover,

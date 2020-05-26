@@ -29,4 +29,7 @@ public interface PartyService {
 	
 	// 파티 생성시의 party_id 가져오기 완전 불안정함
 	public int getpid() throws Exception;
+	
+	// 가장 핫한 파티 찾기
+	public PartyVO partyHot(SearchCriteria scri) throws Exception;
 }

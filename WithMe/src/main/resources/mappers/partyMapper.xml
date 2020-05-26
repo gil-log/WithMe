@@ -64,6 +64,7 @@
    
    	<select id="read" parameterType="int" resultType="com.withme.vo.PartyVO">
 		SELECT 	  PARTY_TITLE
+				, PARTY_ID
 	   			, P_DATE
 	   			, P_LOCATION
 	   			, P_LONG
@@ -116,7 +117,7 @@
 			<if test="searchType == 'c'.toString()">AND P.P_NOTE LIKE '%' || #{keyword} || '%'</if>
 			<if test="searchType == 'w'.toString()">AND P.HASHTAG LIKE '%' || #{keyword} || '%'</if>
 			<if test="searchType == 'e'.toString()">AND P.P_LOCATION LIKE '%' || #{keyword} || '%'</if>
-			<if test="searchType == 'we'.toString()">AND (P.P_LOCATION LIKE '%' || #{keyword} || '%') AND (P.PHASHTAG LIKE '%' || #{keyword} || '%')</if>
+			<if test="searchType == 'we'.toString()">AND (P.P_LOCATION LIKE '%' || #{location} || '%') AND (P.HASHTAG LIKE '%' || #{keyword} || '%')</if>
 		</if>
 	</sql>
    
@@ -146,13 +147,41 @@
     	WHERE PARTY_ID = #{PARTY_ID}
     </update>
 	
+	<!-- 가장 핫한 파티 id -->
+	<select id="partyHot" resultType="com.withme.vo.PartyVO" parameterType="com.withme.vo.SearchCriteria">
+SELECT PARTY_ID        
+FROM(       
+SELECT P.PARTY_HIT AS PARTY_HIT, P.PARTY_ID AS PARTY_ID,
+         ROW_NUMBER() OVER(ORDER BY MAX(P.PARTY_HIT) DESC) AS RNUM
+		         FROM PARTY_TB P, PICKJOIN_TB PJ
+		         WHERE 1=1
+		         <include refid="searchlist"></include>  		         
+		         AND P.PARTY_ID = PJ.PARTY_ID
+		         AND PJ.PARTY_HOST = 1
+                 GROUP BY P.PARTY_HIT, P.PARTY_ID
+                 ORDER BY MAX(P.PARTY_HIT) DESC
+ )                
+WHERE RNUM = 1            
+
+	</select>	
 	
-	
-	
-	
-	
-	
-	
+	<!-- 가장  레벨 높은 유저의 파티 id -->
+	<select id="partyInsa" resultType="com.withme.vo.PartyVO" parameterType="com.withme.vo.SearchCriteria">
+SELECT PARTY_ID        
+FROM(       
+SELECT P.PARTY_HIT AS PARTY_HIT, P.PARTY_ID AS PARTY_ID,
+         ROW_NUMBER() OVER(ORDER BY MAX(P.PARTY_HIT) DESC) AS RNUM
+		         FROM PARTY_TB P, PICKJOIN_TB PJ
+		         WHERE 1=1
+		         <include refid="searchlist"></include>  		         
+		         AND P.PARTY_ID = PJ.PARTY_ID
+		         AND PJ.PARTY_HOST = 1
+                 GROUP BY P.PARTY_HIT, P.PARTY_ID
+                 ORDER BY MAX(P.PARTY_HIT) DESC
+ )                
+WHERE RNUM = 1            
+
+	</select>		
 	
 	
 	

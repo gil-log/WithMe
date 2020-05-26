@@ -7,47 +7,49 @@
 	<!-- 댓글 조회 -->
 	<select id="readReply" resultType="com.withme.vo.ReplyVO">
     	SELECT
-    		  RNO, CONTENT, WRITER, REGDATE
-    	 FROM MP_REPLY
-    	WHERE BNO = #{bno}
+    		  C_ID, U_ID, PARTY_ID, C_MESSAGE, C_WARNING, REGDATE
+    	 FROM COMMENT_TB
+    	WHERE PARTY_ID = #{party_id}
 	</select>
 
 	<!-- 댓글 작성 -->
 	<insert id="writeReply">
-		INSERT INTO MP_REPLY(
-			BNO
-			, RNO
-			, CONTENT
-			, WRITER
+		INSERT INTO COMMENT_TB(
+			C_ID
+			, U_ID
+			, PARTY_ID
+			, C_MESSAGE
+			, C_WARNING
 		)
-		VALUES(    #{bno}
-			, MP_REPLY_SEQ.NEXTVAL
-			, #{content}
-			, #{writer}	)
+		VALUES(  COMMENT_TB_SEQ.NEXTVAL
+			, #{u_id}
+			, #{party_id}
+			, #{c_message}
+			, #{c_warning})
 		</insert>
 		
 		<!-- 댓글 수정 -->
 	<update id="updateReply" parameterType="com.withme.vo.ReplyVO">
-		UPDATE MP_REPLY SET CONTENT = #{content}
-		WHERE RNO = #{rno}
+		UPDATE COMMENT_TB SET C_MESSAGE = #{c_message}
+		WHERE C_ID = #{c_id}
 	</update>
 
 	<!-- 댓글 삭제 -->
 	<delete id="deleteReply" parameterType="com.withme.vo.ReplyVO">
-		DELETE FROM MP_REPLY
-		WHERE RNO = #{rno}
+		DELETE FROM COMMENT_TB
+		WHERE C_ID = #{c_id}  
 	</delete>
 	
 	<!-- 선택된 댓글 조회 -->
 	<select id="selectReply" resultType="com.withme.vo.ReplyVO">
 		SELECT
-				BNO
-			  , RNO
-			  , CONTENT
-			  , WRITER
+				PARTY_ID
+			  , C_ID
+			  , C_MESSAGE
+			  , U_ID
 			  , REGDATE
-		  FROM MP_REPLY
-		 WHERE RNO = #{rno}
+		  FROM COMMENT_TB
+		 WHERE C_ID = #{c_id}
 	</select>
 
 </mapper>
