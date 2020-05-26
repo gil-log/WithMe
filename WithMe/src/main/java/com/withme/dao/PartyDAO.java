@@ -41,4 +41,7 @@ public interface PartyDAO {
 	
 	// pick, join한 목록조회
 	public List<PickJoinListVO> pickjoinlist(PickJoinListVO pickjoinlistVO);
+	
+	// 마이페이지 일정 조회
+	public List<PartyVO> mylist(String userID) throws Exception;
 }
