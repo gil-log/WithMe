@@ -36,8 +36,7 @@
 
 <style>
 @import
-   url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css)
-   ;
+   url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css);
 
 body {
    font-family: 'NanumSquare', sans-serif;
@@ -85,18 +84,123 @@ p.info_content {
 </style>
    
 </head>
-<body>
 
-   <div id="map" style="width: 50%; height: 55%;"></div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		var formObj = $("form[name='readForm']");
+		
+		// 댓글 작성
+		$(".replyWriteBtn").on("click", function() {
+			var formObj = $("form[name='replyForm']");
+			formObj.attr("action", "/party/replyWrite");
+			formObj.submit();
+		});
+		
+		//댓글 수정 View
+		$(".replyUpdateBtn").on("click", function(){
+			location.href = "/party/replyUpdateView?party_id=${read.party_id}"
+							+ "&page=${scri.page}"
+							+ "&perPageNum=${scri.perPageNum}"
+							+ "&searchType=${scri.searchType}"
+							+ "&keyword=${scri.keyword}"
+							+ "&c_id="+$(this).attr("data-c_id");
+		});
+				
+		//댓글 삭제 View
+		$(".replyDeleteBtn").on("click", function(){
+			location.href = "/party/replyDeleteView?party_id=${read.party_id}"
+				+ "&page=${scri.page}"
+				+ "&perPageNum=${scri.perPageNum}"
+				+ "&searchType=${scri.searchType}"
+				+ "&keyword=${scri.keyword}"
+				+ "&c_id="+$(this).attr("data-c_id");
+		});
+	})
+</script>
+
+
+
+<body>
+		<div>
+			<%@include file="side.jsp"%>
+		</div> 
+
+
+
+   <div id="map" style="width: 50%; height: 55%; left:25%; top:10%;"></div>
+
+
+	<!------------------------------------ 댓글 -------------------------------->
+		
+	<div style="margin: 120px 0px 0px 300px; left:25%; top:20%;">
+		<form name="replyForm" method="post" class="form-horizontal">
+		    <input type="hidden" id="user_id" name="user_id" value="${loginID}">
+			<input type="hidden" id="party_id" name="party_id" value="${read.party_id}" /> 
+			<input type="hidden" id="page" name="page" value="${scri.page}"> 
+			<input type="hidden" id="perPageNum" name="perPageNum" value="${scri.perPageNum}"> 
+			<input type="hidden" id="searchType" name="searchType" value="${scri.searchType}">
+			<input type="hidden" id="keyword" name="keyword" value="${scri.keyword}">
+	
+			<div class="form-group">
+				<label for="c_message" class="col-sm-2 control-label">댓글내용</label>
+				<div class="col-sm-10">
+					<input type="text" id="c_message" name="c_message" class="form-control" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="button" class="replyWriteBtn btn btn-success">작성</button>
+				</div>
+			</div>
+		</form>
+		
+ <!-- 댓글 조회 -->
+		<div id="reply">
+			<ol class="replyList">
+				<c:forEach items="${replyList}" var="replyList">
+					<li>
+						<p>
+							작성자 : ${replyList.u_id}<br /> 
+							작성 날짜 : <fmt:formatDate value="${replyList.regdate}" pattern="yyyy-MM-dd" />
+						</p>
+						
+						<p>${replyList.c_message}</p>
+						
+						
+						<div>
+						<c:if test="${loginID == replyList.u_id}">
+  							<button type="button" class="replyUpdateBtn btn btn-warning" data-c_id="${replyList.c_id}">수정</button>
+  							<button type="button" class="replyDeleteBtn btn btn-danger" data-c_id="${replyList.c_id}">삭제</button>
+						</c:if>
+						</div>
+						
+							
+						
+					</li>
+				</c:forEach>
+			</ol>
+		</div>
+	</div>
+		<!-- 댓글 끝-------------------------------------------------------------------------------------- -->
+
 
    <script type="text/javascript">
-   var m=null;
-   var contentString=null;
-   <c:forEach items="${read}" var="read" >
+  
 
    /** 마커 위치 설정 코드*/
-   var m = new naver.maps.LatLng(${read.p_lati},${read.p_long});
-    
+   
+   var locc = new naver.maps.LatLng(${read.p_lati},${read.p_long}),
+      map = new naver.maps.Map('map', {
+       center: locc.destinationPoint(0, 500),
+       zoom: 15
+   }),
+   marker = new naver.maps.Marker({
+       map: map,
+       position: locc
+   });
+   
    /** 받아온 위치에 마커 찍기코드*/
    var contentString = [
           '<div class="iw_inner">',
@@ -104,28 +208,19 @@ p.info_content {
           '<table>',
 
           '<div class="iw_title">모집 상세 정보</div>',
-          '<tr><td><label for="party_title" style="font-weight: bold; ">제목&nbsp;&nbsp;</label><c:out value="${read.party_title}" /></td></tr>',
-          '<tr><td><label for="p_date" style="font-weight: bold;">날짜&nbsp;&nbsp;</label><c:out value="${read.p_date}" /></td></tr>',
-          '<tr><td><label for="p_num" style="font-weight: bold;">인원수&nbsp;&nbsp;</label><c:out value="${read.p_num}" /></td></tr>',
+          '<tr><td><label for="party_title" style="font-weight: bold; ">제목&nbsp;&nbsp;</label>${read.party_title}</td></tr>',
+          '<tr><td><label for="p_date" style="font-weight: bold;">날짜&nbsp;&nbsp;</label>${read.p_date}</td></tr>',
+          '<tr><td><label for="p_num" style="font-weight: bold;">인원수&nbsp;&nbsp;</label>${read.p_num}</td></tr>',
 
           '<tr><td><input type="hidden" id="p_long" name="p_long" /></td></tr>',
           '<tr><td><input type="hidden" id="p_lati" name="p_lati" /></td></tr>',
 
-          '<tr>',
-          ' <td>',
-          '   <label for="p_gender" style="font-weight: bold;">성별&nbsp;&nbsp;</label>',
-          '   <c:out value="${read.p_gender}" />',
-          ' </td>',
-          '</tr>',
-          '<tr><td><label for="p_cost" style="font-weight: bold;">예상비용&nbsp;&nbsp;</label><c:out value="${read.p_cost}" /></td></tr>',
-          '<tr><td><label for="p_note" style="font-weight: bold;">파티내용&nbsp;&nbsp;</label><c:out value="${read.p_note}" /></td></tr>',
-          '<tr><td><label for="p_location" style="font-weight: bold;">장소</label><c:out value="${read.p_location}" /></td></tr>',
+          '<tr><td><label for="p_gender" style="font-weight: bold;">성별&nbsp;&nbsp;</label>${read.p_gender}</td></tr>',
+          '<tr><td><label for="p_cost" style="font-weight: bold;">예상비용&nbsp;&nbsp;</label>${read.p_cost}</td></tr>',
+          '<tr><td><label for="p_note" style="font-weight: bold;">파티내용&nbsp;&nbsp;</label>${read.p_note}</td></tr>',
+          '<tr><td><label for="p_location" style="font-weight: bold;">장소</label>${read.p_location}</td></tr>',
          
-          '<tr>',
-          ' <td>',
-          '   <label for="hashtag" style="font-weight: bold;">해시태그&nbsp;&nbsp;</label><c:out value="${mypageList.hashtag}" />',
-          ' </td>',
-          '</tr>',
+          '<tr><td><label for="hashtag" style="font-weight: bold;">해시태그&nbsp;&nbsp;</label>${read.hashtag}</td></tr>',
           '<tr>',
           ' <td>',
           '<form method="get" action="/pick/joininsert" >',
@@ -136,24 +231,10 @@ p.info_content {
           '</tr>',
           '</table>',
           '</div>' ].join('\n');
-   </c:forEach>
-   var marker = new naver.maps.Marker({
-      map : map,
-      position : m,
-      zIndex : 100
-   });   
-    
-        
-   /** 지도 생성*/
-   var map = new naver.maps.Map('map', {
-      center : new naver.maps.LatLng(marker),
-      zoom : 10,
-      tileSize : new naver.maps.Size(50, 50)
-   });
-   
+
       
    /** 검색 주소 결과창 내용*/
-   var infoWindow = new naver.maps.InfoWindow({
+   var infowindow = new naver.maps.InfoWindow({
       content : contentString
    });
 
@@ -168,6 +249,7 @@ p.info_content {
       
 
 </script>
+
 
 
 </body>

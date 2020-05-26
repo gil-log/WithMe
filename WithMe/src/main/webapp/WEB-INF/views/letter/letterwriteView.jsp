@@ -12,9 +12,6 @@
 			</header>
 			<hr />
 			 
-			<nav>
-				<%@include file="nav.jsp" %>
-			</nav>
 			<hr />
 			
 			<section id="container">

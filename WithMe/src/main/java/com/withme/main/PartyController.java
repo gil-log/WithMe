@@ -46,18 +46,21 @@ public class PartyController {
 	
 	// 게시판 글 작성 화면
 	@RequestMapping(value = "/writeView", method = RequestMethod.GET)
-	public void writeView(HttpSession session) throws Exception{
+	public void writeView(HttpSession session, Model model) throws Exception{
 		logger.info("writeView");
 
 		UserVO userVO = (UserVO) session.getAttribute("user");
 		logger.info(userVO.getU_id());
+		
+	    model.addAttribute("userInfo", userVO);
+	    
 		//session.setAttribute("user", userVO);
 		//userservice.level(userVO);
 	}
 	
 	// 게시판 글 작성
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public void write(PartyVO partyVO, HttpSession session, HttpServletResponse response) throws Exception{
+	public void write(PartyVO partyVO, Model model, HttpSession session, HttpServletResponse response) throws Exception{
 		logger.info("write");
 		
 		service.write(partyVO);
@@ -75,6 +78,9 @@ public class PartyController {
 		partylistVO.setParty_id(pid);
 		
 		service.pjHost(partylistVO);
+		
+		
+
 		
         String url = (String)session.getAttribute("url");
         logger.info(url);
@@ -179,6 +185,9 @@ public class PartyController {
 
 		List<ReplyVO> replyList = replyService.readReply(partyVO.getParty_id());
 		model.addAttribute("replyList", replyList);
+		
+	    model.addAttribute("userInfo", userVO);
+		
 		
 		return "party/readView";
 	}

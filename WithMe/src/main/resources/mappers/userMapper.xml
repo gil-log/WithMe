@@ -12,7 +12,8 @@
 	   					       , AGE
 	   					       , PHONE_NUMBER
 	   					       , GENDER
-	   					       , U_LEVEL)
+	   					       , U_LEVEL
+	   					       , INTRO)
 	                  VALUES(    #{u_id} 
 	                 		   , #{name}
 	                 		   , #{email_address}
@@ -20,8 +21,25 @@
 	                 		   , #{age}
 	                 		   , #{phone_number}
 	                 		   , #{gender}
-	                 		   , 0)
+	                 		   , 0
+	                 		   , #{intro})
     </insert>
+
+   <select id="userInfo" resultType="com.withme.vo.UserVO">
+      SELECT U_ID 
+	   			, NAME 
+	   			, EMAIL_ADDRESS
+	   			, PASSWORD
+	   			, AGE
+	   			, PHONE_NUMBER
+	   			, GENDER
+	   			, U_LEVEL
+	   			, INTRO 
+      FROM USER_TB
+      WHERE U_ID = #{u_id}
+      
+   </select>
+
 
     <!-- 로그인 -->
 	<select id="login" resultType="com.withme.vo.UserVO">

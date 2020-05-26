@@ -31,4 +31,10 @@ public class UserDAOImpl implements UserDAO{
 	public void level(LevelVO levelVO) throws Exception {
 		sql.update("userMapper.level", levelVO);
 	}
+	
+	// 유저 정보 가져오기
+	@Override
+	public UserVO userinfo(String u_id) throws Exception {
+		return sql.selectOne("userMapper.userInfo", u_id);
+	}
 }

@@ -33,9 +33,15 @@ public class PickJoinServiceImpl implements PickJoinService{
       dao.joininsert(partylistVO);   
    }
 
-	@Override
-	public void pickdelete(PartylistVO partylistVO) throws Exception {
-	  dao.pickdelete(partylistVO);   
-		
-	}
+   @Override
+   public void pickdelete(PartylistVO partylistVO) throws Exception {
+     dao.pickdelete(partylistVO);   
+      
+   }
+
+   @Override
+   // 파티 호스트의 u_id를 가져오자
+   public PickJoinListVO getuid(int party_id) throws Exception {
+      return dao.getuid(party_id);
+   }
 }

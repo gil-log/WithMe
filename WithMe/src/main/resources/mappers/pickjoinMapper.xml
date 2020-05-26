@@ -32,19 +32,29 @@
    <!-- join 버튼 눌렀을 경우 -->
    <update id = "joininsert">
       UPDATE    PICKJOIN_TB
-      SET    	JOIN_FLAG = 1
-   			   ,PICK_FLAG = 0
-      WHERE   	U_ID = #{u_id}   
-      AND      	PARTY_ID = #{party_id}               
+      SET       JOIN_FLAG = 1
+               ,PICK_FLAG = 0
+      WHERE      U_ID = #{u_id}   
+      AND         PARTY_ID = #{party_id}               
    </update>
    
     <!-- 관심목록에서 버튼 눌렀을 경우 -->
    <delete id = "pickdelete">
       DELETE
-	  FROM  PICKJOIN_TB
-	  WHERE U_ID = #{u_id}
-	  AND   PARTY_ID = #{party_id}
-	  
+     FROM  PICKJOIN_TB
+     WHERE U_ID = #{u_id}
+     AND   PARTY_ID = #{party_id}
+     
    </delete>
    
+   
+   <!-- 파티 호스트의 정보불러오기 -->
+    <select id="getuid" resultType="com.withme.vo.PickJoinListVO">
+       SELECT PJ.U_ID, P.PARTY_TITLE 
+      FROM  PARTY_TB P, PICKJOIN_TB PJ
+      WHERE P.PARTY_ID = #{party_id}
+      AND   P.PARTY_ID = PJ.PARTY_ID
+      AND   PJ.PARTY_HOST = 1
+    </select>
+    
 </mapper>

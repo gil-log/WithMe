@@ -24,5 +24,8 @@ public interface PickJoinService {
    // 관심목록에서 pick버튼 누른경우
    public void pickdelete(PartylistVO partylistVO) throws Exception;
    
+   // 파티 호스트의 u_id를 가져오자
+   public PickJoinListVO getuid(int party_id) throws Exception;
+   
 
 }

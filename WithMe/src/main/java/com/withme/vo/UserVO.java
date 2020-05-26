@@ -13,6 +13,7 @@ public class UserVO {
 	private int u_level;
 	private int u_warning;
 	private String nickname;
+	private String intro;
 	
 	
 	public String getU_id() {
@@ -94,14 +95,20 @@ public class UserVO {
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
+	
+	public String getIntro() {
+		return intro;
+	}
 
+	public void setIntro(String intro) {
+		this.intro = intro;
+	}
 
 	@Override
 	public String toString() {
-		return "UserVO [u_id=" + u_id + ", name=" + name + ","
-				+ " email_address=" + email_address + ", "
-				+ "password = " + password + ", age=" + age + ","
-				+ "phone_number=" + phone_number + ", " + "gender=" + gender + ","
-				+ "u_level=" + u_level + ", " + " u_warning=" + u_warning + ", nickname=" + nickname + "]";
+		return "UserVO [u_id=" + u_id + ", name=" + name + ", email_address=" + email_address + ", password=" + password
+				+ ", age=" + age + ", phone_number=" + phone_number + ", gender=" + gender + ", u_level=" + u_level
+				+ ", u_warning=" + u_warning + ", nickname=" + nickname + ", intro=" + intro + "]";
 	}
+	
 }

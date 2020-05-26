@@ -87,7 +87,13 @@ p.info_content {
 </head>
 <body>
 
-   <div id="map" style="width: 50%; height: 55%;"></div>
+
+		<div>
+			<%@include file="side.jsp"%>
+		</div>
+
+
+   <div id="map" style="width: 50%; height: 55%; left:25%; top:20%;"></div>
 
    <script type="text/javascript">
       

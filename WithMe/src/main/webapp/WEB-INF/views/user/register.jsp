@@ -132,6 +132,12 @@
       <small id="emailHelp" class="form-text text-muted">Example과 같이 입력해 주세요.</small>
     </div>
     
+    <div class="form-group">
+    <label for="intro" style="font-weight: bold;">자기소개</label>
+    <textarea id="intro" name="intro" ></textarea>
+    </div>
+    
+    
     <button type="submit" name = "submit" id = "submit" class="btn btn-primary">회원가입</button>
     &nbsp;
 	<button type="button" id = "cancel" class="btn btn-danger">취소</button>
