@@ -17,7 +17,7 @@
 			var formObj = $("form[name='updateForm']");
 			
 			$(".cancel_btn").on("click", function(){
-				location.href = "/board/readView?bno=${replyDelete.bno}"
+				location.href = "/party/readView?party_id=${replyDelete.party_id}"
 					   + "&page=${scri.page}"
 					   + "&perPageNum=${scri.perPageNum}"
 					   + "&searchType=${scri.searchType}"
@@ -36,14 +36,14 @@
 			<hr />
 			 
 			<div>
-				<%@include file="nav.jsp" %>
+				<%-- <%@include file="/WEB-INF/views/navbar.jsp" %> --%>
 			</div>
 			<hr />
 			
 			<section id="container">
-				<form name="updateForm" role="form" method="post" action="/board/replyDelete">
-					<input type="hidden" name="bno" value="${replyDelete.bno}" readonly="readonly"/>
-					<input type="hidden" id="rno" name="rno" value="${replyDelete.rno}" />
+				<form name="updateForm" role="form" method="post" action="/party/replyDelete">
+					<input type="hidden" name="party_id" value="${replyDelete.party_id}" readonly="readonly"/>
+					<input type="hidden" id="c_id" name="c_id" value="${replyDelete.c_id}" />
 					<input type="hidden" id="page" name="page" value="${scri.page}"> 
 					<input type="hidden" id="perPageNum" name="perPageNum" value="${scri.perPageNum}"> 
 					<input type="hidden" id="searchType" name="searchType" value="${scri.searchType}"> 

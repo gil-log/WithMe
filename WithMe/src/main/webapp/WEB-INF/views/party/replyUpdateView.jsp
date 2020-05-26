@@ -17,7 +17,7 @@
 			var formObj = $("form[name='updateForm']");
 			
 			$(".cancel_btn").on("click", function(){
-				location.href = "/board/readView?bno=${replyUpdate.bno}"
+				location.href = "/party/readView?party_id=${replyUpdate.party_id}"
 					   + "&page=${scri.page}"
 					   + "&perPageNum=${scri.perPageNum}"
 					   + "&searchType=${scri.searchType}"
@@ -36,14 +36,14 @@
 			<hr />
 			 
 			<div>
-				<%@include file="nav.jsp" %>
+				<%-- <%@include file="/WEB-INF/views/navbar.jsp" %> --%>
 			</div>
 			<hr />
 			
 			<section id="container">
-				<form name="updateForm" role="form" method="post" action="/board/replyUpdate">
-					<input type="hidden" name="bno" value="${replyUpdate.bno}" readonly="readonly"/>
-					<input type="hidden" id="rno" name="rno" value="${replyUpdate.rno}" />
+				<form name="updateForm" role="form" method="post" action="/party/replyUpdate">
+					<input type="hidden" name="party_id" value="${replyUpdate.party_id}" readonly="readonly"/>
+					<input type="hidden" id="c_id" name="c_id" value="${replyUpdate.c_id}" />
 					<input type="hidden" id="page" name="page" value="${scri.page}"> 
 					<input type="hidden" id="perPageNum" name="perPageNum" value="${scri.perPageNum}"> 
 					<input type="hidden" id="searchType" name="searchType" value="${scri.searchType}"> 
@@ -52,7 +52,7 @@
 						<tbody>
 							<tr>
 								<td>
-									<label for="content">댓글 내용</label><input type="text" id="content" name="content" value="${replyUpdate.content}"/>
+									<label for="c_message">댓글 내용</label><input type="text" id="c_message" name="c_message" value="${replyUpdate.c_message}"/>
 								</td>
 							</tr>	
 							

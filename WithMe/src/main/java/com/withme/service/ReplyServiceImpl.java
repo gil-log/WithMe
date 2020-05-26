@@ -15,14 +15,14 @@ public class ReplyServiceImpl implements ReplyService{
 	
 	// 댓글 조회
 	@Override
-	public List<ReplyVO> readReply(int bno) throws Exception {
-		return dao.readReply(bno);
+	public List<ReplyVO> readReply(int party_id) throws Exception {
+		return dao.readReply(party_id);
 	}
 	
 	// 댓글 작성
 	@Override
 	public void writeReply(ReplyVO vo) throws Exception {
-		dao.writdReply(vo);
+		dao.writeReply(vo);
 	}
 
 	// 댓글 수정
@@ -39,7 +39,7 @@ public class ReplyServiceImpl implements ReplyService{
 	
 	// 선택된 댓글 조회
 	@Override
-	public ReplyVO selectReply(int rno) throws Exception {
-		return dao.selectReply(rno);
+	public ReplyVO selectReply(int c_id) throws Exception {
+		return dao.selectReply(c_id);
 	}
 }

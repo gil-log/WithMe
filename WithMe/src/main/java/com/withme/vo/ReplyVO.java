@@ -5,34 +5,43 @@ import java.util.Date;
 
 public class ReplyVO {
 
-	private int bno;
-	private int rno;
-	private String content;
-	private String writer;
+	private int c_id;
+	private String u_id;
+	private int party_id;
+	private String c_message;
+	private int c_warning;
 	private Date regdate;
-	public int getBno() {
-		return bno;
+	
+	
+	public int getC_id() {
+		return c_id;
 	}
-	public void setBno(int bno) {
-		this.bno = bno;
+	public void setC_id(int c_id) {
+		this.c_id = c_id;
 	}
-	public int getRno() {
-		return rno;
+	public String getU_id() {
+		return u_id;
 	}
-	public void setRno(int rno) {
-		this.rno = rno;
+	public void setU_id(String u_id) {
+		this.u_id = u_id;
 	}
-	public String getContent() {
-		return content;
+	public int getParty_id() {
+		return party_id;
 	}
-	public void setContent(String content) {
-		this.content = content;
+	public void setParty_id(int party_id) {
+		this.party_id = party_id;
 	}
-	public String getWriter() {
-		return writer;
+	public String getC_message() {
+		return c_message;
 	}
-	public void setWriter(String writer) {
-		this.writer = writer;
+	public void setC_message(String c_message) {
+		this.c_message = c_message;
+	}
+	public int getC_warning() {
+		return c_warning;
+	}
+	public void setC_warning(int c_warning) {
+		this.c_warning = c_warning;
 	}
 	public Date getRegdate() {
 		return regdate;
@@ -40,12 +49,11 @@ public class ReplyVO {
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
 	}
-	
 	@Override
 	public String toString() {
-		return "ReplyVO [bno=" + bno + ", rno=" + rno + ", content=" + content + ", writer=" + writer + ", regdate="
-				+ regdate + "]";
+		return "ReplyVO [c_id=" + c_id + ", u_id=" + u_id + ", party_id=" + party_id + ", c_message=" + c_message
+				+ ", c_warning=" + c_warning + ", regdate=" + regdate + "]";
 	}
 	
-	
+
 }

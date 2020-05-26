@@ -204,7 +204,8 @@ a:visited {
 			<script>
       $(function(){
         $('#searchBtn').click(function() {
-          self.location = "list" + '${pageMaker.makeQuery(1)}' + "&searchType=" + $("select option:selected").val() + "&keyword=" + encodeURIComponent($('#keywordInput').val());
+          self.location = "list" + '${pageMaker.makeQuery(1)}' + "&searchType=" + $("select option:selected").val() + "&keyword=" + encodeURIComponent($('#keywordInput').val())
+        		 + "&loc=" + ${loc}
         });
       });   
     </script>
@@ -230,7 +231,7 @@ a:visited {
 					<div class="col-lg-2 milestone_col">
 						<div class="milestone text-center">
 							<div class="milestone_icon">
-								<a href="list?searchType=w&keyword=%EC%97%AC%ED%96%89"> <img
+								<a href="list?searchType=we&keyword=%EC%97%AC%ED%96%89&loc=${loc}"> <img
 									src="${pageContext.request.contextPath}/resources/travelix/images/milestone_1.png"
 									alt="">
 								</a>
@@ -244,7 +245,7 @@ a:visited {
 					<div class="col-lg-2 milestone_col">
 						<div class="milestone text-center">
 							<div class="milestone_icon">
-								<a href="list?searchType=w&keyword=%EB%A8%B9%EB%B0%A9"> <img
+								<a href="list?searchType=we&keyword=%EB%A8%B9%EB%B0%A9&loc=${loc}"> <img
 									id="hashtag_mukbang"
 									src="${pageContext.request.contextPath}/resources/travelix/images/milestone_2.png"
 									alt="">
@@ -259,7 +260,7 @@ a:visited {
 					<div class="col-lg-2 milestone_col">
 						<div class="milestone text-center">
 							<div class="milestone_icon">
-								<a href="list?searchType=w&keyword=%EC%98%A4%EB%9D%BD"> <img
+								<a href="list?searchType=we&keyword=%EC%98%A4%EB%9D%BD&loc=${loc}"> <img
 									id="hashtag_ohrak"
 									src="${pageContext.request.contextPath}/resources/travelix/images/acade.png"
 									alt="">
@@ -274,7 +275,7 @@ a:visited {
 					<div class="col-lg-2 milestone_col">
 						<div class="milestone text-center">
 							<div class="milestone_icon">
-								<a href="list?searchType=w&keyword=%ED%9E%90%EB%A7%81"> <img
+								<a href="list?searchType=we&keyword=%ED%9E%90%EB%A7%81&loc=${loc}"> <img
 									id="hashtag_healing"
 									src="${pageContext.request.contextPath}/resources/travelix/images/milestone_4.png"
 									alt="">
@@ -289,7 +290,7 @@ a:visited {
 					<div class="col-lg-2 milestone_col">
 						<div class="milestone text-center">
 							<div class="milestone_icon">
-								<a href="list?searchType=w&keyword=%EC%82%AC%EC%A7%84"> <img
+								<a href="list?searchType=we&keyword=%EC%82%AC%EC%A7%84&loc=${loc}"> <img
 									id="hashtag_photo"
 									src="${pageContext.request.contextPath}/resources/travelix/images/photo.png"
 									alt="">
@@ -304,7 +305,7 @@ a:visited {
 					<div class="col-lg-2 milestone_col">
 						<div class="milestone text-center">
 							<div class="milestone_icon">
-								<a href="list?searchType=w&keyword=%EB%B2%88%EA%B0%9C"> <img
+								<a href="list?searchType=we&keyword=%EB%B2%88%EA%B0%9C&loc=${loc}"> <img
 									id="hashtag_thunder"
 									src="${pageContext.request.contextPath}/resources/travelix/images/thunder.png"
 									alt="">
@@ -320,15 +321,162 @@ a:visited {
 
 			<form role="form" method="get">
 				<c:forEach items="${list}" var="list">
+
+
+		
+<c:set var="party_id" value="${list.party_id}"/>
+<c:set var="hot_id" value="${partyHot.party_id}"/>	
+<c:set var="insa_id" value="${partyInsa.party_id}"/>				
+<c:choose>
+<c:when test = "${party_id == hot_id}">
+
+					<div class="cards text-red bg-primary mb-5"
+						style="max-width: 50rem; margin: auto;">
+						<div class="card-header"></div>
+					
+						<div class="card-body">
+							<h4 class="card-title">
+								<a href="/party/readView?party_id=${list.party_id}"
+									style="color: white;"> <c:out value="${list.party_title}     오늘의 핫플!!" />
+								</a>
+							</h4>
+
+							<table>
+								<tr>
+									<td><img
+										src="${pageContext.request.contextPath}/resources/img/defaultuser.png"
+										style="background-color: transparent; border-color: transparent;"
+										width="100" height="100" /></td>
+									<td>
+										<p class="card-text" style="color: white;">
+
+											<fmt:formatDate value="${list.p_date}" pattern="yyyy-MM-dd" />
+											<c:out value="${list.u_id}" />
+										</p>
+									</td>
+									<td>
+										<div style="float: left;">
+											<!-- 자기가 만든파티에 pick하면 무결성 위배 -->
+
+											<form method="get" action="/pick/pickinsert">
+												<input type="hidden" name="party_id"
+													value="${list.party_id}" />
+												<button type="submit"
+													style="background-color: transparent; border: 0px transparent solid;">
+													<img
+														src="${pageContext.request.contextPath}/resources/img/heart.png"
+														width="50" height="50" />
+												</button>
+											</form>
+
+											<form method="get" action="/pick/joininsert">
+												<input type="hidden" name="party_id"
+													value="${list.party_id}" />
+												<button type="submit"
+													style="background-color: transparent; border: 0px transparent solid;">
+													<img
+														src="${pageContext.request.contextPath}/resources/img/join.png"
+														width="70" height="70" />
+												</button>
+											</form>
+
+										</div>
+									</td>
+
+								</tr>
+							</table>
+
+						</div>
+					</div>
+
+</c:when>
+
+<c:when test = "${party_id == insa_id}">
+
+					<div class="cards text-red bg-primary mb-5"
+						style="max-width: 50rem; margin: auto;">
+						<div class="card-header"></div>
+					
+						<div class="card-body">
+							<h4 class="card-title">
+								<a href="/party/readView?party_id=${list.party_id}"
+									style="color: white;"> <c:out value="${list.party_title}     오늘의 핫플!!" />
+								</a>
+							</h4>
+
+							<table>
+								<tr>
+									<td><img
+										src="${pageContext.request.contextPath}/resources/img/defaultuser.png"
+										style="background-color: transparent; border-color: transparent;"
+										width="100" height="100" /></td>
+									<td>
+										<p class="card-text" style="color: white;">
+
+											<fmt:formatDate value="${list.p_date}" pattern="yyyy-MM-dd" />
+											<c:out value="${list.u_id}" />
+										</p>
+									</td>
+									<td>
+										<div style="float: left;">
+											<!-- 자기가 만든파티에 pick하면 무결성 위배 -->
+
+											<form method="get" action="/pick/pickinsert">
+												<input type="hidden" name="party_id"
+													value="${list.party_id}" />
+												<button type="submit"
+													style="background-color: transparent; border: 0px transparent solid;">
+													<img
+														src="${pageContext.request.contextPath}/resources/img/heart.png"
+														width="50" height="50" />
+												</button>
+											</form>
+
+											<form method="get" action="/pick/joininsert">
+												<input type="hidden" name="party_id"
+													value="${list.party_id}" />
+												<button type="submit"
+													style="background-color: transparent; border: 0px transparent solid;">
+													<img
+														src="${pageContext.request.contextPath}/resources/img/join.png"
+														width="70" height="70" />
+												</button>
+											</form>
+
+										</div>
+									</td>
+
+								</tr>
+							</table>
+
+						</div>
+					</div>
+
+</c:when>
+
+
+
+
+
+<c:otherwise>
+
+				
 					<div class="cards text-white bg-primary mb-5"
 						style="max-width: 50rem; margin: auto;">
 						<div class="card-header"></div>
+						
+						
+						
 						<div class="card-body">
 							<h4 class="card-title">
 								<a href="/party/readView?party_id=${list.party_id}"
 									style="color: white;"> <c:out value="${list.party_title}" />
 								</a>
 							</h4>
+
+
+
+
 
 							<table>
 								<tr>
@@ -383,6 +531,11 @@ a:visited {
 
 						</div>
 					</div>
+
+</c:otherwise>
+
+</c:choose>						
+					
 				</c:forEach>
 			</form>
 

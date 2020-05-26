@@ -13,13 +13,13 @@ public class ReplyDAOImpl implements ReplyDAO{
 	
 	// 댓글조회
 	@Override
-	public List<ReplyVO> readReply(int bno) throws Exception {
-		return sql.selectList("replyMapper.readReply", bno);
+	public List<ReplyVO> readReply(int party_id) throws Exception {
+		return sql.selectList("replyMapper.readReply", party_id);
 	}
 	
 	// 댓글작성
 	@Override
-	public void writdReply(ReplyVO vo) throws Exception {
+	public void writeReply(ReplyVO vo) throws Exception {
 		sql.insert("replyMapper.writeReply", vo);
 	}
 	
@@ -37,7 +37,7 @@ public class ReplyDAOImpl implements ReplyDAO{
 	
 	// 선택된 댓글 조회
 	@Override
-	public ReplyVO selectReply(int rno) throws Exception {
-		return sql.selectOne("replyMapper.selectReply", rno);
+	public ReplyVO selectReply(int c_id) throws Exception {
+		return sql.selectOne("replyMapper.selectReply", c_id);
 	}
 }

@@ -71,4 +71,10 @@ public class PartyDAOImpl implements PartyDAO{
 	public int getpid() throws Exception{
 		return sqlSession.selectOne("partyMapper.getpid");
 	}
+	
+	// 가장 핫한 파티 찾기
+	@Override
+	public PartyVO partyHot(SearchCriteria scri) throws Exception{
+		return sqlSession.selectOne("partyMapper.partyHot", scri);
+	}
 }

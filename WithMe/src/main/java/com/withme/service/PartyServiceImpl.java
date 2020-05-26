@@ -68,4 +68,10 @@ public class PartyServiceImpl implements PartyService{
 	public int getpid() throws Exception{
 		return dao.getpid();
 	}
+	
+	// 파티 생성시의 party_id 가져오기 완전 불안정함
+	@Override
+	public PartyVO partyHot(SearchCriteria scri) throws Exception{
+		return dao.partyHot(scri);
+	}
 }
