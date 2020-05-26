@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.withme.dao.PickJoinDAO;
+import com.withme.vo.PartylistVO;
 import com.withme.vo.PickJoinListVO;
 import com.withme.vo.PickJoinVO;
 
@@ -23,13 +24,18 @@ public class PickJoinServiceImpl implements PickJoinService{
    }
 
    @Override
-   public void pickinsert(int party_id) throws Exception {
-      dao.pickinsert(party_id);   
+   public void pickinsert(PartylistVO partylistVO) throws Exception {
+      dao.pickinsert(partylistVO);   
    }
 
    @Override
-   public void joininsert(int party_id) throws Exception {
-      dao.joininsert(party_id);   
-      
+   public void joininsert(PartylistVO partylistVO) throws Exception {
+      dao.joininsert(partylistVO);   
    }
+
+	@Override
+	public void pickdelete(PartylistVO partylistVO) throws Exception {
+	  dao.pickdelete(partylistVO);   
+		
+	}
 }

@@ -26,4 +26,28 @@ public class LetterDAOImpl implements LetterDAO{
 		
 	}
 
+	@Override
+	// letter의 l_id가져오기
+	public int getlid() throws Exception {
+		return sqlSession.selectOne("letterMapper.getlid");
+	}
+
+	@Override
+	//내가 보낸쪽지로 저장되기 위해
+	public void sendletter(LetterlistVO letterlistVO) throws Exception {
+		sqlSession.insert("letterMapper.sendletter", letterlistVO);
+	}
+	
+	//내가 보낸쪽지로 저장되기 위해
+	public void receiveletter(LetterlistVO letterlistVO) throws Exception {
+		sqlSession.insert("letterMapper.receiveletter", letterlistVO);
+	}
+
+	@Override
+	//쪽지 조회
+	public LetterlistVO readletter(LetterlistVO letterlistVO) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("letterMapper.readletter", letterlistVO);
+	}
+
 }

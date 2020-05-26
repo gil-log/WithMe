@@ -12,7 +12,7 @@
 	   					       , AGE
 	   					       , PHONE_NUMBER
 	   					       , GENDER
-	   					       , L_LEVEL)
+	   					       , U_LEVEL)
 	                  VALUES(    #{u_id} 
 	                 		   , #{name}
 	                 		   , #{email_address}

@@ -5,31 +5,89 @@
 <!-- fmt날짜 포맷 써주려면 요걸 써줘야됨 import 느낌 -->
 <html>
 	<head>
+			
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/travelix/styles/bootstrap4/bootstrap.min.css">
+	<link href="${pageContext.request.contextPath}/resources/travelix/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/travelix/styles/elements_styles.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/travelix/styles/elements_responsive.css">
 	
-		<!-- 합쳐지고 최소화된 최신 CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-		<!-- 부가적인 테마 -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+	<script src="${pageContext.request.contextPath}/resources/travelix/js/jquery-3.2.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/travelix/styles/bootstrap4/popper.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/travelix/styles/bootstrap4/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/travelix/plugins/greensock/TweenMax.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/travelix/plugins/greensock/TimelineMax.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/travelix/plugins/scrollmagic/ScrollMagic.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/travelix/plugins/greensock/animation.gsap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/travelix/plugins/greensock/ScrollToPlugin.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/travelix/plugins/progressbar/progressbar.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/travelix/plugins/jquery-circle-progress-1.2.2/circle-progress.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/travelix/plugins/parallax-js-master/parallax.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/travelix/js/elements_custom.js"></script>
+	
+	
+	<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/party/party.css">
+	<hr />
+		
+			<div>
+				<%@include file="nav.jsp" %>
+			</div>
+			
+		<hr />
 
-		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	 	<title>쪽지함</title>
-	 	<!-- 페이징 가로 정렬 -->
-	 	<style type="text/css">
-			li {list-style: none; float: left; padding: 6px;}
-		</style>
+	 	<script type="text/javascript">
+		$(document).ready(function(){
+	        <!--letter작성으로 가는 버튼-->
+            $("#letterwriteBtn").on("click", function(){
+	           location.href="../letter/letterwriteView";
+            	})
+			
+		});
+		</script>
 		
 	</head>
 	
 	<body>
 	<!-- 부트스트랩 -->
 		<div>
-			<ul>	
-				<li>
+			<ul style = "display: flex;">	
+				<li style = "background-color: gray">
+				
 					<h4>수신 쪽지 보관함</h4>
 					<hr/>
 					<c:forEach items="${letterlist}" var="letterlist">
-						<c:if test="${letterlist.SEND_FLAG == 0}">
-						<div class="card text-white bg-primary mb-5" style="max-width: 60rem; margin:auto;">
+						<c:if test="${letterlist.send_flag eq 0}">	
+						<div class="card text-white bg-primary mb-5" style="max-width: 20rem; margin:auto; ">
+							<div class="card-header"></div>
+							<div class="card-body">
+								<h4 class="card-title">
+									<!-- 쪽지 내용을 확인할 수 있도록 나와야겠지? -->
+									<a href="/letter/letterreadView?l_id=${letterlist.l_id}" style="color:white;">
+										<c:out value="${letterlist.l_title}" />
+									</a>
+								</h4>
+								<p class="card-text" style="color:white;">
+									<c:out value="${letterlist.l_date}"/>
+									<c:out value="${letterlist.sender_id}" />
+								</p>
+							</div>
+						</div>
+						</c:if>
+					</c:forEach>
+					
+				</li>
+				<li style = "background-color: gray">
+					<div style = "display: flex;">
+						<h4>발신 쪽지 보관함</h4>
+						<button id="letterwriteBtn" style="background-color:transparent;  border-color:transparent;">
+	            			<img src="${pageContext.request.contextPath}/resources/img/letter.png"
+	                			 style="background-color:transparent;  border-color:transparent;" width="30" height="25"/>
+	        			</button>
+					</div>
+					<hr/>
+						<c:forEach items="${letterlist}" var="letterlist">
+						<c:if test="${letterlist.send_flag eq 1}">	
+						<div class="card text-white bg-primary mb-5" style="max-width: 20rem; margin:auto;">
 							<div class="card-header"></div>
 							<div class="card-body">
 								<h4 class="card-title">
@@ -39,44 +97,8 @@
 									</a>
 								</h4>
 								<p class="card-text" style="color:white;">
-									<fmt:formatDate value="${picklist.p_date}" pattern="yyyy-MM-dd" />
-									<c:out value="${picklist.u_id}" />
-								</p>
-								<div>
-									<form method="get" action="/pick/pickinsert" >
-										<input type="hidden" name = "party_id" value = "${list.party_id}"/>
-										<button type="submit" style="background-color:transparent;  border:0px transparent solid;">
-											<img src="${pageContext.request.contextPath}/resources/img/heart.png" width="30" height="30"/>
-										</button>
-									</form>
-								
-								
-									<form method="get" action="/pick/joininsert" >
-										<input type="hidden" name = "party_id" value = "${list.party_id}"/>
-										<input type="submit" value = "join"/>
-									</form>
-								</div>
-							</div>
-						</div>
-						</c:if>
-					</c:forEach>
-				</li>
-				<li>
-					<h4>발신 쪽지 보관함</h4>
-					<hr/>
-					<c:forEach items="${picklist}" var="picklist">
-						<c:if test="${picklist.join_flag == 1}">
-						<div class="card text-white bg-primary mb-5" style="max-width: 60rem; margin:auto;">
-							<div class="card-header"></div>
-							<div class="card-body">
-								<h4 class="card-title">
-									<a href="/party/readView?party_id=${picklist.party_id}" style="color:white;">
-										<c:out value="${picklist.party_title}" />
-									</a>
-								</h4>
-								<p class="card-text" style="color:white;">
-									<fmt:formatDate value="${picklist.p_date}" pattern="yyyy-MM-dd" />
-									<c:out value="${picklist.u_id}" />
+									<c:out value="${letterlist.l_date}"/>
+									<c:out value="${letterlist.u_id}" />
 								</p>
 							</div>
 						</div>

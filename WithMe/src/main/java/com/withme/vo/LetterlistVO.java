@@ -8,10 +8,10 @@ public class LetterlistVO {
 	private int l_flag;
 	private String l_title;
 	private int send_flag;
-	private String sender_id; //발신자 표시를 위해 추가
+	private String l_date;
+	private String sender_id;
 
 	
-
 	public int getL_id() {
 		return l_id;
 	}
@@ -60,6 +60,14 @@ public class LetterlistVO {
 		this.send_flag = send_flag;
 	}
 	
+	public String getL_date() {
+		return l_date;
+	}
+
+	public void setL_date(String l_date) {
+		this.l_date = l_date;
+	}
+	
 	public String getSender_id() {
 		return sender_id;
 	}
@@ -69,8 +77,9 @@ public class LetterlistVO {
 	}
 	@Override
 	public String toString() {
-		return "LetterlistVO [l_id=" + l_id + ", u_id=" + u_id + ", l_message=" + l_message + "," + " l_flag=" + l_flag
-				+ ", l_title=" + l_title + ", send_flag" + send_flag + "]";
+		return "LetterlistVO [l_id=" + l_id + ", u_id=" + u_id + ", l_message=" + l_message + 
+				", l_flag=" + l_flag + ", l_title=" + l_title + ", send_flag=" + send_flag 
+				+ ", l_date" + l_date + ", sender_id" + sender_id + "]";
 	}
 
 }

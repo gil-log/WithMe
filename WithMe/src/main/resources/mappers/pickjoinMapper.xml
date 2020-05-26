@@ -8,20 +8,20 @@
    <select id="picklist" resultType="com.withme.vo.PickJoinListVO">
       SELECT P.PARTY_TITLE, PJ.U_ID, P.P_DATE, P.PARTY_ID, PJ.PICK_FLAG, PJ.JOIN_FLAG
       FROM PICKJOIN_TB PJ, PARTY_TB P
-      WHERE U_id = 'test1' 
+      WHERE U_id = #{u_id} 
       AND PJ.PARTY_ID = P.PARTY_ID
       ORDER BY P.PARTY_ID DESC
    </select>
    
    
    <!-- pick 버튼 눌렀을 경우 -->
-   <insert id = "pickinsert" parameterType="int">
+   <insert id = "pickinsert">
       INSERT INTO PICKJOIN_TB(   U_ID
                            ,PARTY_ID
                            ,PARTY_HOST
                            ,PICK_FLAG
                            ,JOIN_FLAG )
-               VALUES(         'test1'
+               VALUES(      #{u_id}
                            ,#{party_id}
                            ,0
                            ,1
@@ -30,12 +30,21 @@
    
    
    <!-- join 버튼 눌렀을 경우 -->
-   <update id = "joininsert" parameterType="int">
+   <update id = "joininsert">
       UPDATE    PICKJOIN_TB
-      SET    JOIN_FLAG = 1,
-            PICK_FLAG = 0
-      WHERE   U_ID = 'test1'   
-      AND      PARTY_ID = #{party_id}               
+      SET    	JOIN_FLAG = 1
+   			   ,PICK_FLAG = 0
+      WHERE   	U_ID = #{u_id}   
+      AND      	PARTY_ID = #{party_id}               
    </update>
+   
+    <!-- 관심목록에서 버튼 눌렀을 경우 -->
+   <delete id = "pickdelete">
+      DELETE
+	  FROM  PICKJOIN_TB
+	  WHERE U_ID = #{u_id}
+	  AND   PARTY_ID = #{party_id}
+	  
+   </delete>
    
 </mapper>

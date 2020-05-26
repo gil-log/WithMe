@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -25,6 +26,7 @@ import com.withme.vo.LevelVO;
 import com.withme.vo.PageMaker;
 import com.withme.vo.PartyVO;
 import com.withme.vo.PartylistVO;
+import com.withme.vo.PickJoinListVO;
 import com.withme.vo.ReplyVO;
 import com.withme.vo.SearchCriteria;
 import com.withme.vo.UserVO;
@@ -55,7 +57,7 @@ public class PartyController {
 	
 	// 게시판 글 작성
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String write(PartyVO partyVO, HttpSession session) throws Exception{
+	public void write(PartyVO partyVO, HttpSession session, HttpServletResponse response) throws Exception{
 		logger.info("write");
 		
 		service.write(partyVO);
@@ -74,47 +76,23 @@ public class PartyController {
 		
 		service.pjHost(partylistVO);
 		
-		return "redirect:/party/list";
+        String url = (String)session.getAttribute("url");
+        logger.info(url);
+        response.sendRedirect(url);
+        
 	}
+	
+
+	
+	
 	// 게시판 목록 조회
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(int loc, Model model, @ModelAttribute("scri") SearchCriteria scri, HttpSession session) throws Exception{
+	public String list(Model model, @ModelAttribute("scri") SearchCriteria scri, HttpSession session, PickJoinListVO pickjoinlistVO) throws Exception{
 		logger.info("list");
 		
 		String location = "";
-		switch(loc) {
-		case 1 : 
-			location = "서울";
-			model.addAttribute("loc", URLEncoder.encode("1", "UTF-8"));
-			break;
-		case 2 :
-			location = "경기";
-			model.addAttribute("loc", URLEncoder.encode("2", "UTF-8"));
-			break;
-		case 3 :
-			location = "강원";
-			model.addAttribute("loc", URLEncoder.encode("3", "UTF-8"));
-			break;
-		case 4 :
-			location = "충청";
-			model.addAttribute("loc", URLEncoder.encode("4", "UTF-8"));
-			break;
-		case 5 :
-			location = "전라";
-			model.addAttribute("loc", URLEncoder.encode("5", "UTF-8"));
-			break;
-		case 6 :
-			location = "경상";
-			model.addAttribute("loc", URLEncoder.encode("6", "UTF-8"));
-			break;
-		case 7 :
-			location = "제주";
-			model.addAttribute("loc", URLEncoder.encode("7", "UTF-8"));
-			break;
-		default :
-			break;
-		}
-		session.setAttribute("location", location);
+	
+		location = (String) session.getAttribute("location");
 		
 		logger.info(location);
 		
@@ -150,10 +128,19 @@ public class PartyController {
 	
 		scri.setLocation(location);
 		
+		
+		
+		
+		
+		
+		
 		model.addAttribute("list", service.list(scri));
 		
-		logger.info(Integer.toString(service.partyHot(scri).getParty_id()));
+		//logger.info(Integer.toString(service.partyHot(scri).getParty_id()));
 		model.addAttribute("partyHot", service.partyHot(scri));
+		
+		//logger.info(Integer.toString(service.partyInsa(scri).getParty_id()));
+		model.addAttribute("partyInsa", service.partyInsa(scri));
 		
 		
 		PageMaker pageMaker = new PageMaker();
@@ -162,6 +149,15 @@ public class PartyController {
 		
 		model.addAttribute("pageMaker", pageMaker);
 
+		UserVO user = (UserVO)session.getAttribute("user");
+	    String userID = user.getU_id();
+	    pickjoinlistVO.setU_id(userID);
+	       
+	    List<PickJoinListVO> pickjoinlist = service.pickjoinlist(pickjoinlistVO); 
+	    model.addAttribute("pickjoinlist", pickjoinlist);
+		
+		
+		
 		return "party/list";
 		
 	}
@@ -266,6 +262,24 @@ public class PartyController {
 
 			return "redirect:/party/readView";
 		}
+		
+		//pick, join의 아이콘을 나타내는 부분
+		   @RequestMapping(value = "/pickjoinlist", method = RequestMethod.GET)
+		    public void picklist(HttpSession session, PickJoinListVO pickjoinlistVO, Model model, HttpServletResponse response) throws Exception{
+		       logger.info("pickjoinlist");
+		       
+		       UserVO user = (UserVO)session.getAttribute("user");
+		       String userID = user.getU_id();
+		       pickjoinlistVO.setU_id(userID);
+		       
+		       List<PickJoinListVO> pickjoinlist = service.pickjoinlist(pickjoinlistVO); 
+		       model.addAttribute("pickjoinlist", pickjoinlist);
+
+		      String url = (String)session.getAttribute("url");
+		       logger.info(url);
+		       response.sendRedirect(url);
+		       
+		    }
 	
 	
 }

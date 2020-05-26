@@ -5,6 +5,7 @@ import java.util.List;
 import com.withme.vo.HashtagVO;
 import com.withme.vo.PartyVO;
 import com.withme.vo.PartylistVO;
+import com.withme.vo.PickJoinListVO;
 import com.withme.vo.SearchCriteria;
 
 public interface PartyService {
@@ -31,5 +32,11 @@ public interface PartyService {
 	public int getpid() throws Exception;
 	
 	// 가장 핫한 파티 찾기
-	public PartyVO partyHot(SearchCriteria scri) throws Exception;
+	public PartylistVO partyHot(SearchCriteria scri) throws Exception;
+	
+	// 가장 인싸인 파티 찾기
+	public PartylistVO partyInsa(SearchCriteria scri) throws Exception;
+	
+	// pick, join한 목록조회
+	public List<PickJoinListVO> pickjoinlist(PickJoinListVO pickjoinlistVO) throws Exception;
 }
