@@ -34,9 +34,15 @@ public class PickJoinDAOImpl implements PickJoinDAO{
       
    }
 
-	@Override
-	public void pickdelete(PartylistVO partylistVO) throws Exception {
-	  sqlSession.delete("pickjoinMapper.pickdelete", partylistVO);
-		
-	}
+   @Override
+   public void pickdelete(PartylistVO partylistVO) throws Exception {
+     sqlSession.delete("pickjoinMapper.pickdelete", partylistVO);
+      
+   }
+
+   @Override
+    // 파티 호스트의 u_id를 가져오자
+   public PickJoinListVO getuid(int party_id) throws Exception {
+      return sqlSession.selectOne("pickjoinMapper.getuid", party_id);
+   }
 }

@@ -35,12 +35,11 @@ public class MypageController {
       List<PartyVO> mypageList = service.mylist(userID); 
       
       model.addAttribute("mypageList", mypageList);
-
-     
+      
+      model.addAttribute("userInfo", userVO);
       
       return "mypage/mypage";
     
    }
-   
    
 }

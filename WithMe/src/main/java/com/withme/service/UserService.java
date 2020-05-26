@@ -10,4 +10,6 @@ public interface UserService {
 	public UserVO login(UserVO userVO) throws Exception;
 	
 	public void level(LevelVO levelVO) throws Exception;
+	
+	public UserVO userinfo(String u_id) throws Exception;
 }

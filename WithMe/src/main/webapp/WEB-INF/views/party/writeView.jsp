@@ -96,12 +96,17 @@ p.info_content {
 
 </head>
 <body>
+
+		<div>
+			<%@include file="side.jsp"%>
+		</div> 
+ 
    <!--navbar -->
 
    <!-- 지도를 초기화할 때 size를 지정하지 않으면, 초기화 시점의 지도 DOM컨테이너의 크기로 지도 크기 설정
     이후 setSize 메서드를 이용해 지도 크기를 변경하기 전까지 지도 크기는 고정됨 -->
 
-   <div id="map" style="width: 50%; height: 55%;">
+   <div id="map" style="width: 50%; height: 55%; left:25%; top:20%;">
       <div class="input-group">
          <input id="address" name="address" type="text" placeholder="도로명 또는 지번주소" class="form-control" />
          <div class="input-group-append">
@@ -261,12 +266,10 @@ p.info_content {
                      '   <select name = "hashtag">',
                      '     <option selected>#먹방</option>',
                      '     <option>#여행</option>',
-                     '     <option>#탐험</option>',
                      '     <option>#번개</option>',
                      '     <option>#힐링</option>',
                      '     <option>#사진</option>',
                      '     <option>#오락</option>',
-                     '     <option>#간술</option>',
                      '    </select>',
                      ' </td>',
                      '</tr>',

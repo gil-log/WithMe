@@ -13,4 +13,7 @@ public interface UserDAO {
 	
 	// 유저 레벨 경험치 상승
 	public void level(LevelVO levelVO) throws Exception;
+	
+	// 유저 정보 가져오기
+	public UserVO userinfo(String u_id) throws Exception;
 }

@@ -27,4 +27,9 @@ public class UserServiceImpl implements UserService{
 	public void level(LevelVO levelVO) throws Exception{
 		dao.level(levelVO);
 	}
+	
+	@Override
+	public UserVO userinfo(String u_id) throws Exception{
+		return dao.userinfo(u_id);
+	}
 }

@@ -35,9 +35,6 @@
 			</header>
 			<hr />
 			 
-			<div>
-				<%@include file="nav.jsp" %>
-			</div>
 			<hr />
 			
 			<section id="container">

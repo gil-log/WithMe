@@ -44,13 +44,17 @@ public class UserController {
 		logger.info("post login");
 		
 		HttpSession session = req.getSession();
-		UserVO login = service.login(vo);
+		UserVO loginchk = service.login(vo);
+		UserVO login = new UserVO();
 		
-		if(login == null) {
+		
+		if(loginchk == null) {
 			session.setAttribute("user", null);
 			rttr.addFlashAttribute("msg", false);
 		}else {
+			login = service.userinfo(loginchk.getU_id());
 			session.setAttribute("user", login);
+			logger.info(login.getU_id());
 		}
 		
 		return "user/loginform";
@@ -61,7 +65,7 @@ public class UserController {
 		
 		session.invalidate();
 		
-		return "redirect:/party/list";
+		return "/home";
 	}
 	
 	@RequestMapping(value = "/loginform", method = RequestMethod.GET)
