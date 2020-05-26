@@ -87,4 +87,11 @@ public class PartyServiceImpl implements PartyService{
 	public List<PickJoinListVO> pickjoinlist(PickJoinListVO pickjoinlistVO) throws Exception {
 	   return dao.pickjoinlist(pickjoinlistVO);
 	}
+	
+	// 게시물 목록 조회
+	@Override
+	public List<PartyVO> mylist(String userID) throws Exception {
+
+	   return dao.mylist(userID);
+	}
 }

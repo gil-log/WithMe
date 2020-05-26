@@ -91,4 +91,12 @@ public class PartyDAOImpl implements PartyDAO{
 	      // TODO Auto-generated method stub
 	    return sqlSession.selectList("partyMapper.pickjoinlist", pickjoinlistVO);
 	}
+	
+	// 마이페이지 일정 조회
+	@Override
+	public List<PartyVO> mylist(String userID) throws Exception {
+	      
+	   return sqlSession.selectList("partyMapper.mylist", userID);
+
+	}
 }

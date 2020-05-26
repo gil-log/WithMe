@@ -12,7 +12,7 @@
 <!--CSS -->
 <link rel="stylesheet"
    href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<title>마이페이지</title>
+<title>상세페이지</title>
 <!--  geocoder -->
 <script type="text/javascript"
    src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=o6yhaa7jc1&submodules=geocoder"></script>
@@ -90,11 +90,12 @@ p.info_content {
    <div id="map" style="width: 50%; height: 55%;"></div>
 
    <script type="text/javascript">
-   
-   <c:forEach items="${read}" var="read">
+   var m=null;
+   var contentString=null;
+   <c:forEach items="${read}" var="read" >
 
-    /** 마커 위치 설정 코드*/
-    marker = new naver.maps.LatLng(${read.p_lati},${read.p_long});
+   /** 마커 위치 설정 코드*/
+   var m = new naver.maps.LatLng(${read.p_lati},${read.p_long});
     
    /** 받아온 위치에 마커 찍기코드*/
    var contentString = [
@@ -118,25 +119,27 @@ p.info_content {
           '</tr>',
           '<tr><td><label for="p_cost" style="font-weight: bold;">예상비용&nbsp;&nbsp;</label><c:out value="${read.p_cost}" /></td></tr>',
           '<tr><td><label for="p_note" style="font-weight: bold;">파티내용&nbsp;&nbsp;</label><c:out value="${read.p_note}" /></td></tr>',
-          '<td><label for="p_location" style="font-weight: bold;">장소</label><c:out value="${read.p_location}" /></td>',
+          '<tr><td><label for="p_location" style="font-weight: bold;">장소</label><c:out value="${read.p_location}" /></td></tr>',
          
           '<tr>',
           ' <td>',
           '   <label for="hashtag" style="font-weight: bold;">해시태그&nbsp;&nbsp;</label><c:out value="${mypageList.hashtag}" />',
-
+          ' </td>',
+          '</tr>',
           '<tr>',
           ' <td>',
           '<form method="get" action="/pick/joininsert" >',
-          '<input type="hidden" name = "party_id" value = "${read.party_id}"/>',
+          '   <input type="hidden" name = "party_id" value = "${read.party_id}"/>',
           '   <button type="submit" class="btn btn-outline-info" id="apply_party">신청하기</button>',
           '</form>',
-          ' </td>', '</tr>',
-
-          '</table>', '</div>' ].join('\n');
+          ' </td>', 
+          '</tr>',
+          '</table>',
+          '</div>' ].join('\n');
    </c:forEach>
    var marker = new naver.maps.Marker({
       map : map,
-      position : marker,
+      position : m,
       zIndex : 100
    });   
     
@@ -164,11 +167,8 @@ p.info_content {
    });
       
 
-   </script>
+</script>
 
-
-</body>
-</html>
 
 </body>
 </html>
