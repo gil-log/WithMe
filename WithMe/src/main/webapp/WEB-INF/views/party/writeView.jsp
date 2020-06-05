@@ -27,8 +27,7 @@
 
 <style>
 @import
-   url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css)
-   ;
+   url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css);
 
 body {
    font-family: 'NanumSquare', sans-serif;
@@ -123,15 +122,19 @@ p.info_content {
       /** item.address담는 전역변수*/
       var pointx, pointy;
       /** 위도 경도 담는 전역변수*/
-
+      var addr;
+      //++ 전역변수로 address 던져주려고 만들었음
+      
+      
       /** 지도 생성*/
       var map = new naver.maps.Map("map", {
-         center : new naver.maps.LatLng(37.3595316, 127.1052133),
-         /**처음 잡아주는 값*/
+         center : new naver.maps.LatLng(37.4856368, 126.8957799),
+         /** 처음 잡아주는 값*/
          zoom : 10,
          tileSize : new naver.maps.Size(50, 50)
 
       });
+      
 
       /** infoWindow생성  */
       var infoWindow = new naver.maps.InfoWindow({
@@ -145,6 +148,13 @@ p.info_content {
       });
       map.setCursor('pointer');
 
+
+      
+      
+      
+      
+      
+      
       /** 마커 시작*/
       var HOME_PATH = window.HOME_PATH || '.';
       var cityhall = new naver.maps.LatLng(37.4856368, 126.8957799), map = new naver.maps.Map(
@@ -152,11 +162,74 @@ p.info_content {
                center : cityhall,
                zoom : 15
             }), marker = new naver.maps.Marker({
-         map : map,
-         position : cityhall
-      });
+                position: cityhall,
+                map: map,
+                icon: {
+                    url: '${pageContext.request.contextPath}/resources/img/question.png',
+                    size: new naver.maps.Size(50, 52),
+                    origin: new naver.maps.Point(0, 0),
+                    anchor: new naver.maps.Point(25, 26)
+                }
+            });
       /** 마커 끝*/
 
+		//++ 클릭시에도 파티 작성 위해서 시작    
+      function searchCoordinateToAddress(latlng) {
+
+    	    infoWindow.close();
+
+    	    naver.maps.Service.reverseGeocode({
+    	        coords: latlng,
+    	        orders: [
+    	            naver.maps.Service.OrderType.ADDR,
+    	            naver.maps.Service.OrderType.ROAD_ADDR
+    	        ].join(',')
+    	    }, function(status, response) {
+    	        if (status === naver.maps.Service.Status.ERROR) {
+    	            return alert('Something Wrong!');
+    	        }
+
+    	        var items = response.v2.results,
+    	            address = '',
+    	            htmlAddresses = [];
+
+    	        for (var i=0, ii=items.length, item, addrType; i<ii; i++) {
+    	            item = items[i];
+    	            address = makeAddress(item) || '';
+    	            addrType = item.name === 'roadaddr' ? '[도로명 주소]' : '[지번 주소]';
+
+    	            htmlAddresses.push((i+1) +'. '+ addrType +' '+ address);
+    	        }
+        
+    	        
+    	        // ++ 전역변수 저장하려고 해주는 부분
+    	        addr = address;
+
+    	        // ++ 클릭시에도 pointx, y에 위도 경도 저장
+    	        point = latlng;
+    	        pointx = latlng.lng();
+                pointy = latlng.lat();
+    	        
+       
+    	        infoWindow.setContent([
+                    '<div class="iw_inner">',
+                    '   <div class="iw_title">장소: '
+                          + address + '</div>',
+                    '      <div class="iw_content">',
+                    search_location,
+
+                    '      </div>',
+                    '</div>',
+                    '<div class="apply_bt">',
+                    '<button onclick="closeWin()" class="btn btn-outline-info" id="select_party">닫기</button>',
+                    '<button onclick="inputFormPopup()" class="btn btn-outline-info" id="select_party">작성하기</button>',
+                    '</div>' ].join('\n'))
+ 
+    	        infoWindow.open(map, latlng);
+    	    });
+    	}
+		//++ 클릭시에도 파티 작성 위해서 끝
+      
       /** 일치하는 주소 반환(결과)*/
       function searchAddressToCoordinate(address) {
          naver.maps.Service
@@ -193,7 +266,13 @@ p.info_content {
                            htmlAddresses.push('[지번 주소] '
                                  + item.jibunAddress);
                         }
-
+                        
+                        
+   
+            	        // ++ 전역변수 저장하려고 해주는 부분
+            	        addr = search_location;
+                        
+                        
                         /** party입력 창 */
                         contentString = infoWindow
                               .setContent([
@@ -238,8 +317,8 @@ p.info_content {
                      '<tr><td><label for="p_date" style="font-weight: bold;">날짜&nbsp;&nbsp;</label><input type="date" id="p_date" name="p_date" /></td></tr>',
                      '<tr><td><label for="p_num" style="font-weight: bold;">인원수&nbsp;&nbsp;</label><input type="number" id="p_num" name="p_num" /></td></tr>',
                      '<tr><td><input type="hidden" id="p_location" name="p_location"/></td></tr>',
-                     '<tr><td><input type="hidden" id="p_long" name="p_long" /></td></tr>',
-                     '<tr><td><input type="hidden" id="p_lati" name="p_lati" /></td></tr>',
+                     '<tr><td><input type="" id="p_long" name="p_long" /></td></tr>',
+                     '<tr><td><input type="" id="p_lati" name="p_lati" /></td></tr>',
 
                      '<tr>',
                      ' <td>',
@@ -254,7 +333,7 @@ p.info_content {
                      '<tr><td><label for="p_cost" style="font-weight: bold;">예상비용&nbsp;&nbsp;</label><input type="number" id="p_cost" name="p_cost" /></td></tr>',
                      '<tr><td><label for="p_note" style="font-weight: bold;">파티내용&nbsp;&nbsp;</label><textarea id="p_note" name="p_note" ></textarea></td></tr>',
                      '<tr><td><label for="p_location" style="font-weight: bold;">장소&nbsp;&nbsp;</label>'
-                           + search_location,
+                           + addr,
 
                      '</td></tr>',
                      '<br />',
@@ -281,7 +360,7 @@ p.info_content {
 
                      '</table>', '</form>', '</div>' ].join('\n'));
 
-         document.getElementById("p_location").value= search_location;
+         document.getElementById("p_location").value= addr;
          document.getElementById("p_long").value= pointx;
          document.getElementById("p_lati").value= pointy;
          map.setCenter(point);
@@ -316,8 +395,98 @@ p.info_content {
 
       }/** initGeocoder() */
 
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      //++ searchCoorinateToAddress 위해서 시작
+      function makeAddress(item) {
+    	    if (!item) {
+    	        return;
+    	    }
+
+    	    var name = item.name,
+    	        region = item.region,
+    	        land = item.land,
+    	        isRoadAddress = name === 'roadaddr';
+
+    	    var sido = '', sigugun = '', dongmyun = '', ri = '', rest = '';
+
+    	    if (hasArea(region.area1)) {
+    	        sido = region.area1.name;
+    	    }
+
+    	    if (hasArea(region.area2)) {
+    	        sigugun = region.area2.name;
+    	    }
+
+    	    if (hasArea(region.area3)) {
+    	        dongmyun = region.area3.name;
+    	    }
+
+    	    if (hasArea(region.area4)) {
+    	        ri = region.area4.name;
+    	    }
+
+    	    if (land) {
+    	        if (hasData(land.number1)) {
+    	            if (hasData(land.type) && land.type === '2') {
+    	                rest += '산';
+    	            }
+
+    	            rest += land.number1;
+
+    	            if (hasData(land.number2)) {
+    	                rest += ('-' + land.number2);
+    	            }
+    	        }
+
+    	        if (isRoadAddress === true) {
+    	            if (checkLastString(dongmyun, '면')) {
+    	                ri = land.name;
+    	            } else {
+    	                dongmyun = land.name;
+    	                ri = '';
+    	            }
+
+    	            if (hasAddition(land.addition0)) {
+    	                rest += ' ' + land.addition0.value;
+    	            }
+    	        }
+    	    }
+
+    	    return [sido, sigugun, dongmyun, ri, rest].join(' ');
+    	}
+
+    	function hasArea(area) {
+    	    return !!(area && area.name && area.name !== '');
+    	}
+
+    	function hasData(data) {
+    	    return !!(data && data !== '');
+    	}
+
+    	function checkLastString (word, lastString) {
+    	    return new RegExp(lastString + '$').test(word);
+    	}
+
+    	function hasAddition (addition) {
+    	    return !!(addition && addition.value);
+    	}
+    	//++ searchCoorinateToAddress 위해서 끝
+      
+
       naver.maps.onJSContentLoaded = initGeocoder;
       naver.maps.Event.once(map, 'init_stylemap', initGeocoder);
+      
+
+      
    </script>
 
    <script
