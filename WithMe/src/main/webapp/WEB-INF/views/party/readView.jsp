@@ -188,17 +188,43 @@ p.info_content {
 
    <script type="text/javascript">
   
+   
+   //++ 마커 이미지 해쉬태그에 맞게 바꿔주는 부분
+   var hashtagurl = '';
+   var hashtag = '${read.hashtag}';
+   switch(hashtag){
+   case '#여행' : 
+	   hashtagurl = 'travel.png'; break;
+   case '#먹방' : 
+	   hashtagurl = 'mukbang.png'; break;
+   case '#오락' : 
+	   hashtagurl = 'acade.png'; break;
+   case '#힐링' : 
+	   hashtagurl = 'healing.png'; break;
+   case '#사진' : 
+	   hashtagurl = 'photo.png'; break;
+   case '#번개' : 
+	   hashtagurl = 'thunder.png'; break;
+   default : 
+	   hashtagurl = 'question.png'; break;
+   }
 
    /** 마커 위치 설정 코드*/
-   
+   //++ 마커 이미지 해쉬태그에 맞게 뜨게됨
    var locc = new naver.maps.LatLng(${read.p_lati},${read.p_long}),
       map = new naver.maps.Map('map', {
        center: locc.destinationPoint(0, 500),
        zoom: 15
    }),
    marker = new naver.maps.Marker({
+       position: locc,
        map: map,
-       position: locc
+       icon: {
+    	   url: '${pageContext.request.contextPath}/resources/img/' + hashtagurl,
+           size: new naver.maps.Size(50, 52),
+           origin: new naver.maps.Point(0, 0),
+           anchor: new naver.maps.Point(25, 26)
+       }
    });
    
    /** 받아온 위치에 마커 찍기코드*/

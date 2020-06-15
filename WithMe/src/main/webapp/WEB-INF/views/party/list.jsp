@@ -196,6 +196,81 @@ border-color: transparent;
 .container{
    padding-top: 100px}
 
+
+
+
+
+
+/* ++ 토글바 css */
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+/* ++ 토글바 css 끝 */
+
+
+
+
+
+
+
 </style>
 
 
@@ -205,6 +280,23 @@ border-color: transparent;
 <!-- 여기 상단바 -->
 <nav class="navbar navbar-light bg-light border-bottom fixed-top">
    <b><a href="/main"><font size="6rem" color="white" face= "NanumSquare">With ME?</font></a></b>
+
+
+
+
+
+<!-- ++ 지도 list, 카드 list 토글 -->
+<label class="switch">
+  <input type="checkbox" checked>
+  <span class="slider round"></span>
+</label>
+
+
+
+
+
+
+
 
    <!-- Nav Item - User Information -->
    <div class="btn-group">
@@ -341,7 +433,7 @@ border-color: transparent;
                   <div class="milestone text-center">
                      <div class="milestone_icon">
                         <a href="list?searchType=we&keyword=%EC%97%AC%ED%96%89"> <img
-                           src="${pageContext.request.contextPath}/resources/travelix/images/milestone_1.png"
+                           src="${pageContext.request.contextPath}/resources/img/travel.png"
                            alt="">
                         </a>
                      </div>
@@ -356,7 +448,7 @@ border-color: transparent;
                      <div class="milestone_icon">
                         <a href="list?searchType=we&keyword=%EB%A8%B9%EB%B0%A9"> <img
                            id="hashtag_mukbang"
-                           src="${pageContext.request.contextPath}/resources/travelix/images/milestone_2.png"
+                           src="${pageContext.request.contextPath}/resources/img/mukbang.png"
                            alt="">
                      </div>
                      </a>
@@ -371,7 +463,7 @@ border-color: transparent;
                      <div class="milestone_icon">
                         <a href="list?searchType=we&keyword=%EC%98%A4%EB%9D%BD"> <img
                            id="hashtag_ohrak"
-                           src="${pageContext.request.contextPath}/resources/travelix/images/acade.png"
+                           src="${pageContext.request.contextPath}/resources/img/acade.png"
                            alt="">
                         </a>
                      </div>
@@ -386,7 +478,7 @@ border-color: transparent;
                      <div class="milestone_icon">
                         <a href="list?searchType=we&keyword=%ED%9E%90%EB%A7%81"> <img
                            id="hashtag_healing"
-                           src="${pageContext.request.contextPath}/resources/travelix/images/milestone_4.png"
+                           src="${pageContext.request.contextPath}/resources/img/healing.png"
                            alt="">
                         </a>
                      </div>
@@ -401,7 +493,7 @@ border-color: transparent;
                      <div class="milestone_icon">
                         <a href="list?searchType=we&keyword=%EC%82%AC%EC%A7%84"> <img
                            id="hashtag_photo"
-                           src="${pageContext.request.contextPath}/resources/travelix/images/photo.png"
+                           src="${pageContext.request.contextPath}/resources/img/photo.png"
                            alt="">
                         </a>
                      </div>
@@ -416,7 +508,7 @@ border-color: transparent;
                      <div class="milestone_icon">
                         <a href="list?searchType=we&keyword=%EB%B2%88%EA%B0%9C"> <img
                            id="hashtag_thunder"
-                           src="${pageContext.request.contextPath}/resources/travelix/images/thunder.png"
+                           src="${pageContext.request.contextPath}/resources/img/thunder.png"
                            alt="">
                         </a>
                      </div>

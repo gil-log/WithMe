@@ -102,21 +102,57 @@ p.info_content {
     var m = new Array();
     var contentString = new Array();
     
-  
+    //++ 마이페이지 초반에 맵 zoom값 7일때 중앙값
+    var mapcenter = new naver.maps.LatLng(35.918183, 127.8803866);
+    
+    //++ 해쉬태그 별 마커 이미지 부분
+    var hashtag = new Array();
+    var whathash = '';
+    
+    
+    
     /** 마커 위치 설정 코드*/
     <c:set var="i" value="0" />
     
     <c:forEach items="${mypageList}" var="mypageList">
         m[${i}] = new naver.maps.LatLng(${mypageList.p_lati},${mypageList.p_long});
+        
+        
+        //++ 해쉬태그 별 마커 이미지 부분
+        whathash = '${mypageList.hashtag}';
+        
+        switch(whathash){
+        case '#여행' : 
+        	hashtag[${i}] = 'travel.png'; break;
+        case '#먹방' : 
+        	hashtag[${i}] = 'mukbang.png'; break;
+        case '#오락' : 
+        	hashtag[${i}] = 'acade.png'; break;
+        case '#힐링' : 
+        	hashtag[${i}] = 'healing.png'; break;
+        case '#사진' : 
+        	hashtag[${i}] = 'photo.png'; break;
+        case '#번개' : 
+        	hashtag[${i}] = 'thunder.png'; break;
+        default : 
+        	hashtag[${i}] = 'question.png'; break;
+        }
+        
+        
+        	
+        	
+        	
+        	
+        	
         contentString[${i}] = '${mypageList.party_title}';
       <c:set var="i" value="${i+1}" />
 
     </c:forEach>
-      
+    
       /** 지도 생성*/
       var map = new naver.maps.Map('map', {
-         center : new naver.maps.LatLng(m[0]),
-         zoom : 10,
+         center : mapcenter,
+         zoom : 7,
          tileSize : new naver.maps.Size(50, 50)
       });
 
@@ -124,9 +160,14 @@ p.info_content {
          
          /** 받아온 위치에 마커 찍기코드*/
          var marker = new naver.maps.Marker({
-            map : map,
-            position : m[ii],
-            zIndex : 100
+             position: m[ii],
+             map: map,
+             icon: {
+          	   url: '${pageContext.request.contextPath}/resources/img/' + hashtag[ii],
+               size: new naver.maps.Size(50, 52),
+               origin: new naver.maps.Point(0, 0),
+               anchor: new naver.maps.Point(25, 26)
+             },
          });
          
          /** 검색 주소 결과창 내용*/
