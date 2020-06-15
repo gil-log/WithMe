@@ -5,6 +5,7 @@
 <head>
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	
 <title>WtihMe</title>
 <meta charset="utf-8" />
 <meta name="viewport"
@@ -20,7 +21,7 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 
 <script type="text/javascript">
-                                                
+
 function location1 (){
 	<% String loc1 = "서울";
 	session.setAttribute("location", loc1); 
@@ -69,13 +70,7 @@ function location1 (){
 		return false;
 	}
  
-
-
-
-
-
 			$(document).ready(function(){
-				
 				
 				$("#loginPopup").on("click", function(){
 					//팝업 가운데 띄우기
@@ -93,7 +88,9 @@ function location1 (){
 			})
 			
 
-			
+
+
+
 		
 		</script>
 
@@ -180,4 +177,7 @@ function location1 (){
 	src="${pageContext.request.contextPath}/resources/main/assets/js/util.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/main/assets/js/main.js"></script>
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/imageMapResizer.min.js"></script>
+	
 </html>
