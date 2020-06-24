@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="3" failures="0" name="com.withme.main.Test" time="0.306" errors="0" skipped="0">
+<testsuite tests="3" failures="0" name="com.withme.main.Test" time="0.162" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="java.vm.version" value="11.0.6+8-LTS"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-11.0.6\bin"/>
-    <property name="maven.multiModuleProjectDirectory" value="C:\Users\alswp\git\withme\WithMe"/>
+    <property name="maven.multiModuleProjectDirectory" value="C:\Users\alswp\git\WithMe\WithMe"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
     <property name="java.vendor.url" value="http://java.oracle.com/"/>
     <property name="guice.disable.misplaced.annotation.check" value="true"/>
@@ -15,7 +15,7 @@
     <property name="user.country" value="KR"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="C:\Users\alswp\git\withme\WithMe"/>
+    <property name="user.dir" value="C:\Users\alswp\git\WithMe\WithMe"/>
     <property name="java.vm.compressedOopsMode" value="32-bit"/>
     <property name="java.runtime.version" value="11.0.6+8-LTS"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
@@ -26,10 +26,10 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="user.variant" value=""/>
     <property name="os.name" value="Windows 10"/>
-    <property name="classworlds.conf" value="C:\Users\alswp\Desktop\sts-4.6.1.RELEASE\workspace-spring-tool-suite-4-4.6.1.RELEASE\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf6161611406348993134.tmp"/>
+    <property name="classworlds.conf" value="C:\Users\alswp\Desktop\sts-4.6.1.RELEASE\workspace-spring-tool-suite-4-4.6.1.RELEASE\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf9897046271121415369.tmp"/>
     <property name="jansi.force" value="true"/>
     <property name="sun.jnu.encoding" value="MS949"/>
-    <property name="java.library.path" value="C:\Program Files\Java\jdk-11.0.6\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:/Program Files/Java/jdk-11.0.6/bin/server;C:/Program Files/Java/jdk-11.0.6/bin;C:\Program Files\Java\jdk-11.0.6\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\oracle\product\10.2.0\db_1\bin;C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\OpenCL SDK\2.0\bin\x86;C:\Program Files (x86)\Intel\OpenCL SDK\2.0\bin\x64;C:\Program Files (x86)\Windows Live\Shared;C:\Program Files\Condusiv Technologies\IntelliMemory\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files\Microsoft\Web Platform Installer\;C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\;C:\Users\alswp\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files\Redis\;C:\WINDOWS\System32\OpenSSH\;C:\Users\alswp\AppData\Local\Programs\Python\Python37;C:\Users\alswp\AppData\Local\Programs\Python\Python37\Scripts;C:\Program Files\Git\cmd;D:\;D:\bin\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\intelFPGA\17.0\modelsim_ase\win32aloem;C:\Users\alswp\AppData\Local\Microsoft\WindowsApps;C:\Users\alswp\AppData\Local\atom\bin;C:\Users\alswp\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Users\alswp\AppData\Local\Microsoft\WindowsApps;C:\Users\alswp\AppData\Local\GitHubDesktop\bin;C:\Users\alswp\AppData\Roaming\npm;D:\Microsoft VS Code\bin;C:\Users\alswp\AppData\Local\Yarn\bin;C:\Users\alswp\Desktop\sts-4.6.1.RELEASE;;."/>
+    <property name="java.library.path" value="C:\Program Files\Java\jdk-11.0.6\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:/Program Files/Java/jdk-11.0.6/bin/server;C:/Program Files/Java/jdk-11.0.6/bin;C:\Program Files\Java\jdk-11.0.6\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\oracle\product\10.2.0\db_1\bin;C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\OpenCL SDK\2.0\bin\x86;C:\Program Files (x86)\Intel\OpenCL SDK\2.0\bin\x64;C:\Program Files (x86)\Windows Live\Shared;C:\Program Files\Condusiv Technologies\IntelliMemory\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files\Microsoft\Web Platform Installer\;C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\;C:\Users\alswp\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files\Redis\;C:\WINDOWS\System32\OpenSSH\;C:\Users\alswp\AppData\Local\Programs\Python\Python37;C:\Users\alswp\AppData\Local\Programs\Python\Python37\Scripts;C:\Program Files\Git\cmd;D:\;D:\bin\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\intelFPGA\17.0\modelsim_ase\win32aloem;C:\Users\alswp\AppData\Local\Microsoft\WindowsApps;C:\Users\alswp\AppData\Local\atom\bin;C:\Users\alswp\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Users\alswp\AppData\Local\Microsoft\WindowsApps;C:\Users\alswp\AppData\Local\GitHubDesktop\bin;C:\Users\alswp\AppData\Roaming\npm;D:\Microsoft VS Code\bin;C:\Users\alswp\AppData\Local\Yarn\bin;C:\Program Files\Bandizip\;C:\Users\alswp\Desktop\sts-4.6.1.RELEASE;;."/>
     <property name="jansi.passthrough" value="true"/>
     <property name="jdk.debug" value="release"/>
     <property name="java.class.version" value="55.0"/>
@@ -53,7 +53,7 @@
     <property name="java.vm.info" value="mixed mode"/>
     <property name="java.version" value="11.0.6"/>
     <property name="java.vendor" value="Oracle Corporation"/>
-    <property name="maven.home" value="C:\Users\alswp\git\withme\WithMe\EMBEDDED"/>
+    <property name="maven.home" value="C:\Users\alswp\git\WithMe\WithMe\EMBEDDED"/>
     <property name="style.color" value="always"/>
     <property name="file.separator" value="\"/>
     <property name="java.version.date" value="2020-01-14"/>
@@ -64,7 +64,7 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="com.withme.main.Test" name="sessionTest" time="0.192"/>
+  <testcase classname="com.withme.main.Test" name="sessionTest" time="0.048"/>
   <testcase classname="com.withme.main.Test" name="test" time="0.114"/>
   <testcase classname="com.withme.main.Test" name="factoryTest" time="0"/>
 </testsuite>

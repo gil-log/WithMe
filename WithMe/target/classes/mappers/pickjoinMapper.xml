@@ -13,48 +13,78 @@
       ORDER BY P.PARTY_ID DESC
    </select>
    
+   <!-- pick하기전 테이블에서 확인하는 경우 -->
+   <select id = "pickjoincheck" resultType="com.withme.vo.PickJoinListVO">
+	  SELECT *
+   	  FROM   PICKJOIN_TB
+   	  WHERE  U_ID = #{u_id}
+   	  AND    PARTY_ID = #{party_id}
+   </select>
    
-   <!-- pick 버튼 눌렀을 경우 -->
-   <insert id = "pickinsert">
-      INSERT INTO PICKJOIN_TB(   U_ID
+   
+   <!-- pickjoin 테이블에 데이터가 없는 경우 -->
+   <insert id = "pickjoininsert">
+     INSERT INTO PICKJOIN_TB(   U_ID
                            ,PARTY_ID
                            ,PARTY_HOST
                            ,PICK_FLAG
-                           ,JOIN_FLAG )
+                            ,JOIN_FLAG )
                VALUES(      #{u_id}
                            ,#{party_id}
                            ,0
-                           ,1
-                           ,0        )               
+                           ,0
+                           ,'')               
    </insert>
    
-   
-   <!-- join 버튼 눌렀을 경우 -->
-   <update id = "joininsert">
-      UPDATE    PICKJOIN_TB
-      SET       JOIN_FLAG = 1
-               ,PICK_FLAG = 0
-      WHERE      U_ID = #{u_id}   
-      AND         PARTY_ID = #{party_id}               
+   <!-- pick 버튼 눌렀을 경우 -->
+   <update id = "pickinsert">
+     UPDATE PICKJOIN_TB
+     SET   PICK_FLAG = 1
+     WHERE U_ID = #{u_id}
+     AND   PARTY_ID = #{party_id}               
    </update>
    
-    <!-- 관심목록에서 버튼 눌렀을 경우 -->
-   <delete id = "pickdelete">
-      DELETE
-     FROM  PICKJOIN_TB
+    <!-- pick을 2번한 경우  -->
+   <update id = "pickdelete">
+     UPDATE PICKJOIN_TB
+     SET   PICK_FLAG = 0
      WHERE U_ID = #{u_id}
      AND   PARTY_ID = #{party_id}
-     
-   </delete>
-   
+   </update>
+  
+   <!-- join 버튼 눌렀을 경우 -->
+   <update id = "joininsert">
+     UPDATE PICKJOIN_TB
+     SET   JOIN_FLAG = 1
+     WHERE U_ID = #{u_id}
+     AND   PARTY_ID = #{party_id}             
+   </update>
    
    <!-- 파티 호스트의 정보불러오기 -->
     <select id="getuid" resultType="com.withme.vo.PickJoinListVO">
-       SELECT PJ.U_ID, P.PARTY_TITLE 
+      SELECT PJ.U_ID, P.PARTY_TITLE 
       FROM  PARTY_TB P, PICKJOIN_TB PJ
       WHERE P.PARTY_ID = #{party_id}
       AND   P.PARTY_ID = PJ.PARTY_ID
       AND   PJ.PARTY_HOST = 1
     </select>
     
+    
+   <!-- 파티 참여를 수락한 경우 -->
+   <update id = "joinaccept">
+      UPDATE    PICKJOIN_TB
+      SET       JOIN_FLAG = 2
+      WHERE     U_ID = #{u_id}   
+      AND       PARTY_ID = #{party_id}               
+   </update>
+   
+   <!-- 파티 참여를 거절한 경우  -->
+   <update id = "joinreject">
+      UPDATE    PICKJOIN_TB
+      SET       JOIN_FLAG = 0
+      WHERE     U_ID = #{u_id}   
+      AND       PARTY_ID = #{party_id}
+   </update>
+    
+   
 </mapper>

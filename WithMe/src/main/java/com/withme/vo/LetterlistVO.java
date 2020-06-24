@@ -10,8 +10,15 @@ public class LetterlistVO {
 	private int send_flag;
 	private String l_date;
 	private String sender_id;
-
 	
+	
+	//파티 id, title,host 추가
+	private int party_id;
+	private String party_title;
+	private int party_host;
+	private int join_flag;
+
+
 	public int getL_id() {
 		return l_id;
 	}
@@ -75,11 +82,47 @@ public class LetterlistVO {
 	public void setSender_id(String sender_id) {
 		this.sender_id = sender_id;
 	}
+	
+	//파티 id, title, host 추가
+
+	public int getParty_id() {
+		return party_id;
+	}
+
+	public void setParty_id(int party_id) {
+		this.party_id = party_id;
+	}
+
+	public String getParty_title() {
+		return party_title;
+	}
+
+	public void setParty_title(String party_title) {
+		this.party_title = party_title;
+	}
+	
+	public int getParty_host() {
+		return party_host;
+	}
+
+	public void setParty_host(int party_host) {
+		this.party_host = party_host;
+	}
+
+	public int getJoin_flag() {
+		return join_flag;
+	}
+
+	public void setJoin_flag(int join_flag) {
+		this.join_flag = join_flag;
+	}
+	
 	@Override
 	public String toString() {
 		return "LetterlistVO [l_id=" + l_id + ", u_id=" + u_id + ", l_message=" + l_message + 
 				", l_flag=" + l_flag + ", l_title=" + l_title + ", send_flag=" + send_flag 
-				+ ", l_date" + l_date + ", sender_id" + sender_id + "]";
+				+ ", l_date" + l_date + ", sender_id" + sender_id + ", party_id=" + party_id + 
+				", party_title="+ party_title + ", party_host=" + party_host + ", join_flag=" + join_flag + "]";
 	}
 
 }
