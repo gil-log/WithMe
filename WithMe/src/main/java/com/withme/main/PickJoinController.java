@@ -61,11 +61,23 @@ public class PickJoinController {
       @RequestMapping(value = "/pickinsert", method = RequestMethod.GET)
       public void pickinsert(HttpSession session, PartylistVO partylistVO, Model model, HttpServletResponse response) throws Exception{
          logger.info("pickinsert");
-             
-         UserVO userVO = (UserVO)session.getAttribute("user");       
+    	 
+    	 UserVO userVO = (UserVO)session.getAttribute("user");       
          partylistVO.setU_id(userVO.getU_id()); 
          
-         service.pickinsert(partylistVO);
+         PickJoinListVO pickjoinlistVO = service.pickjoincheck(partylistVO);
+          
+         if(pickjoinlistVO == null) {
+        	 service.pickjoininsert(partylistVO);
+         }
+         
+         
+         if(partylistVO.getPng_chk()==1) {
+        	 service.pickdelete(partylistVO);
+         }
+         else {
+        	 service.pickinsert(partylistVO);
+         }
          
          String url = (String)session.getAttribute("url");
          logger.info(url);
@@ -83,16 +95,21 @@ public class PickJoinController {
          UserVO userVO = (UserVO)session.getAttribute("user");
          partylistVO.setU_id(userVO.getU_id()); 
          
+         PickJoinListVO pickjoinlistVO = service.pickjoincheck(partylistVO);
+         
+         if(pickjoinlistVO == null) {
+        	 service.pickjoininsert(partylistVO);
+         }
+         
          service.joininsert(partylistVO);
          
          // 파티 호스트의 u_id를 가져오자
-         PickJoinListVO pickjoinlistVO = service.getuid(partylistVO.getParty_id());
-         System.out.println("pickjoinlistVO: " + pickjoinlistVO);
+         pickjoinlistVO = service.getuid(partylistVO.getParty_id());
         
          //쪽지작성 및 저장
          letterVO.setU_id(userVO.getU_id());
          letterVO.setL_title(pickjoinlistVO.getParty_title());
-         letterservice.writesystemletter(letterVO);
+         letterservice.requestsystemletter(letterVO);
          int lid = letterservice.getlid();
          
          
@@ -101,14 +118,12 @@ public class PickJoinController {
          letterlistVO.setL_id(lid);
          
          //내가 보낸쪽지로 저장되기 위해
-       letterservice.sendsystemletter(letterlistVO);
+         letterservice.sendsystemletter(letterlistVO);
          
          letterlistVO.setU_id(pickjoinlistVO.getU_id());
          
          //수신자가 받은쪽지로 저장되기 위해
          letterservice.receivesystemletter(letterlistVO);
-         
-         
          
          String url = (String)session.getAttribute("url");
          logger.info(url);
@@ -127,6 +142,74 @@ public class PickJoinController {
          service.pickdelete(partylistVO);
    
          return "redirect:/pick/picklist";
+         
+      }
+      
+      //파티 참여를 수락한 경우.
+      @RequestMapping(value = "/joinaccept", method = RequestMethod.GET)
+      public String joinapprove(HttpSession session, PartylistVO partylistVO, LetterVO letterVO, HttpServletResponse response) throws Exception{
+         logger.info("joinaccept");
+         
+         //Join_Flag를 2로 변경해주는 부분
+         service.joinaccept(partylistVO);
+         
+         UserVO userVO = (UserVO)session.getAttribute("user");
+         
+         //조인 수락 시스템 메세지 작성
+         letterVO.setU_id(userVO.getU_id());
+         letterVO.setL_title(partylistVO.getParty_title());
+         letterservice.acceptsystemletter(letterVO);
+         int lid = letterservice.getlid();
+         
+         
+         LetterlistVO letterlistVO = new LetterlistVO();
+         letterlistVO.setU_id(userVO.getU_id());
+         letterlistVO.setL_id(lid);
+         
+         //내가 보낸쪽지로 저장되기 위해
+         letterservice.sendsystemletter(letterlistVO);
+         
+         letterlistVO.setU_id(partylistVO.getU_id());
+         
+         //수신자가 받은쪽지로 저장되기 위해
+         letterservice.receivesystemletter(letterlistVO);
+         
+
+		return "redirect:/letter/letterlist";
+         
+      }
+      
+      //파티 참여를 거절한 경우.
+      @RequestMapping(value = "/joinreject", method = RequestMethod.GET)
+      public String joinreject(HttpSession session, PartylistVO partylistVO, LetterVO letterVO, HttpServletResponse response) throws Exception{
+         logger.info("joinreject");
+         
+         //Join_Flag를 0으로 변경해주는 부분
+         service.joinreject(partylistVO);
+         
+         UserVO userVO = (UserVO)session.getAttribute("user");
+         
+         //조인 수락 시스템 메세지 작성
+         letterVO.setU_id(userVO.getU_id());
+         letterVO.setL_title(partylistVO.getParty_title());
+         letterservice.rejectsystemletter(letterVO);
+         int lid = letterservice.getlid();
+         
+         
+         LetterlistVO letterlistVO = new LetterlistVO();
+         letterlistVO.setU_id(userVO.getU_id());
+         letterlistVO.setL_id(lid);
+         
+         //내가 보낸쪽지로 저장되기 위해
+         letterservice.sendsystemletter(letterlistVO);
+         
+         letterlistVO.setU_id(partylistVO.getU_id());
+         
+         //수신자가 받은쪽지로 저장되기 위해
+         letterservice.receivesystemletter(letterlistVO);
+         
+
+		return "redirect:/letter/letterlist";
          
       }
 }

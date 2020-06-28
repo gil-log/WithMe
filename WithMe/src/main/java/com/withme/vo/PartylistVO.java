@@ -9,7 +9,12 @@ public class PartylistVO {
 	private String u_id;
 	private Date p_date;
 	private int party_id;
+	
+	//pick목록 추가, 제거기능을 위해 추가함.
+	private int png_chk;
    	
+	
+
 	public String getParty_title() {
 		return party_title;
 	}
@@ -35,6 +40,15 @@ public class PartylistVO {
 	public void setParty_id(int party_id) {
 		this.party_id = party_id;
 	}
+	
+	//pick목록 추가, 제거기능을 위해 추가함.
+
+	public int getPng_chk() {
+		return png_chk;
+	}
+	public void setPng_chk(int png_chk) {
+		this.png_chk = png_chk;
+	}
 
 	
 	@Override
@@ -42,5 +56,4 @@ public class PartylistVO {
 		return "PartylistVO [party_title=" + party_title +
 				", u_id=" + u_id +", p_date=" + p_date +", party_id=" + party_id +"]";
 	}
-
 }

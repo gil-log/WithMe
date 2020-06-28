@@ -54,7 +54,7 @@
       WHERE RNUM = 1
    </select>
 
-   
+
    	<select id="list" resultType="com.withme.vo.PartylistVO">
 		SELECT P.PARTY_TITLE, PJ.U_ID, P.P_DATE, P.PARTY_ID
 		  FROM PARTY_TB P, PICKJOIN_TB PJ

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="letterMapper">
+   
+   <!-- letterlist 확인 (LR1은 수신자, LR2는 발신자)-->   
+   <select id="letterlist" resultType="com.withme.vo.LetterlistVO">
+      SELECT L.L_ID, LR1.U_ID, L.L_MESSAGE, L.L_FLAG, L.L_TITLE, LR1.SEND_FLAG, LR2.U_ID "sender_id", TO_CHAR(L.L_DATE,'YYYY-MM-DD HH24:MI:SS') "l_date"
+      FROM LETTER_TB L, LETTERING_TB LR1, LETTERING_TB LR2
+      WHERE LR1.U_id = #{u_id}
+      AND L.L_ID = LR1.L_ID
+      AND LR1.L_ID = LR2.L_ID
+      AND LR2.SEND_FLAG = 1
+      ORDER BY L.L_ID DESC
+   </select>
+   
+   <insert id="insertletter">
+   INSERT INTO LETTER_TB(   L_ID
+                         , L_MESSAGE
+                         , L_FLAG
+                        , L_TITLE
+                        , L_DATE
+                      )
+                   VALUES(   L_ID_SEQ.NEXTVAL 
+                           , #{l_message}
+                           , #{l_flag}
+                           , #{l_title}
+                           , SYSDATE   
+                        )
+   </insert>
+   
+   <!-- l_id가져오는 부분 -->   
+   <select id="getlid" resultType="int">
+      SELECT L_ID  
+      FROM(  
+      SELECT  L_ID, ROW_NUMBER() OVER(ORDER BY L_ID DESC) AS RNUM
+      FROM LETTER_TB
+      ORDER BY L_ID DESC )
+      WHERE RNUM = 1
+   </select>
+   
+   
+   <!-- 쪽지 발신자 입장 -->
+   <insert id="sendletter" parameterType="com.withme.vo.LetterlistVO">
+      INSERT INTO LETTERING_TB(   U_ID
+                                , L_ID
+                                , SEND_FLAG
+                                , L_WARNING
+                            )
+                       VALUES(     #{u_id}
+                                 , #{l_id}
+                                 , 1
+                                 , 0   
+                               )
+      </insert>
+      
+      <!-- 쪽지 수신자 입장 -->
+      <insert id="receiveletter" parameterType="com.withme.vo.LetterlistVO">
+      INSERT INTO LETTERING_TB(   U_ID
+                                , L_ID
+                                , SEND_FLAG
+                                , L_WARNING
+                            )
+                       VALUES(     #{u_id}
+                                 , #{l_id}
+                                 , 0
+                                 , 0   
+                               )
+      </insert>
+      
+   <select id="readletter" resultType="com.withme.vo.LetterlistVO">
+      SELECT DISTINCT  L.L_ID
+                      , L.L_MESSAGE
+                      , L.L_FLAG
+                       , L.L_TITLE
+                       , TO_CHAR(L.L_DATE,'YYYY-MM-DD HH24:MI:SS') "L_DATE"
+                       , LR1.U_ID "sender_id" 
+      FROM LETTER_TB L, LETTERING_TB LR1, LETTERING_TB LR2
+      WHERE L.L_ID = LR1.L_ID
+      AND LR1.send_flag = 1
+      AND LR2.send_flag = 0
+      AND LR2.U_ID = #{u_id}
+      AND L.L_ID = #{l_id}
+   
+   </select>
+   
+   
+   <!-- 시스템 메세지 저장 -->
+   
+   <insert id="writesystemletter">
+   INSERT INTO LETTER_TB(   L_ID
+                         , L_MESSAGE
+                         , L_FLAG
+                        , L_TITLE
+                        , L_DATE
+                      )
+                   VALUES(   L_ID_SEQ.NEXTVAL 
+                           , #{u_id} || ' 님이 '|| #{l_title} || '파티 join을 요청했습니다. :)'
+                           , 1
+                           , #{l_title} || 'join 요청입니다 :)'
+                           , SYSDATE   
+                        )
+      </insert>
+   
+   
+   <!-- 조인 눌렀을 때 시스템 메세지 송신 -->
+   <insert id="sendsystemletter" parameterType="com.withme.vo.LetterlistVO">
+      INSERT INTO LETTERING_TB(   U_ID
+                                , L_ID
+                                , SEND_FLAG
+                                , L_WARNING
+                            )
+                       VALUES(     #{u_id}
+                                 , #{l_id}
+                                 , 1
+                                 , 0   
+                               )
+      </insert>
+      
+      <!-- 파티 호스트가 시스템 메세지 수신 -->
+      <insert id="receivesystemletter" parameterType="com.withme.vo.LetterlistVO">
+      INSERT INTO LETTERING_TB(   U_ID
+                                , L_ID
+                                , SEND_FLAG
+                                , L_WARNING
+                            )
+                       VALUES(     #{u_id}
+                                 , #{l_id}
+                                 , 0
+                                 , 0   
+                               )
+      </insert>
+      
+</mapper>

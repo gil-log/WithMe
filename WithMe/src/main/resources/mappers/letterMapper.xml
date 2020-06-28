@@ -4,29 +4,18 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="letterMapper">
    
-   <!-- letterlist 확인 (LR1은 수신자, LR2는 발신자)-->   
-   <select id="letterlist" resultType="com.withme.vo.LetterlistVO">
-      SELECT L.L_ID, LR1.U_ID, L.L_MESSAGE, L.L_FLAG, L.L_TITLE, LR1.SEND_FLAG, LR2.U_ID "sender_id", TO_CHAR(L.L_DATE,'YYYY-MM-DD HH24:MI:SS') "l_date"
-      FROM LETTER_TB L, LETTERING_TB LR1, LETTERING_TB LR2
-      WHERE LR1.U_id = #{u_id}
-      AND L.L_ID = LR1.L_ID
-      AND LR1.L_ID = LR2.L_ID
-      AND LR2.SEND_FLAG = 1
-      ORDER BY L.L_ID DESC
-   </select>
-   
    <insert id="insertletter">
    INSERT INTO LETTER_TB(   L_ID
-                         , L_MESSAGE
-                         , L_FLAG
-                        , L_TITLE
-                        , L_DATE
-                      )
-                   VALUES(   L_ID_SEQ.NEXTVAL 
-                           , #{l_message}
-                           , #{l_flag}
-                           , #{l_title}
-                           , SYSDATE   
+                          , L_MESSAGE
+                          , L_FLAG
+                          , L_TITLE
+                          , L_DATE
+                        )
+                  VALUES(   L_ID_SEQ.NEXTVAL 
+                          , #{l_message}
+                          , #{l_flag}
+                          , #{l_title}
+                          , SYSDATE   
                         )
    </insert>
    
@@ -68,38 +57,49 @@
                                  , 0   
                                )
       </insert>
-      
-   <select id="readletter" resultType="com.withme.vo.LetterlistVO">
-      SELECT DISTINCT  L.L_ID
-                      , L.L_MESSAGE
-                      , L.L_FLAG
-                       , L.L_TITLE
-                       , TO_CHAR(L.L_DATE,'YYYY-MM-DD HH24:MI:SS') "L_DATE"
-                       , LR1.U_ID "sender_id" 
-      FROM LETTER_TB L, LETTERING_TB LR1, LETTERING_TB LR2
-      WHERE L.L_ID = LR1.L_ID
-      AND LR1.send_flag = 1
-      AND LR2.send_flag = 0
-      AND LR2.U_ID = #{u_id}
-      AND L.L_ID = #{l_id}
+    
    
+   	<!-- 쪽지 상세 읽기 -->
+   	<select id="readletter" resultType="com.withme.vo.LetterlistVO">
+    SELECT  A.*, PJ2.JOIN_FLAG
+    FROM (  SELECT DISTINCT   L.L_ID
+		                    , L.L_MESSAGE
+		                    , L.L_FLAG
+		                    , L.L_TITLE
+		                    , TO_CHAR(L.L_DATE,'YYYY-MM-DD HH24:MI:SS') "L_DATE"
+		                    , LR1.U_ID "sender_id"
+		                    , P.PARTY_ID
+		                    , P.PARTY_TITLE
+		                    , LR2.SEND_FLAG
+		                    , PJ.PARTY_HOST
+		      FROM LETTERING_TB LR1,LETTERING_TB LR2,
+		           PARTY_TB P JOIN PICKJOIN_TB PJ ON P.PARTY_ID = PJ.PARTY_ID AND PJ.U_ID = #{u_id}
+		           JOIN PICKJOIN_TB PJ2 ON P.PARTY_ID = PJ2.PARTY_ID
+		           RIGHT OUTER JOIN LETTER_TB L ON L.L_TITLE LIKE P.PARTY_TITLE || '%'
+		      WHERE L.L_ID =  #{l_id}
+		      AND L.L_ID = LR1.L_ID
+		      AND LR1.SEND_FLAG = 1
+		      AND LR2.SEND_FLAG = 0
+		      AND LR2.U_ID = #{u_id}
+      ) A LEFT OUTER JOIN PICKJOIN_TB PJ2 ON A."sender_id" = PJ2.U_ID AND A.PARTY_ID = PJ2.PARTY_ID
+
    </select>
    
    
-   <!-- 시스템 메세지 저장 -->
+   <!-- 조인 요청 시스템 메세지 작성 -->
    
-   <insert id="writesystemletter">
-   INSERT INTO LETTER_TB(   L_ID
+   <insert id="requestsystemletter">
+   INSERT INTO LETTER_TB(  L_ID
                          , L_MESSAGE
                          , L_FLAG
-                        , L_TITLE
-                        , L_DATE
-                      )
-                   VALUES(   L_ID_SEQ.NEXTVAL 
-                           , #{u_id} || ' 님이 '|| #{l_title} || '파티 join을 요청했습니다. :)'
-                           , 1
-                           , #{l_title} || 'join 요청입니다 :)'
-                           , SYSDATE   
+                       	 , L_TITLE
+                       	 , L_DATE
+                      	)
+                  VALUES( L_ID_SEQ.NEXTVAL 
+                         , #{u_id} || ' 님이 '|| #{l_title} || '파티 join을 요청했습니다. :)'
+                         , 1
+                         , #{l_title} || 'join 요청입니다 :)'
+                         , SYSDATE   
                         )
       </insert>
    
@@ -132,4 +132,96 @@
                                )
       </insert>
       
+     <!-- 조인 수락 시스템 메세지 작성 -->
+   	<insert id="acceptsystemletter">
+   	INSERT INTO LETTER_TB(  L_ID
+                          , L_MESSAGE
+                          , L_FLAG
+                       	  , L_TITLE
+                       	  , L_DATE
+                      	 )
+                   VALUES( L_ID_SEQ.NEXTVAL 
+                          , #{u_id} || ' 님이 '|| #{l_title} || '파티 join을 수락하였습니다. :)'
+                          , 1
+                          , #{l_title} || 'join 수락입니다. :)'
+                          , SYSDATE   
+                         )
+     </insert>
+     
+    <!-- 조인 거절 시스템 메세지 작성 -->
+   	<insert id="rejectsystemletter">
+   	INSERT INTO LETTER_TB(  L_ID
+                          , L_MESSAGE
+                          , L_FLAG
+                       	  , L_TITLE
+                       	  , L_DATE
+                      	 )
+                   VALUES( L_ID_SEQ.NEXTVAL 
+                          , #{u_id} || ' 님이 '|| #{l_title} || '파티 join을 거절하였습니다.'
+                          , 1
+                          , #{l_title} || 'join이 거절되었습니다. :('
+                          , SYSDATE   
+                         )
+     </insert>
+     
+     <!-- 페이징을 위해 추가 -->
+     
+     <!-- 수신 letter목록 조회 + 페이징 (LR1은 수신자, LR2는 발신자)-->   
+     
+   	 <select id="receiveletterlist" resultType="com.withme.vo.LetterlistVO">
+     	SELECT L_ID, U_ID, L_MESSAGE, L_FLAG, L_TITLE, SEND_FLAG, "sender_id", "l_date"
+		FROM (
+		        SELECT ROWNUM AS RNUM, A.*
+		        FROM (
+		                SELECT L.L_ID, LR1.U_ID, L.L_MESSAGE, L.L_FLAG, L.L_TITLE, LR1.SEND_FLAG, LR2.U_ID "sender_id", TO_CHAR(L.L_DATE,'YYYY-MM-DD HH24:MI:SS') "l_date"
+		                FROM LETTER_TB L, LETTERING_TB LR1, LETTERING_TB LR2
+		                WHERE LR1.U_id = #{u_id}
+		                AND L.L_ID = LR1.L_ID
+		                AND LR1.L_ID = LR2.L_ID
+		                AND LR1.SEND_FLAG = 0
+		                AND LR2.SEND_FLAG = 1
+		                ORDER BY L.L_ID DESC
+		              ) A
+		        WHERE 1 = 1
+    		 ) B
+		WHERE RNUM BETWEEN #{displayPost} AND #{displayPost} + #{postNum}-1
+   	 </select>
+   	 
+   	 <!-- 발신 letter목록 조회 + 페이징 (LR1은 수신자, LR2는 발신자)-->   
+   	 <select id="sendletterlist"  resultType="com.withme.vo.LetterlistVO">
+     	SELECT L_ID, U_ID, L_MESSAGE, L_FLAG, L_TITLE, SEND_FLAG, "sender_id", "l_date"
+		FROM (
+		        SELECT ROWNUM AS RNUM, A.*
+		        FROM (
+		                SELECT L.L_ID, LR1.U_ID, L.L_MESSAGE, L.L_FLAG, L.L_TITLE, LR2.SEND_FLAG, LR2.U_ID "sender_id", TO_CHAR(L.L_DATE,'YYYY-MM-DD HH24:MI:SS') "l_date"
+		                FROM LETTER_TB L, LETTERING_TB LR1, LETTERING_TB LR2
+		                WHERE LR2.U_id = #{u_id}
+		                AND L.L_ID = LR1.L_ID
+		                AND LR1.L_ID = LR2.L_ID
+		                AND LR1.SEND_FLAG = 0
+		                AND LR2.SEND_FLAG = 1
+		                ORDER BY L.L_ID DESC
+		              ) A
+		        WHERE 1 = 1
+    		 ) B
+		WHERE RNUM BETWEEN #{displayPost} AND #{displayPost} + #{postNum} -1
+   	 </select>
+   
+     <!-- 받은 쪽지 총 갯수  -->
+     <select id="receivecount" resultType="int">
+     	SELECT COUNT(L.L_ID)
+		FROM LETTER_TB L, LETTERING_TB LR
+		WHERE LR.U_ID = #{u_id}
+		AND   LR.SEND_FLAG = 0
+		AND   L.L_ID = LR.L_ID
+     </select>          
+
+     <!-- 보낸 쪽지 총 갯수  -->
+	<select id="sendcount" resultType="int">
+		SELECT COUNT(L.L_ID)
+		FROM LETTER_TB L, LETTERING_TB LR
+		WHERE LR.U_ID = #{u_id}
+		AND   LR.SEND_FLAG = 1
+		AND   L.L_ID = LR.L_ID
+	</select>
 </mapper>

@@ -5,17 +5,15 @@ import java.util.List;
 import com.withme.vo.LetterlistVO;
 import com.withme.vo.PartyVO;
 import com.withme.vo.PartylistVO;
+import com.withme.vo.LetterPageMakerVO;
 import com.withme.vo.LetterVO;
 
 public interface LetterDAO {
    
-   // letterlist 출력
-   public List<LetterlistVO> letterlist(String u_id) throws Exception;
-
    // letter 작성
    public void write(LetterVO letterVO) throws Exception;
-   
-   // 파티 생성시의 party_id 가져오기 완전 불안정함
+
+   // letter의 l_id가져오기
    public int getlid() throws Exception;
 
    //내가 보낸쪽지로 저장되기 위해
@@ -26,13 +24,32 @@ public interface LetterDAO {
 
    //쪽지 조회
    public LetterlistVO readletter(LetterlistVO letterlistVO) throws Exception;
-   
-   //시스템 메세지 작성
-   public void writesystemletter(LetterVO letterVO) throws Exception;
+
+   //조인 요청 시스템 메세지 작성
+   public void requestsystemletter(LetterVO letterVO) throws Exception;
       
    //조인 눌렀을 때 시스템 메세지 송신
    public void sendsystemletter(LetterlistVO letterlistVO) throws Exception;
    
    //파티 호스트가 시스템 메세지 수신
    public void receivesystemletter(LetterlistVO letterlistVO) throws Exception;
+   
+   //조인 수락 시스템 메세지 작성
+   public void acceptsystemletter(LetterVO letterVO) throws Exception;
+
+   //조인 거절 시스템 메세지 작성
+   public void rejectsystemletter(LetterVO letterVO) throws Exception;
+   
+   //받은 쪽지 총 갯수
+   public int receivecount(String uid) throws Exception;
+   
+   //보낸 쪽지 총 갯수
+   public int sendcount(String uid) throws Exception;
+
+   // 수신 letter목록 조회 + 페이징
+   public List<LetterlistVO> receiveletterlist(LetterPageMakerVO letterpagemakerVO) throws Exception;
+   
+   // 발신 letter목록 조회 + 페이징
+   public List<LetterlistVO> sendletterlist(LetterPageMakerVO letterpagemakerVO) throws Exception;
+
 }

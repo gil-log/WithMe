@@ -60,7 +60,6 @@
                location.href="member/memberUpdateView";
                })   
                
-               
             $("#loginPopup").on("click", function(){
                //팝업 가운데 띄우기
                var popupWidth = 500;
@@ -74,6 +73,36 @@
                
                window.open('/user/loginform','windowpopup', 'status=no, height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
             });
+
+            //pick목록을 팝업으로 뜨도록 구현
+            $("#ApplyRecord").on("click", function(){
+                //팝업 가운데 띄우기
+                var popupWidth = 500;
+                var popupHeight = 800;
+                
+                var popupX = (window.screen.width / 2) - (popupWidth / 2);
+                // 만들 팝업창 width 크기의 1/2 만큼 보정값으로 빼주었음
+                
+                var popupY= (window.screen.height / 2) - (popupHeight / 2);
+                // 만들 팝업창 height 크기의 1/2 만큼 보정값으로 빼주었음
+                
+                window.open('/pick/picklist','windowpopup', 'status=no, height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
+             });
+            
+            //쪽지가 팝업으로 뜨도록 구현
+            $("#Letter").on("click", function(){
+                //팝업 가운데 띄우기
+                var popupWidth = 500;
+                var popupHeight = 800;
+                
+                var popupX = (window.screen.width / 2) - (popupWidth / 2);
+                // 만들 팝업창 width 크기의 1/2 만큼 보정값으로 빼주었음
+                
+                var popupY= (window.screen.height / 2) - (popupHeight / 2);
+                // 만들 팝업창 height 크기의 1/2 만큼 보정값으로 빼주었음
+                
+                window.open('/letter/letterlist','windowpopup', 'status=no, height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
+             });
          })
        
 </script>
@@ -314,9 +343,11 @@ input:checked + .slider:before {
          <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="../party/writeView">Write Party</a>
         <div class="dropdown-divider"></div>
-         <a class="dropdown-item" href="../pick/picklist">Apply Record</a>
+        
+        <!-- id를 활용하여 popup으로 변경 -->
+         <a class="dropdown-item" id = "ApplyRecord">Apply Record</a>
          <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="../letter/letterlist">Letter</a>
+        <a class="dropdown-item" id = "Letter">Letter</a>
         <div class="dropdown-divider"></div>
        
         <c:if test="${user != null}">
@@ -558,24 +589,27 @@ input:checked + .slider:before {
             <div style = "display: flex; justify-content: flex-end;">
                      
                      <form method="get" action="/pick/pickinsert" >
-                      <input type="hidden" name = "party_id" value = "${partyHot.party_id}"  />
-                      <button type="submit" style="background-color:transparent;  border:0px transparent solid; text-align: center;" width="25" height="40">
+	                      <input type="hidden" name = "party_id" value = "${partyHot.party_id}"  />
+	                      <button type="submit" style="background-color:transparent;  border:0px transparent solid; text-align: center;" width="25" height="40">
                           
-                          <c:set var="party_id" value = "${partyHot.party_id}"/>
-                            <c:set var="png_chk" value = ""/>
-                              
-                          <c:forEach items="${pickjoinlist}" var="pickjoinlist">
-                               <c:if test = "${party_id eq pickjoinlist}">
-                                 <img src="${pageContext.request.contextPath}/resources/img/fullheart.png" width="25" height="25"/>
-                                 <c:set var="png_chk" value = "픽이 되었다."/>
-                              </c:if>
-                           </c:forEach>
+	                         <c:set var="party_id" value = "${partyHot.party_id}"/>
+	                         <c:set var="png_chk" value = "${partyHot.png_chk}"/>
+	                             
+	                         <c:forEach items="${pickjoinlist}" var="pickjoinlist">
+                             	<c:if test = "${party_id eq pickjoinlist}">
+                               		<img src="${pageContext.request.contextPath}/resources/img/fullheart.png" width="25" height="25"/>
+                                 	<c:set var="png_chk" value = "1"/>
+                              	</c:if>
+                          	 </c:forEach>
                            
-                           <c:if test = "${png_chk eq ''}">
-                              <img src="${pageContext.request.contextPath}/resources/img/heart.png" width="25" height="25"/>
-                           </c:if>
+                           	 <c:if test = "${png_chk eq ''}">
+                             	<img src="${pageContext.request.contextPath}/resources/img/heart.png" width="25" height="25"/>
+                           	 </c:if>
                            
-                        </button>
+	                           <!-- 픽 제거되도록하는 부분  -->   
+	                    	   <input type="hidden" name = "png_chk" value = "${png_chk}"  />
+                        
+                          </button>
                      </form>
                  </div>
 
@@ -636,18 +670,21 @@ input:checked + .slider:before {
                       <button type="submit" style="background-color:transparent;  border:0px transparent solid; text-align: center;" width="25" height="40">
                           
                           <c:set var="party_id" value = "${partyInsa.party_id}"/>
-                            <c:set var="png_chk" value = ""/>
+                            <c:set var="png_chk" value = "${partyInsa.png_chk}"/>
                               
                           <c:forEach items="${pickjoinlist}" var="pickjoinlist">
                                <c:if test = "${party_id eq pickjoinlist}">
                                  <img src="${pageContext.request.contextPath}/resources/img/fullheart.png" width="25" height="25"/>
-                                 <c:set var="png_chk" value = "픽이 되었다."/>
+                                 <c:set var="png_chk" value = "1"/>
                               </c:if>
                            </c:forEach>
                            
                            <c:if test = "${png_chk eq ''}">
                               <img src="${pageContext.request.contextPath}/resources/img/heart.png" width="25" height="25"/>
                            </c:if>
+                           
+                    	   <!-- 픽 제거되도록하는 부분  -->   
+                    	   <input type="hidden" name = "png_chk" value = "${png_chk}"  />
                            
                         </button>
                      </form>
@@ -726,27 +763,30 @@ input:checked + .slider:before {
                            </td>
                            <td>
                               <div style="float: left;">
-<!-- 자기가 만든파티에 pick하면 무결성 위배 -->
+			<!-- 자기가 만든파티에 pick하면 무결성 위배 -->
             <div style = "display: flex; justify-content: flex-end;">
                      
                      <form method="get" action="/pick/pickinsert">
-                      <input type="hidden" name = "party_id" value = "${list.party_id}"  />
-                      <button type="submit" style="background-color:transparent;  border:0px transparent solid; text-align: center;" width="25" height="40">
+                   		<input type="hidden" name = "party_id" value = "${list.party_id}"  />
+                    	<button type="submit" style="background-color:transparent;  border:0px transparent solid; text-align: center;" width="25" height="40">
                           
                           <c:set var="party_id" value = "${list.party_id}"/>
-                            <c:set var="png_chk" value = ""/>
+                          <c:set var="png_chk" value = "${list.png_chk}"/>
                               
                           <c:forEach items="${pickjoinlist}" var="pickjoinlist">
                                <c:if test = "${party_id eq pickjoinlist}">
                                  <img src="${pageContext.request.contextPath}/resources/img/fullheart.png" width="30" height="30"/>
-                                 <c:set var="png_chk" value = "픽이 되었다."/>
-                              </c:if>
-                           </c:forEach>
+                                 <c:set var="png_chk" value = "1"/>
+                               </c:if>
+                          </c:forEach>
                            
-                           <c:if test = "${png_chk eq ''}">
-                              <img src="${pageContext.request.contextPath}/resources/img/heart.png" width="30" height="30"/>
-                           </c:if>
-                           
+                          <c:if test = "${png_chk eq ''}">
+                             <img src="${pageContext.request.contextPath}/resources/img/heart.png" width="30" height="30"/>
+                          </c:if>
+                          
+                    	   <!-- 픽 제거되도록하는 부분  -->   
+                    	   <input type="hidden" name = "png_chk" value = "${png_chk}"  />
+                   		
                         </button>
                      </form>
                  </div>

@@ -10,9 +10,25 @@
 	<link href="${pageContext.request.contextPath}/resources/travelix/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/travelix/styles/elements_styles.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/travelix/styles/elements_responsive.css">
-	<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/party/party.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/party/party.css">
+	
+	
+	<script type="text/javascript">
+           function changeSize(){
+            	 var popupWidth = 900;
+                 var popupHeight = 600;
 
+                 var popupX = (window.screen.width / 2) - (popupWidth / 2);
+                 // 만들 팝업창 width 크기의 1/2 만큼 보정값으로 빼주었음
+                 
+                 var popupY= (window.screen.height / 2) - (popupHeight / 2);
+                 // 만들 팝업창 height 크기의 1/2 만큼 보정값으로 빼주었음
+                 
+                 window.resizeBy('','windowpopup', 'status=no, height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
+                 
+            })
+    </script>
+     
       
    </head>
    
@@ -29,7 +45,7 @@
                      <div class="card-header"></div>
                      <div class="card-body">
                         <h4 class="card-title">
-                           <a href="/party/readView?party_id=${picklist.party_id}" style="color:white;">
+                           <a onclick="changeSize" href="/party/readView?party_id=${picklist.party_id}" style="color:white;">
                               <c:out value="${picklist.party_title}" />
                            </a>
                         </h4>
