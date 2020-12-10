@@ -1,7 +1,7 @@
 
 # WithMe
 
-## 🌏 여행일정 친구 매칭 Spring Framework Project 🏖
+## 🌏 여행 일정 친구 매칭 Spring Framework Project 🏖
 
 ---
 ## 📢 Project 소개
