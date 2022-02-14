@@ -42,17 +42,6 @@
 //org.springframework.ide.eclipse.beans.core.prefix.http\://www.springframework.org/schema/context=context
 //org.springframework.ide.eclipse.beans.core.prefix.http\://www.springframework.org/schema/faces=faces
 //org.springframework.ide.eclipse.beans.core.prefix.http\://www.springframework.org/schema/flex=flex
-//org.springframework.ide.eclipse.beans.core.prefix.http\://www.springframework.org/schema/integration=int
-//org.springframework.ide.eclipse.beans.core.prefix.http\://www.springframework.org/schema/integration/file=int-file
-//org.springframework.ide.eclipse.beans.core.prefix.http\://www.springframework.org/schema/integration/http=int-http
-//org.springframework.ide.eclipse.beans.core.prefix.http\://www.springframework.org/schema/integration/httpinvoker=int-httpinvoker
-//org.springframework.ide.eclipse.beans.core.prefix.http\://www.springframework.org/schema/integration/ip=int-ip
-//org.springframework.ide.eclipse.beans.core.prefix.http\://www.springframework.org/schema/integration/jdbc=int-jdbc
-//org.springframework.ide.eclipse.beans.core.prefix.http\://www.springframework.org/schema/integration/jms=int-jms
-//org.springframework.ide.eclipse.beans.core.prefix.http\://www.springframework.org/schema/integration/jmx=int-jmx
-//org.springframework.ide.eclipse.beans.core.prefix.http\://www.springframework.org/schema/integration/mail=int-mail
-//org.springframework.ide.eclipse.beans.core.prefix.http\://www.springframework.org/schema/integration/rmi=int-rmi
-//org.springframework.ide.eclipse.beans.core.prefix.http\://www.springframework.org/schema/webflow-config=flow
 eclipse.preferences.version=1
 org.springframework.ide.eclipse.beans.core.default.version.check.classpath=true
 org.springframework.ide.eclipse.beans.core.enable.project.preferences=false
