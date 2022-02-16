@@ -1,8 +1,4 @@
 #Mon Oct 18 12:37:52 EDT 2010
-//org.springframework.ide.eclipse.beans.core.default.version.http\://www.osgi.org/xmlns/blueprint/v1.0.0=
-//org.springframework.ide.eclipse.beans.core.default.version.http\://www.springframework.org/schema/aop=
-//org.springframework.ide.eclipse.beans.core.default.version.http\://www.springframework.org/schema/batch=
-//org.springframework.ide.eclipse.beans.core.default.version.http\://www.springframework.org/schema/beans=
 //org.springframework.ide.eclipse.beans.core.default.version.http\://www.springframework.org/schema/context=
 eclipse.preferences.version=1
 org.springframework.ide.eclipse.beans.core.default.version.check.classpath=true
