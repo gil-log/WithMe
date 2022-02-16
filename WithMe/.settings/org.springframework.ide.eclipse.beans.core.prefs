@@ -4,9 +4,6 @@
 //org.springframework.ide.eclipse.beans.core.default.version.http\://www.springframework.org/schema/batch=
 //org.springframework.ide.eclipse.beans.core.default.version.http\://www.springframework.org/schema/beans=
 //org.springframework.ide.eclipse.beans.core.default.version.http\://www.springframework.org/schema/context=
-//org.springframework.ide.eclipse.beans.core.default.version.http\://www.springframework.org/schema/faces=
-//org.springframework.ide.eclipse.beans.core.default.version.http\://www.springframework.org/schema/flex=
-//org.springframework.ide.eclipse.beans.core.prefix.http\://www.springframework.org/schema/flex=flex
 eclipse.preferences.version=1
 org.springframework.ide.eclipse.beans.core.default.version.check.classpath=true
 org.springframework.ide.eclipse.beans.core.enable.project.preferences=false
